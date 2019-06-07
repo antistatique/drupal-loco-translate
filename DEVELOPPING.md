@@ -28,7 +28,7 @@ globally on your environment:
 
 ## 🏆 Tests
 
-Potion us PHPUnit to run test coverage.
+Loco Translate us PHPUnit to run test coverage.
 
 *Run Unit tests*
 
