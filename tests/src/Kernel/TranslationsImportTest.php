@@ -62,8 +62,6 @@ class TranslationsImportTest extends TranslationsTestsBase {
 
   /**
    * @covers \Drupal\loco_translate\TranslationsImport::importFromFile
-   *
-   * @group loco_translate_kev
    */
   public function testFromFile() {
     $this->setUpTranslations();
