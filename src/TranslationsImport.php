@@ -60,7 +60,7 @@ class TranslationsImport {
    * @return array
    *   Report array as defined in @see \Drupal\locale\PoDatabaseWriter.
    */
-  public function importFromFile($langcode, $source) {
+  public function fromFile($langcode, $source) {
     // Check for existing & enabled langcode.
     if (!$this->utility->isLangcodeEnabled($langcode)) {
       throw LocoTranslateException::invalidLangcode($langcode);

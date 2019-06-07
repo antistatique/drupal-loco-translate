@@ -51,23 +51,23 @@ class TranslationsImportTest extends TranslationsTestsBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\TranslationsImport::importFromFile
+   * @covers \Drupal\loco_translate\TranslationsImport::fromFile
    */
   public function testInvalidLangcode() {
     $this->setExpectedException(LocoTranslateException::class, "The langcode ru is not defined. Please create & enabled it before trying to use it.");
 
     $source = $this->translationsPath . '/fr.po';
-    $this->translationsImport->importFromFile('ru', $source);
+    $this->translationsImport->fromFile('ru', $source);
   }
 
   /**
-   * @covers \Drupal\loco_translate\TranslationsImport::importFromFile
+   * @covers \Drupal\loco_translate\TranslationsImport::fromFile
    */
   public function testFromFile() {
     $this->setUpTranslations();
 
     $source = $this->translationsPath . '/fr.po';
-    $this->translationsImport->importFromFile('fr', $source);
+    $this->translationsImport->fromFile('fr', $source);
 
     // Load all source strings.
     $strings = $this->localStorage->getStrings([]);
