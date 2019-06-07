@@ -40,5 +40,6 @@
     "sebastian/phpcpd": "^3.0"
   },
   "require": {
+    "loco/loco": "^2.0"
   }
 }
