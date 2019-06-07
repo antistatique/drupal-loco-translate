@@ -71,10 +71,10 @@ class TranslationsImport {
     $this->moduleHandler->loadInclude('locale', 'bulk.inc');
 
     $options = array_merge(_locale_translation_default_update_options(), [
-      'customized'        => LOCALE_NOT_CUSTOMIZED,
+      'customized' => LOCALE_NOT_CUSTOMIZED,
       'overwrite_options' => [
         'not_customized' => TRUE,
-        'customized'     => TRUE,
+        'customized' => TRUE,
       ],
     ]);
 
