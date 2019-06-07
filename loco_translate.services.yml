@@ -1,0 +1,6 @@
+services:
+
+  loco_translate.utility:
+    class: Drupal\loco_translate\Utility
+    arguments:
+      - '@language_manager'
