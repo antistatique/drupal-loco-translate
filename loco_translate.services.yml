@@ -11,4 +11,3 @@ services:
       - '@loco_translate.utility'
       - '@module_handler'
       - '@file_system'
-

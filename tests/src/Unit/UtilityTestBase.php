@@ -4,11 +4,8 @@ namespace Drupal\Tests\loco_translate\Unit;
 
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Utility;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Language\Language;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\ImmutableConfig;
 
 /**
  * Base class for Utility unit tests.

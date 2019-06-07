@@ -3,8 +3,6 @@
 namespace Drupal\loco_translate;
 
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\loco_translate\Exception\LocoTranslateException;
 
 /**
  * Contains utility methods for the Loco Translate module.

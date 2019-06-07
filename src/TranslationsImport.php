@@ -36,7 +36,7 @@ class TranslationsImport {
   /**
    * Class constructor.
    *
-   * @param \Drupal\loco_translate\Utility
+   * @param \Drupal\loco_translate\Utility $utility
    *   Utility methods for Loco Translate.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.

@@ -19,4 +19,5 @@ class LocoTranslateException extends \Exception {
   public static function invalidLangcode($langcode) {
     return new static('The langcode ' . $langcode . ' is not defined. Please create & enabled it before trying to use it.');
   }
+
 }
