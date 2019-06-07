@@ -40,7 +40,13 @@ and it is always recommended keeping Drupal core installations up to date.
 
 ## Dependencies
 
-The Drupal 8 version of Loco Translate requires a [Loco](https://localise.biz) connection.
+## Dependencies
+
+This module relies on [Loco API](https://localise.biz) & the [Loco Library](https://symfony.com/doc/current/components/finder.html).
+
+* `Loco Library` is an external PHP library to communicate with the Loco API.
+
+We assume, that you have installed `loco/loco` using Composer.
 
 ## Supporting organizations
 
