@@ -1,0 +1,44 @@
+{
+  "name": "drupal/loco_translate",
+  "description": "Manage your Drupal translations with Locolize.biz",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/loco_translate",
+  "authors": [
+    {
+      "name": "Antistatique",
+      "email": "info@antistatique.net",
+      "homepage": "https://www.antistatique.net",
+      "role": "Sponsor"
+    },
+    {
+      "name": "Gilles Doge",
+      "email": "gilles@antistatique.net",
+      "homepage": "https://www.drupal.org/u/gido",
+      "role": "Author & Maintainer"
+    },
+    {
+      "name": "Toni Fisler",
+      "email": "mail@toni.io",
+      "homepage": "https://www.drupal.org/u/tonifisler",
+      "role": "Author & Maintainer"
+    },
+    {
+      "name": "Kevin Wenger",
+      "email": "contact@kevin-wenger.ch",
+      "homepage": "https://www.drupal.org/u/wengerk",
+      "role": "Author & Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/loco_translate"
+  },
+  "license": "GPL-2.0-or-later",
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^2.7",
+    "drupal/coder": "^8.2.10",
+    "phpmd/phpmd": "^2.6",
+    "sebastian/phpcpd": "^3.0"
+  },
+  "require": {
+  }
+}
