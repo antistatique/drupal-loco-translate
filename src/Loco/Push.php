@@ -79,17 +79,23 @@ class Push {
     // TODO: Check Basic PO Formats.
     $data = file_get_contents($file);
 
-    $result = $this->client->import([
-      'data' => $data,
-      'locale' => $locale,
-      'ext' => 'po',
-      'ignore-existing' => TRUE,
-      'tag-absent' => 'absent',
-      'index' => 'id',
-    ]);
+    try {
+      /* @var \GuzzleHttp\Command\Result */
+      $result = $this->client->import([
+        'data' => $data,
+        'locale' => $locale,
+        'ext' => 'po',
+        'ignore-existing' => TRUE,
+        'tag-absent' => 'absent',
+        'index' => 'id',
+      ]);
 
-    if ($result['status'] !== 200) {
-      throw LocoApiException::uploadFailed($result);
+      if ($result['status'] !== 200) {
+        throw LocoApiException::uploadFailed($result);
+      }
+    }
+    catch (\Exception $e) {
+      throw LocoApiException::unhandled($e);
     }
 
     return $result;

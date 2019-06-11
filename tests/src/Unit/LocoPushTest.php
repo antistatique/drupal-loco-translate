@@ -3,10 +3,10 @@
 namespace Drupal\Tests\loco_translate\Unit;
 
 use Drupal\Tests\UnitTestCase;
-
 use Drupal\loco_translate\Loco\Push as LocoPush;
 use Loco\Http\ApiClient;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use GuzzleHttp\Command\Result;
 use Drupal\loco_translate\Exception\LocoApiException;
 
 /**
@@ -36,9 +36,13 @@ class LocoPushTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp() {
+    // Mock a fake Loco API Client.
     $this->apiClient = $this->prophesize(ApiClient::class);
+
+    /** @var \Drupal\Core\Config\ConfigFactoryInterface|\Prophecy\Prophecy\ProphecyInterface $language_manager */
     $config_factory = $this->prophesize(ConfigFactoryInterface::class);
 
+    // Mock the loco push manager.
     $this->locoPush = new LocoPush($config_factory->reveal());
     $this->locoPush->setApiClient($this->apiClient->reveal());
   }
@@ -49,7 +53,7 @@ class LocoPushTest extends UnitTestCase {
   public function testPushFromFileToLocoSuccess() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
     $data = file_get_contents($file);
-    $response = json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-200.json'), TRUE);
+    $response = new Result(json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-200.json'), TRUE));
 
     $this->apiClient->import([
       'data' => $data,
@@ -57,6 +61,7 @@ class LocoPushTest extends UnitTestCase {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
+      'index' => 'id',
     ])->willReturn($response);
 
     $result = $this->locoPush->fromFileToLoco($file, 'fr');
@@ -69,7 +74,7 @@ class LocoPushTest extends UnitTestCase {
   public function testPushFromFileToLocoFailed404() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
     $data = file_get_contents($file);
-    $response = json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-404.json'), TRUE);
+    $response = new Result(json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-404.json'), TRUE));
 
     $this->apiClient->import([
       'data' => $data,
@@ -77,6 +82,7 @@ class LocoPushTest extends UnitTestCase {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
+      'index' => 'id',
     ])->willReturn($response);
 
     $this->expectException(LocoApiException::class);
@@ -90,7 +96,7 @@ class LocoPushTest extends UnitTestCase {
   public function testPushFromFileToLocoFailed403() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
     $data = file_get_contents($file);
-    $response = json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-403.json'), TRUE);
+    $response = new Result(json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-403.json'), TRUE));
 
     $this->apiClient->import([
       'data' => $data,
@@ -98,6 +104,7 @@ class LocoPushTest extends UnitTestCase {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
+      'index' => 'id',
     ])->willReturn($response);
 
     $this->expectException(LocoApiException::class);
