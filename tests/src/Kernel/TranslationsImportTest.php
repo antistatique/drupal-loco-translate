@@ -77,7 +77,27 @@ class TranslationsImportTest extends TranslationsTestsBase {
     $this->setUpTranslations();
 
     $source = $this->translationsPath . '/fr.po';
-    $this->translationsImport->fromFile($source, 'fr');
+    $report = $this->translationsImport->fromFile($source, 'fr');
+
+    // Ensure the report is formatted as expected.
+    $this->assertEquals([
+      "additions" => 5,
+      "updates" => 4,
+      "deletes" => 0,
+      "skips" => 0,
+      "strings" => [
+        0 => "1",
+        1 => "2",
+        2 => "9",
+        3 => "3",
+        4 => "4",
+        5 => "10",
+        6 => "11",
+        7 => "12",
+        8 => "13",
+      ],
+      "seek" => 885,
+    ], $report);
 
     // Load all source strings.
     $strings = $this->localStorage->getStrings([]);
