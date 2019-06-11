@@ -6,6 +6,7 @@ use Drupal\Tests\UnitTestCase;
 
 use Drupal\loco_translate\Loco\Push as LocoPush;
 use Loco\Http\ApiClient;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\loco_translate\Exception\LocoApiException;
 
 /**
@@ -36,7 +37,10 @@ class LocoPushTest extends UnitTestCase {
    */
   public function setUp() {
     $this->apiClient = $this->prophesize(ApiClient::class);
-    $this->locoPush = new LocoPush($this->apiClient->reveal());
+    $config_factory = $this->prophesize(ConfigFactoryInterface::class);
+
+    $this->locoPush = new LocoPush($config_factory->reveal());
+    $this->locoPush->setApiClient($this->apiClient->reveal());
   }
 
   /**

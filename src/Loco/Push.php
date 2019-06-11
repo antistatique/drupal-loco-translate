@@ -3,6 +3,7 @@
 namespace Drupal\loco_translate\Loco;
 
 use Loco\Http\ApiClient;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\loco_translate\Exception\LocoTranslateException;
 use Drupal\loco_translate\Exception\LocoApiException;
 
@@ -19,13 +20,39 @@ class Push {
   private $client;
 
   /**
+   * The loco translate settings.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $locoConfig;
+
+  /**
    * Constructor.
    *
-   * @param \Loco\Http\ApiClient $apiClient
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->locoConfig = $config_factory->get('loco_translate.settings');
+  }
+
+  /**
+   * Set the API Client.
+   *
+   * @param \Loco\Http\ApiClient $api_client
    *   Loco Api Client.
    */
-  public function __construct(ApiClient $apiClient) {
-    $this->client = $apiClient;
+  public function setApiClient(ApiClient $api_client) {
+    $this->client = $api_client;
+  }
+
+  /**
+   * Set the API Client automatically from Drupal settings.
+   */
+  public function setApiClientFromConfig() {
+    $this->client = ApiClient::factory([
+      'key' => $this->locoConfig->get('api.fullaccess_key'),
+    ]);
   }
 
   /**

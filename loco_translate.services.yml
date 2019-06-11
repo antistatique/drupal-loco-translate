@@ -11,3 +11,8 @@ services:
       - '@loco_translate.utility'
       - '@module_handler'
       - '@file_system'
+
+  loco_translate.loco_api.push:
+    class: \Drupal\loco_translate\Loco\Push
+    arguments:
+      - '@config.factory'
