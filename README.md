@@ -71,3 +71,21 @@ You can also install it using the `drush` or `drupal console` cli.
   ```bash
   drupal module:install loco-translate
   ```
+
+Configure your API Keys - as required by Loco - by adding the following code in your `settings.php`
+
+  ```php
+  /**
+   * Loco Translate Export Key.
+   *
+   * @var string
+  */
+  $config['loco_translate.settings']['api']['export_key'] = 'YOUR-KEY-HERE';
+
+  /**
+   * Loco Translate Full Access Key.
+   *
+   * @var string
+  */
+  $config['loco_translate.settings']['api']['fullaccess_key'] = 'YOUR-KEY-HERE';
+  ```

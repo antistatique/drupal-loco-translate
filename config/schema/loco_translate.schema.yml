@@ -1,0 +1,14 @@
+loco_translate.settings:
+  type: config_object
+  label: 'Loco translate settings'
+  mapping:
+    api:
+      type: mapping
+      label: 'API'
+      mapping:
+        fullaccess_key:
+          type: string
+          label: 'Full Access API Key'
+        export_key:
+          type: string
+          label: 'Export API Key'
