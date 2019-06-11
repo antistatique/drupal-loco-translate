@@ -40,8 +40,6 @@ and it is always recommended keeping Drupal core installations up to date.
 
 ## Dependencies
 
-## Dependencies
-
 This module relies on [Loco API](https://localise.biz) & the [Loco Library](https://symfony.com/doc/current/components/finder.html).
 
 * `Loco Library` is an external PHP library to communicate with the Loco API.
@@ -53,8 +51,6 @@ We assume, that you have installed `loco/loco` using Composer.
 This project is sponsored by Antistatique. We are a Swiss Web Agency,
 Visit us at [www.antistatique.net](https://www.antistatique.net) or
 [Contact us](mailto:info@antistatique.net).
-
-## Getting Started
 
 ## Getting Started
 
