@@ -1,0 +1,4 @@
+{
+  "status": 403,
+  "error": "Read-only key disallows POST"
+}

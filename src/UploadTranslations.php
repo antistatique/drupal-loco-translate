@@ -30,7 +30,7 @@ class UploadTranslations {
 
   /**
    * Upload the given .po file into Loco.
-   *   *
+   *
    * @param string $source
    *   The .po file to upload on Loco.
    * @param string $locale

@@ -1,0 +1,193 @@
+{
+    "status": 200,
+    "message": "10 translations imported, 11 new assets",
+    "locales": [
+      {
+        "code": "fr",
+        "name": "French",
+        "source": true,
+        "native": true,
+        "plurals": {
+          "length": 2,
+          "equation": "n != 1",
+          "forms": [
+            "one",
+            "other"
+          ]
+        },
+        "progress": {
+          "translated": 10,
+          "untranslated": 1,
+          "flagged": 0,
+          "words": 16
+        }
+      }
+    ],
+    "assets": [
+      {
+        "id": "last year",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "Yesterday",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "Today",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "March",
+        "type": "text",
+        "context": "Long month name",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "April",
+        "type": "text",
+        "context": "Long month name",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "Jul",
+        "type": "text",
+        "context": "Abbreviated month name",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "Jan",
+        "type": "text",
+        "context": "Abbreviated month name",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "@count doctor",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 1,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "@count doctors",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "I love @color car",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 1,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      },
+      {
+        "id": "Alone in the dark.",
+        "type": "text",
+        "context": "",
+        "notes": "",
+        "modified": "2019-06-11 08:31:29 +0000",
+        "plurals": 0,
+        "tags": [],
+        "aliases": {},
+        "progress": {
+          "translated": 0,
+          "untranslated": 0,
+          "flagged": 0
+        }
+      }
+    ]
+  }
