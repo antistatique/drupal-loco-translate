@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Loco Translate\n"
+"Language-Team: fr-ch\n"
+"Language: fr-ch\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: fr-CH\n"
+"X-Loco-Project-Id: 1234\n"
+"X-Loco-Status: Translated\n"
+"X-Loco-Lookup: id\n"
+"X-Loco-Api-Version: 1.0.23 20190606-1"
+
+#: loco:5cffbcb1ed0cfa20d04a5822
+#| msgid "last year"
+msgid "last-year"
+msgstr "last year"
+
+#: loco:5cffbcb1ed0cfa20d04a5823
+msgid "Yesterday"
+msgstr "Yesterday"
+
+#: loco:5cffbcb1ed0cfa20d04a5824
+msgid "Today"
+msgstr "Today"
+
+#: loco:5cffbcb1ed0cfa20d04a5825
+#| msgid "March"
+msgctxt "Long month name"
+msgid "Long-month-name-March"
+msgstr "March"
+
+#: loco:5cffbcb1ed0cfa20d04a5826
+#| msgid "April"
+msgctxt "Long month name"
+msgid "Long-month-name-April"
+msgstr "April"
+
+#: loco:5cffbcb1ed0cfa20d04a5827
+#| msgid "Jul"
+msgctxt "Abbreviated month name"
+msgid "Abbreviated-month-name-Jul"
+msgstr "Jul"
+
+#: loco:5cffbcb1ed0cfa20d04a5828
+#| msgid "Jan"
+msgctxt "Abbreviated month name"
+msgid "Abbreviated-month-name-Jan"
+msgstr "Jan"
+
+#: loco:5cffbcb1ed0cfa20d04a5829
+#| msgid "@count doctor"
+#| msgid_plural "@count doctors"
+msgid "@count-doctor"
+msgid_plural "@count-doctors"
+msgstr[0] "@count doctor"
+msgstr[1] "@count doctors"
+
+#: loco:5cffbcb1ed0cfa20d04a582b
+#| msgid "I love @color car"
+msgid "I-love-@color-car"
+msgstr "I love @color car"
+
+#: loco:5cffbcb1ed0cfa20d04a582c
+#| msgid "Alone in the dark."
+msgid "Alone-in-the-dark"
+msgstr "Alone in the dark."
+
+#: loco:5cffbdb9ed0cfa215120c154
+msgid "Monday"
+msgstr "Monday"
+
+#: loco:5cffbdb9ed0cfa215120c155
+msgid "Tuesday"
+msgstr "Tuesday"
+
+#: loco:5cffbdb9ed0cfa215120c156
+msgid "Wednesday"
+msgstr "Wednesday"
+
+#: loco:5cffbdb9ed0cfa215120c157
+msgid "Thursday"
+msgstr "Thursday"
+
+#: loco:5cffbdb9ed0cfa215120c158
+msgid "Friday"
+msgstr "Friday"
+
+#: loco:5cffbdb9ed0cfa215120c159
+msgid "Saturday"
+msgstr "Saturday"
+
+#: loco:5cffbdb9ed0cfa215120c15a
+msgid "Sunday"
+msgstr "Sunday"
