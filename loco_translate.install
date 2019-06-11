@@ -18,41 +18,44 @@ function loco_translate_install() {
 function loco_translate_requirements($phase) {
   $requirements = [];
 
-  // Asserts loco/loco is installed.
-  if (!class_exists('Loco\Http\ApiClient')) {
-    $requirements['loco_translate_loco_sdk'] = [
-      'title' => t('Loco libraries'),
-      'value' => t('Missing libraries'),
-      'severity' => REQUIREMENT_ERROR,
-      'description' => t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>.', [
-        ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
-        ':composer-url' => 'https://getcomposer.org',
-      ]),
-    ];
+  if ($phase == 'install') {
+    // Asserts loco/loco is installed.
+    if (!class_exists('Loco\Http\ApiClient')) {
+      $requirements['loco_translate_loco_sdk'] = [
+        'title' => t('Loco libraries'),
+        'value' => t('Missing libraries'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>.', [
+          ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
+          ':composer-url' => 'https://getcomposer.org',
+        ]),
+      ];
+    }
   }
 
   $config = \Drupal::config('loco_translate.settings');
+  if ($phase == 'runtime') {
+    if (empty($config->get('api.export_key'))) {
+      $requirements['loco_translate_export_key'] = [
+        'title' => t('Loco Export API key'),
+        'value' => t('Missing'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
+          ':loco-url' => 'https://localise.biz/help/developers/api-keys',
+        ]),
+      ];
+    }
 
-  if (empty($config->get('api.export_key'))) {
-    $requirements['loco_translate_export_key'] = [
-      'title' => t('Loco Export API key'),
-      'value' => t('Missing'),
-      'severity' => REQUIREMENT_ERROR,
-      'description' => t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
-        ':loco-url' => 'https://localise.biz/help/developers/api-keys',
-      ]),
-    ];
-  }
-
-  if (empty($config->get('api.fullaccess_key'))) {
-    $requirements['loco_translate_fullaccess_key'] = [
-      'title' => t('Loco Full Access API key'),
-      'value' => t('Missing'),
-      'severity' => REQUIREMENT_ERROR,
-      'description' => t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
-        ':loco-url' => 'https://localise.biz/help/developers/api-keys',
-      ]),
-    ];
+    if (empty($config->get('api.fullaccess_key'))) {
+      $requirements['loco_translate_fullaccess_key'] = [
+        'title' => t('Loco Full Access API key'),
+        'value' => t('Missing'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
+          ':loco-url' => 'https://localise.biz/help/developers/api-keys',
+        ]),
+      ];
+    }
   }
 
   return $requirements;
