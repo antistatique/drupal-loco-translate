@@ -57,7 +57,17 @@ class TranslationsImportTest extends TranslationsTestsBase {
     $this->setExpectedException(LocoTranslateException::class, "The langcode ru is not defined. Please create & enabled it before trying to use it.");
 
     $source = $this->translationsPath . '/fr.po';
-    $this->translationsImport->fromFile('ru', $source);
+    $this->translationsImport->fromFile($source, 'ru');
+  }
+
+  /**
+   * @covers \Drupal\loco_translate\TranslationsImport::fromFile
+   */
+  public function testSourceNotFound() {
+    $this->setExpectedException(LocoTranslateException::class, "The langcode ru is not defined. Please create & enabled it before trying to use it.");
+
+    $source = $this->translationsPath . '/ru.po';
+    $this->translationsImport->fromFile($source, 'fr');
   }
 
   /**
@@ -67,7 +77,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
     $this->setUpTranslations();
 
     $source = $this->translationsPath . '/fr.po';
-    $this->translationsImport->fromFile('fr', $source);
+    $this->translationsImport->fromFile($source, 'fr');
 
     // Load all source strings.
     $strings = $this->localStorage->getStrings([]);

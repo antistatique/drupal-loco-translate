@@ -52,18 +52,28 @@ class TranslationsImport {
   /**
    * Translation(s) importation from .po file in the database.
    *
-   * @param string $langcode
-   *   Language code of the language being written to the database.
    * @param string $source
    *   The .po file's path.
+   * @param string $locale
+   *   The Language code (Eg. 'fr' or 'en').
    *
    * @return array
    *   Report array as defined in @see \Drupal\locale\PoDatabaseWriter.
    */
-  public function fromFile($langcode, $source) {
+  public function fromFile($source, $locale) {
+    $source = realpath($source);
+
+    if (!file_exists($source) || !is_file($source)) {
+      throw LocoTranslateException::notFound($source);
+    }
+
+    if (!is_readable($source)) {
+      throw LocoTranslateException::isNotReadable($source);
+    }
+
     // Check for existing & enabled langcode.
-    if (!$this->utility->isLangcodeEnabled($langcode)) {
-      throw LocoTranslateException::invalidLangcode($langcode);
+    if (!$this->utility->isLangcodeEnabled($locale)) {
+      throw LocoTranslateException::invalidLangcode($locale);
     }
 
     // Load Drupal 8 Core local global functions.
@@ -82,7 +92,7 @@ class TranslationsImport {
     $file            = new \stdClass();
     $file->filename  = $this->fileSystem->basename($source);
     $file->uri       = $source;
-    $file->langcode  = $langcode;
+    $file->langcode  = $locale;
     $file->timestamp = filemtime($source);
 
     return Gettext::fileToDatabase($file, $options);
