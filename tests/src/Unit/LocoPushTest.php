@@ -75,7 +75,8 @@ class LocoPushTest extends UnitTestCase {
       'tag-absent' => 'absent',
     ])->willReturn($response);
 
-    $this->setExpectedException(LocoApiException::class, "Loco upload failed. Returned status 404. With message: Locale not in project.");
+    $this->expectException(LocoApiException::class);
+    $this->expectExceptionMessage("Loco upload failed. Returned status 404. With message: Locale not in project.");
     $this->locoPush->fromFileToLoco($file, 'fr');
   }
 
@@ -95,7 +96,8 @@ class LocoPushTest extends UnitTestCase {
       'tag-absent' => 'absent',
     ])->willReturn($response);
 
-    $this->setExpectedException(LocoApiException::class, "Loco upload failed. Returned status 403. With message: Read-only key disallows POST.");
+    $this->expectException(LocoApiException::class);
+    $this->expectExceptionMessage("Loco upload failed. Returned status 403. With message: Read-only key disallows POST.");
     $this->locoPush->fromFileToLoco($file, 'fr');
   }
 

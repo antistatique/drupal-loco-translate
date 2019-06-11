@@ -54,7 +54,8 @@ class TranslationsImportTest extends TranslationsTestsBase {
    * @covers \Drupal\loco_translate\TranslationsImport::fromFile
    */
   public function testInvalidLangcode() {
-    $this->setExpectedException(LocoTranslateException::class, "The langcode ru is not defined. Please create & enabled it before trying to use it.");
+    $this->expectException(LocoTranslateException::class);
+    $this->expectExceptionMessage("The langcode ru is not defined. Please create & enabled it before trying to use it.");
 
     $source = $this->translationsPath . '/fr.po';
     $this->translationsImport->fromFile($source, 'ru');
@@ -64,7 +65,8 @@ class TranslationsImportTest extends TranslationsTestsBase {
    * @covers \Drupal\loco_translate\TranslationsImport::fromFile
    */
   public function testSourceNotFound() {
-    $this->setExpectedException(LocoTranslateException::class, 'No such file or directory "modules/contrib/loco_translate/tests/modules/loco_translate_test/assets/ru.po".');
+    $this->expectException(LocoTranslateException::class);
+    $this->expectExceptionMessage('No such file or directory "modules/contrib/loco_translate/tests/modules/loco_translate_test/assets/ru.po".');
 
     $source = $this->translationsPath . '/ru.po';
     $this->translationsImport->fromFile($source, 'fr');
