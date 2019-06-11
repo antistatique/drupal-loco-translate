@@ -5,6 +5,8 @@ Ensure an enhanced Developer Experience (DX) when dealing with translations & mu
 
 |       Travis-CI        |        Style-CI         |        Downloads        |         Releases         |
 |:----------------------:|:-----------------------:|:-----------------------:|:------------------------:|
+| [![Travis](https://travis-ci.org/antistatique/drupal-loco-translate.svg?branch=8.x-1.x)](https://travis-ci.org/antistatique/drupal-loco-translate) |  [![StyleCI](https://styleci.io/repos/85471768/shield)](https://styleci.io/repos/190755687) | [![Downloads](https://img.shields.io/badge/downloads-8.x--1.0-green.svg?style=flat-square)](https://ftp.drupal.org/files/projects/loco_translate-8.x-1.0.tar.gz) | [![Latest Stable Version](https://img.shields.io/badge/release-v1.0-blue.svg?style=flat-square)](https://www.drupal.org/project/loco_translate/releases) |
+
 
 ## You need Loco Translate if
 
