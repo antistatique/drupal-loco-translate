@@ -135,8 +135,6 @@ class PushForm extends FormBase {
     if (!$this->file) {
       $form_state->setErrorByName('file', $this->t('File to push not found.'));
     }
-
-    // Ensure the langcode exists of Loco.
   }
 
   /**
