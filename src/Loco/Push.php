@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\loco_translate;
+namespace Drupal\loco_translate\Loco;
 
 use Loco\Http\ApiClient;
 use Drupal\loco_translate\Exception\LocoTranslateException;
 use Drupal\loco_translate\Exception\LocoApiException;
 
 /**
- * Upload Translations to Loco.
+ * Push/Upload asset(s) & translation(s) to Loco.
  */
-class UploadTranslations {
+class Push {
 
   /**
    * The Loco SDK HTTP client.
@@ -38,7 +38,7 @@ class UploadTranslations {
    *
    * @see https://localise.biz/api/#!/import/import
    */
-  public function uploadFile($source, $locale) {
+  public function fromFileToLoco($source, $locale) {
     $file = realpath($source);
 
     if (!file_exists($file) || !is_file($file)) {

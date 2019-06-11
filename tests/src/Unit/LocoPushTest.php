@@ -4,25 +4,25 @@ namespace Drupal\Tests\loco_translate\Unit;
 
 use Drupal\Tests\UnitTestCase;
 
-use Drupal\loco_translate\UploadTranslations;
+use Drupal\loco_translate\Loco\Push as LocoPush;
 use Loco\Http\ApiClient;
 use Drupal\loco_translate\Exception\LocoApiException;
 
 /**
- * @coversDefaultClass \Drupal\loco_translate\UploadTranslations
+ * @coversDefaultClass \Drupal\loco_translate\Loco\Push
  *
  * @group loco_translate
  * @group loco_translate_unit
  * @group loco_translate_unit_upload
  */
-class UploadTranslationsTest extends UnitTestCase {
+class LocoPushTest extends UnitTestCase {
 
   /**
    * Uploader to Loco.
    *
-   * @var \Drupal\loco_translate\UploadTranslations
+   * @var \Drupal\loco_translate\Loco\Push
    */
-  private $uploader;
+  private $locoPush;
 
   /**
    * A mock of Loco SDK API client.
@@ -36,13 +36,13 @@ class UploadTranslationsTest extends UnitTestCase {
    */
   public function setUp() {
     $this->apiClient = $this->prophesize(ApiClient::class);
-    $this->uploader = new UploadTranslations($this->apiClient->reveal());
+    $this->locoPush = new LocoPush($this->apiClient->reveal());
   }
 
   /**
-   * @covers ::uploadFile
+   * @covers ::fromFileToLoco
    */
-  public function testUploadFileSuccess() {
+  public function testPushFromFileToLocoSuccess() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
     $data = file_get_contents($file);
     $response = json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-200.json'), TRUE);
@@ -55,14 +55,14 @@ class UploadTranslationsTest extends UnitTestCase {
       'tag-absent' => 'absent',
     ])->willReturn($response);
 
-    $result = $this->uploader->uploadFile($file, 'fr');
+    $result = $this->locoPush->fromFileToLoco($file, 'fr');
     $this->assertEquals($result, $response);
   }
 
   /**
-   * @covers ::uploadFile
+   * @covers ::fromFileToLoco
    */
-  public function testUploadFileFailed404() {
+  public function testPushFromFileToLocoFailed404() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
     $data = file_get_contents($file);
     $response = json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-404.json'), TRUE);
@@ -76,13 +76,13 @@ class UploadTranslationsTest extends UnitTestCase {
     ])->willReturn($response);
 
     $this->setExpectedException(LocoApiException::class, "Loco upload failed. Returned status 404. With message: Locale not in project.");
-    $this->uploader->uploadFile($file, 'fr');
+    $this->locoPush->fromFileToLoco($file, 'fr');
   }
 
   /**
-   * @covers ::uploadFile
+   * @covers ::fromFileToLoco
    */
-  public function testUploadFileFailed403() {
+  public function testPushFromFileToLocoFailed403() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
     $data = file_get_contents($file);
     $response = json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-403.json'), TRUE);
@@ -96,7 +96,7 @@ class UploadTranslationsTest extends UnitTestCase {
     ])->willReturn($response);
 
     $this->setExpectedException(LocoApiException::class, "Loco upload failed. Returned status 403. With message: Read-only key disallows POST.");
-    $this->uploader->uploadFile($file, 'fr');
+    $this->locoPush->fromFileToLoco($file, 'fr');
   }
 
 }
