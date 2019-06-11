@@ -14,33 +14,43 @@ use Loco\Http\ApiClient;
  * @group loco_translate_unit
  * @group loco_translate_unit_upload
  */
-class UploadTranslationsTest extends UnitTestCase
-{
-    /**
-     * @var \Drupal\loco_translate\UploadTranslations
-     */
-    private $uploader;
-    private $apiClient;
+class UploadTranslationsTest extends UnitTestCase {
 
+  /**
+   * Uploader to Loco.
+   *
+   * @var \Drupal\loco_translate\UploadTranslations
+   */
+  private $uploader;
 
-    public function setUp() {
-        $this->apiClient = $this->prophetize(ApiClient::class);
+  /**
+   * Loco SDK API client.
+   *
+   * @var \Loco\Http\ApiClient
+   */
+  private $apiClient;
 
-        $this->uploader = new UploadTranslations($this->apiClient->reveal());
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    $this->apiClient = $this->prophetize(ApiClient::class);
 
-    public function testUploadFile() {
+    $this->uploader = new UploadTranslations($this->apiClient->reveal());
+  }
 
-        $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
-
-        $this->apiClient->expect()->with('import', [
-            'data' => 'LOT OF RAW DATA. TODO',
-            'locale' => 'fr',
-            'ext' => 'po',
-            // ...
-        ]);
-
-        $result = $this->uploader->uploadFile($file, 'fr');
-    }
+  /**
+   * @covers ::uploadFile
+   */
+  public function testUploadFile() {
+    $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
+    $this->apiClient->expect()->with('import', [
+      'data' => 'LOT OF RAW DATA. TODO',
+      'locale' => 'fr',
+      'ext' => 'po',
+        // ...
+    ]);
+    $result = $this->uploader->uploadFile($file, 'fr');
+  }
 
 }

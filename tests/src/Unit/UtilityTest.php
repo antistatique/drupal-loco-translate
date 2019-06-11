@@ -4,6 +4,7 @@ namespace Drupal\Tests\loco_translate\Unit;
 
 /**
  * @coversDefaultClass \Drupal\loco_translate\Utility
+ *
  * @group loco_translate
  * @group loco_translate_unit
  * @group loco_translate_unit_utility
@@ -12,6 +13,7 @@ class UtilityTest extends UtilityTestBase {
 
   /**
    * @covers \Drupal\loco_translate\Utility::isLangcodeEnabled
+   *
    * @dataProvider getTestIsLangcodeEnabled
    */
   public function testIsLangcodeEnabled($langcode, $expected) {
