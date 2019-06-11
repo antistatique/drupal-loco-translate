@@ -3,6 +3,8 @@
 namespace Drupal\loco_translate;
 
 use Loco\Http\ApiClient;
+use Drupal\loco_translate\Exception\LocoTranslateException;
+use Drupal\loco_translate\Exception\LocoApiException;
 
 /**
  * Upload Translations to Loco.
@@ -28,21 +30,23 @@ class UploadTranslations {
 
   /**
    * Upload the given .po file into Loco.
-   *
-   * @param string $po_file
+   *   *
+   * @param string $source
    *   The .po file to upload on Loco.
    * @param string $locale
    *   The local code.
+   *
+   * @see https://localise.biz/api/#!/import/import
    */
-  public function uploadFile($po_file, $locale) {
-    $file = realpath($po_file);
+  public function uploadFile($source, $locale) {
+    $file = realpath($source);
 
     if (!file_exists($file) || !is_file($file)) {
-      throw new \InvalidArgumentException(sprintf('PO File "%s" does not exists.', $file));
+      throw LocoTranslateException::notFound($file);
     }
 
     if (!is_readable($file)) {
-      throw new \InvalidArgumentException(sprintf('PO File "%s" is not readable.', $file));
+      throw LocoTranslateException::isNotReadable($file);
     }
 
     // TODO: Check Basic PO Formats.
@@ -56,8 +60,8 @@ class UploadTranslations {
       'tag-absent' => 'absent',
     ]);
 
-    if (!$result['status'] !== 200) {
-      throw new \RuntimeException(sprintf('Upload failed. Loco returned status %s', $result['status']));
+    if ($result['status'] !== 200) {
+      throw LocoApiException::uploadFailed($result);
     }
 
     return $result;
