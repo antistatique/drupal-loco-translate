@@ -61,14 +61,14 @@ class TranslationsImport {
    *   Report array as defined in @see \Drupal\locale\PoDatabaseWriter.
    */
   public function fromFile($source, $locale) {
-    $source = realpath($source);
+    $path = realpath($source);
 
-    if (!file_exists($source) || !is_file($source)) {
+    if (!file_exists($path) || !is_file($path)) {
       throw LocoTranslateException::notFound($source);
     }
 
-    if (!is_readable($source)) {
-      throw LocoTranslateException::isNotReadable($source);
+    if (!is_readable($path)) {
+      throw LocoTranslateException::isNotReadable($path);
     }
 
     // Check for existing & enabled langcode.
@@ -90,10 +90,10 @@ class TranslationsImport {
 
     // Create a valid file class for Gettext::fileToDatabase.
     $file            = new \stdClass();
-    $file->filename  = $this->fileSystem->basename($source);
-    $file->uri       = $source;
+    $file->filename  = $this->fileSystem->basename($path);
+    $file->uri       = $path;
     $file->langcode  = $locale;
-    $file->timestamp = filemtime($source);
+    $file->timestamp = filemtime($path);
 
     return Gettext::fileToDatabase($file, $options);
   }

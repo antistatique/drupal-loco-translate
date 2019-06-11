@@ -17,7 +17,7 @@ class LocoTranslateException extends \Exception {
    *   Exception used when the langcode is not enabled/available on Drupal.
    */
   public static function invalidLangcode($langcode) {
-    return new static('The langcode ' . $langcode . ' is not defined. Please create & enabled it before trying to use it.');
+    return new static(sprintf('The langcode %s is not defined. Please create & enabled it before trying to use it.', $langcode));
   }
 
   /**
@@ -30,7 +30,7 @@ class LocoTranslateException extends \Exception {
    *   Exception used when the given path or file does not exist.
    */
   public static function notFound($path) {
-    return new static('No such file or directory ' . $path);
+    return new static(sprintf('No such file or directory "%s".', $path));
   }
 
   /**
@@ -43,7 +43,7 @@ class LocoTranslateException extends \Exception {
    *   Exception used when the file is not readable.
    */
   public static function isNotReadable($file) {
-    return new static('The file ' . $file . ' is not readable.');
+    return new static(sprintf('The file "%s" is not readable.', $file));
   }
 
   /**
@@ -56,7 +56,7 @@ class LocoTranslateException extends \Exception {
    *   Exception used when the path is not writable.
    */
   public static function isNotWritable($path) {
-    return new static('The path ' . $path . ' is not writable.');
+    return new static(sprintf('The path "%s" is not writable.', $path));
   }
 
 }
