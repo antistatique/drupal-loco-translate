@@ -13,3 +13,11 @@ loco_translate.push:
     _title: 'Loco translate push'
   requirements:
     _permission: 'push using loco translate'
+
+loco_translate.pull:
+  path: '/admin/config/regional/loco_translate/pull'
+  defaults:
+    _form: '\Drupal\loco_translate\Form\PullForm'
+    _title: 'Loco translate pull'
+  requirements:
+    _permission: 'pull using loco translate'
