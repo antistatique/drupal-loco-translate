@@ -1,0 +1,7 @@
+loco_translate.overview:
+  path: '/admin/config/regional/loco_translate'
+  defaults:
+    _controller: '\Drupal\loco_translate\Controller\OverviewController::dashboard'
+    _title: 'Loco translate'
+  requirements:
+    _permission: 'access loco translate overview'

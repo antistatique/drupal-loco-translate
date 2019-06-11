@@ -1,0 +1,4 @@
+loco_translate.overview:
+  route_name: loco_translate.overview
+  base_route: loco_translate.overview
+  title: Overview
