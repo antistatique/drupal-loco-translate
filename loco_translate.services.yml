@@ -16,3 +16,9 @@ services:
     class: \Drupal\loco_translate\Loco\Push
     arguments:
       - '@config.factory'
+
+  loco_translate.loco_api.pull:
+    class: \Drupal\loco_translate\Loco\Pull
+    arguments:
+      - '@config.factory'
+      - '@loco_translate.utility'
