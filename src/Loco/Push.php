@@ -85,6 +85,7 @@ class Push {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
+      'index' => 'id',
     ]);
 
     if ($result['status'] !== 200) {
