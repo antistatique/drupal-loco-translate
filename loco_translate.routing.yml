@@ -21,3 +21,11 @@ loco_translate.pull:
     _title: 'Loco translate pull'
   requirements:
     _permission: 'pull using loco translate'
+
+loco_translate.settings:
+  path: '/admin/config/regional/loco_translate/settings'
+  defaults:
+    _form: 'Drupal\loco_translate\Form\SettingsForm'
+    _title: 'Loco translate settings'
+  requirements:
+    _permission: 'administer loco translate'

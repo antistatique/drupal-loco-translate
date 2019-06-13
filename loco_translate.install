@@ -5,6 +5,8 @@
  * Contains loco_translate.install.
  */
 
+use Drupal\Core\Url;
+
 /**
  * Implements hook_install().
  */
@@ -40,8 +42,9 @@ function loco_translate_requirements($phase) {
         'title' => t('Loco Export API key'),
         'value' => t('Missing'),
         'severity' => REQUIREMENT_ERROR,
-        'description' => t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
+        'description' => t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
           ':loco-url' => 'https://localise.biz/help/developers/api-keys',
+          ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
         ]),
       ];
     }
@@ -51,8 +54,9 @@ function loco_translate_requirements($phase) {
         'title' => t('Loco Full Access API key'),
         'value' => t('Missing'),
         'severity' => REQUIREMENT_ERROR,
-        'description' => t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
+        'description' => t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href="">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
           ':loco-url' => 'https://localise.biz/help/developers/api-keys',
+          ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
         ]),
       ];
     }
