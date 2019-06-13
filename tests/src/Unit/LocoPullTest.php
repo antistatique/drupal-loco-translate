@@ -18,7 +18,6 @@ use Prophecy\Argument;
  * @group loco_translate
  * @group loco_translate_unit
  * @group loco_translate_unit_upload
- * @group loco_translate_kev
  */
 class LocoPullTest extends UnitTestCase {
 
@@ -72,8 +71,29 @@ class LocoPullTest extends UnitTestCase {
       'status' => 'translated',
     ])->willReturn($response);
 
-    $result = $this->locoPull->fromLocoToDrupal('fr');
+    $result = $this->locoPull->fromLocoToDrupal('fr', 'translated');
     $this->assertEquals($result->__toString(), $data);
+  }
+
+  /**
+   * @covers ::fromLocoToDrupal
+   */
+  public function testPullFromLocoToDrupalSucessNoStatus() {
+    $data = file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/export-404.po');
+    $response = new Response(404, [], $data);
+    $response = RawResult::fromResponse($response);
+
+    // Ony any non-200 HTTP response, Guzzle will throw an exception.
+    $this->apiClient->exportLocale([
+      'ext' => 'po',
+      'index' => 'id',
+      'locale' => 'fr',
+      'no-folding' => TRUE,
+      'status' => NULL,
+    ])->willThrow(new \Exception());
+
+    $this->expectException(LocoApiException::class);
+    $this->locoPull->fromLocoToDrupal('fr');
   }
 
   /**
@@ -94,7 +114,7 @@ class LocoPullTest extends UnitTestCase {
     ])->willThrow(new \Exception());
 
     $this->expectException(LocoApiException::class);
-    $this->locoPull->fromLocoToDrupal('fr');
+    $this->locoPull->fromLocoToDrupal('fr', 'translated');
   }
 
 }

@@ -123,6 +123,7 @@ class PullForm extends FormBase {
         'fuzzy' => $this->t('Fuzzy'),
         '!fuzzy' => $this->t('Unuzzy'),
       ],
+      '#default_value' => 'translated',
       '#description' => $this->t('Pull translations with a specific status or flag.'),
     ];
 

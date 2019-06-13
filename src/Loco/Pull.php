@@ -89,7 +89,7 @@ class Pull {
         'index' => 'id',
         'locale' => $locale,
         'no-folding' => TRUE,
-        'status' => $status ? $status : 'translated',
+        'status' => $status ?? NULL,
       ]);
     }
     catch (\Exception $e) {
