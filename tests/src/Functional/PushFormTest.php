@@ -34,7 +34,7 @@ class PushFormTest extends BrowserTestBase {
   protected $profile = 'minimal';
 
   /**
-   * Ensure the routing permissions works
+   * Ensure the routing permissions works.
    */
   public function testAccessPermission() {
     // Create a user whitout permission for tests.
@@ -51,4 +51,5 @@ class PushFormTest extends BrowserTestBase {
     $this->drupalGet('admin/config/regional/loco_translate/push');
     $this->assertSession()->statusCodeEquals(200);
   }
+
 }

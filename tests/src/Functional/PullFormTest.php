@@ -34,7 +34,7 @@ class PullFormTest extends BrowserTestBase {
   protected $profile = 'minimal';
 
   /**
-   * Ensure the routing permissions works
+   * Ensure the routing permissions works.
    */
   public function testAccessPermission() {
     // Create a user whitout permission for tests.
@@ -51,4 +51,5 @@ class PullFormTest extends BrowserTestBase {
     $this->drupalGet('admin/config/regional/loco_translate/pull');
     $this->assertSession()->statusCodeEquals(200);
   }
+
 }
