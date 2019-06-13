@@ -4,6 +4,9 @@ namespace Drupal\loco_translate\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\language\ConfigurableLanguageManagerInterface;
 use Loco\Http\ApiClient;
 
 /**
@@ -12,6 +15,36 @@ use Loco\Http\ApiClient;
  * @internal
  */
 class SettingsForm extends ConfigFormBase {
+
+  /**
+   * The configurable language manager.
+   *
+   * @var \Drupal\language\ConfigurableLanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
+   * Constructs a loco translate settings form object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\language\ConfigurableLanguageManagerInterface $language_manager
+   *   The configurable language manager.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, ConfigurableLanguageManagerInterface $language_manager) {
+    parent::__construct($config_factory);
+    $this->languageManager = $language_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('language_manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -32,6 +65,13 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('loco_translate.settings');
+    $languages = $this->languageManager->getLanguages();
+
+    // Initialize a language list to the ones available.
+    $language_options = [];
+    foreach ($languages as $langcode => $language) {
+      $language_options[$langcode] = $language->getName();
+    }
 
     // Get configurations values for both mandatory API keys.
     $export_key = $config->get('api.export_key');
@@ -63,8 +103,78 @@ class SettingsForm extends ConfigFormBase {
     ];
 
     $form['automation'] = [
-      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#type' => 'details',
       '#title' => $this->t('Automation'),
+      '#description' => $this->t('Automation takes care of running periodic tasks like pulling translations from Loco or pushing new assets to Loco.'),
+      // Open the details by default when at least one API keys is fill.
+      '#open' => $export_key || $fullaccess_key ? TRUE : FALSE,
+    ];
+
+    $form['automation']['push'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Push'),
+    ];
+    $form['automation']['push']['interval'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Run push every'),
+      '#options' => [
+        0 => $this->t('Never'),
+        3600 => $this->t('1 hour'),
+        10800 => $this->t('3 hours'),
+        21600 => $this->t('6 hours'),
+        43200 => $this->t('12hour'),
+        86400 => $this->t('1 day'),
+        604800 => $this->t('1 week'),
+      ],
+      '#default_value' => $config->get('automation.push.interval'),
+    ];
+    $form['automation']['push']['template'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Template'),
+      '#description' => $this->t('Template file containing assets to be pushed on Loco.'),
+      '#default_value' => $config->get('automation.push.template'),
+    ];
+    $form['automation']['push']['langcodes'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Language'),
+      '#options' => $language_options,
+      '#default_value' => $config->get('automation.push.langcodes'),
+    ];
+
+    $form['automation']['pull'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Pull'),
+    ];
+    $form['automation']['pull']['interval'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Run pull every'),
+      '#options' => [
+        0 => $this->t('Never'),
+        3600 => $this->t('1 hour'),
+        10800 => $this->t('3 hours'),
+        21600 => $this->t('6 hours'),
+        43200 => $this->t('12hour'),
+        86400 => $this->t('1 day'),
+        604800 => $this->t('1 week'),
+      ],
+      '#default_value' => $config->get('automation.pull.interval'),
+    ];
+    $form['automation']['pull']['langcodes'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Language'),
+      '#options' => $language_options,
+      '#default_value' => $config->get('automation.pull.langcodes'),
+    ];
+    $form['automation']['pull']['status'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Flag'),
+      '#options' => [
+        '_none' => $this->t('None'),
+        'translated' => $this->t('Translated'),
+      ],
+      '#description' => $this->t('Pull translations with a specific status or flag.'),
+      '#default_value' => $config->get('automation.pull.status') ?? 'translated',
     ];
 
     $form['gettext'] = [
@@ -186,6 +296,17 @@ class SettingsForm extends ConfigFormBase {
     $config->set('api.export_key', $values['export_key'])->save();
     $config->set('api.fullaccess_key', $values['fullaccess_key'])->save();
     $config->set('gettext.path', $values['path'])->save();
+
+    // Push config.
+    $config->set('automation.push.interval', $values['automation']['push']['interval'])->save();
+    $config->set('automation.push.template', $values['automation']['push']['template'])->save();
+    $config->set('automation.push.langcodes', $values['automation']['push']['langcodes'])->save();
+
+    // Pull config.
+    $config->set('automation.pull.interval', $values['automation']['pull']['interval'])->save();
+    $config->set('automation.pull.langcodes', $values['automation']['pull']['langcodes'])->save();
+    $status = $values['automation']['pull']['status'] != '_none' ? $values['automation']['pull']['status'] : NULL;
+    $config->set('automation.pull.status', $status)->save();
 
     parent::submitForm($form, $form_state);
   }

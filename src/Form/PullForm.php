@@ -115,7 +115,7 @@ class PullForm extends FormBase {
 
     $form['status'] = [
       '#type' => 'select',
-      '#title' => $this->t('Status/Flag'),
+      '#title' => $this->t('Flag'),
       '#options' => [
         '_none' => $this->t('None'),
         'translated' => $this->t('Translated'),

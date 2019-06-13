@@ -12,3 +12,33 @@ loco_translate.settings:
         export_key:
           type: string
           label: 'Export API Key'
+    automation:
+      type: mapping
+      label: 'Automation'
+      mapping:
+        push:
+          type: mapping
+          label: 'Push'
+          mapping:
+            interval:
+              type: integer
+              label: 'Interval'
+            langcodes:
+              type: sequence
+              label: 'Langcodes'
+            template:
+              type: string
+              label: 'Template'
+        pull:
+          type: mapping
+          label: 'Pull'
+          mapping:
+            interval:
+              type: integer
+              label: 'Interval'
+            langcodes:
+              type: sequence
+              label: 'Langcodes'
+            status:
+              type: string
+              label: 'Status'
