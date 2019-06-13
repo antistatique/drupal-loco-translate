@@ -1,0 +1,78 @@
+<div class="system-status-general-info">
+  <h2 class="system-status-general-info__header">{{ 'General Information'|t }}</h2>
+  <div class="system-status-general-info__items">
+    <div class="system-status-general-info__item">
+      <span class="system-status-general-info__item-icon system-status-general-info__item-icon--database"></span>
+      <div class="system-status-general-info__item-details">
+        <h3 class="system-status-general-info__item-title">{{ 'Loco'|t }}</h3>
+        <div class="description">{{ '<strong>@count</strong> locales'|t({'@count': variables.locales|length}) }}</div>
+        <div class="description">{{ '<strong>@count</strong> assets'|t({'@count': variables.assets|length}) }}</div>
+      </div>
+    </div>
+    <div class="system-status-general-info__item">
+      <span class="system-status-general-info__item-icon system-status-general-info__item-icon--server"></span>
+      <div class="system-status-general-info__item-details">
+        <h3 class="system-status-general-info__item-title">{{ 'Progression'|t }}</h3>
+
+        {% for locale in variables.locales %}
+          <h4 class="system-status-general-info__sub-item-title">{{ locale.name }}</h4>
+
+          {% set percent = (locale.progress.translated / variables.assets|length * 100)|number_format(2, '.') %}
+          <div class="progress" data-drupal-progress="">
+            <div class="progress__track">
+              <div class="progress__bar" style="width: {{ percent }}%"></div>
+            </div>
+            <div class="progress__percentage">{{ percent }}%</div>
+            <div class="progress__description">{{ '@translated/@total translated'|t({'@translated': locale.progress.translated,'@total': variables.assets|length}) }}  <small>
+              <a href="{{ loco_translate_export(locale.code) }}" target="_blank">({{ 'download from loco'|t }})</a>
+            </small>
+          </div>
+        </div>
+
+        {% if not loop.last %}
+        <br/>
+        <br/>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <div class="system-status-general-info__item">
+    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
+    <div class="system-status-general-info__item-details">
+      <h3 class="system-status-general-info__item-title">{{ 'Last Pull'|t }}</h3>
+      {% for pull_last in variables.pull_last %}
+      <p>{{ pull_last }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="system-status-general-info__item">
+    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
+    <div class="system-status-general-info__item-details">
+      <h3 class="system-status-general-info__item-title">{{ 'Last Push'|t }}</h3>
+      {% for push_last in variables.push_last %}
+      <p>{{ push_last }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+
+<br/>
+<br/>
+<table class="summary" data-striping="1">
+  <tbody>
+    <tr class="summary--status {% if variables.versions.api != variables.versions.library %}color-error{% endif %}">
+      <th>{{ 'Loco Status'|t }}</th>
+      <td>
+        {% if variables.versions.api != variables.versions.library %}
+          {{ 'The Loco API (@api-version) and the Loco SDK (@sdk-version) missmatch.'|t({'@api-version': variables.versions.api, '@sdk-version': variables.versions.library}) }}
+          {{ 'Please upgrade your Loco SDK to the latests version.'|t }}
+        {% else %}
+          <img src="/core/misc/icons/73b355/check.svg" width="18" height="18">
+        {% endif %}
+      </td>
+    </tr>
+  </tbody>
+</table>

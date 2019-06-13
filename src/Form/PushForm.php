@@ -2,7 +2,6 @@
 
 namespace Drupal\loco_translate\Form;
 
-use Drupal\Component\Utility\Environment;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\StateInterface;
@@ -162,7 +161,7 @@ class PushForm extends FormBase {
 
       // Save the last push by langcode.
       $request_time = $this->getRequest()->server->get('REQUEST_TIME');
-      $push_last = (array)$this->state->get('loco_translate.api.push_last');
+      $push_last = (array) $this->state->get('loco_translate.api.push_last');
       $push_last[$langcode] = $request_time;
       $this->state->set('loco_translate.api.push_last', $push_last);
     }

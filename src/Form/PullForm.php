@@ -162,7 +162,7 @@ class PullForm extends FormBase {
 
       // Save the last pull by langcode.
       $request_time = $this->getRequest()->server->get('REQUEST_TIME');
-      $pull_last = (array)$this->state->get('loco_translate.api.pull_last');
+      $pull_last = (array) $this->state->get('loco_translate.api.pull_last');
       $pull_last[$langcode] = $request_time;
       $this->state->set('loco_translate.api.pull_last', $pull_last);
     }

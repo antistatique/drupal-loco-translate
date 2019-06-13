@@ -22,3 +22,10 @@ services:
     arguments:
       - '@config.factory'
       - '@loco_translate.utility'
+
+  loco_translate.twig.loco_export:
+    class: Drupal\loco_translate\TwigExtension\LocoExport
+    tags:
+      - { name: twig.extension }
+    calls:
+      - [setContainer, ['@service_container']]

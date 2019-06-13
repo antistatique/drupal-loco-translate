@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Loco Translate module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function loco_translate_theme($existing, $type, $theme, $path) {
+  return [
+    'loco_translate_overview_page' => [
+      'variables' => ['variables' => []],
+      'template'  => 'loco-translate--overview--page',
+    ],
+  ];
+}

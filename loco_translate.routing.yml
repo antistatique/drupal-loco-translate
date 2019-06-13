@@ -6,6 +6,14 @@ loco_translate.overview:
   requirements:
     _permission: 'access loco translate overview'
 
+loco_translate.refresh:
+  path: '/admin/config/regional/loco_translate/refresh'
+  defaults:
+    _controller: '\Drupal\loco_translate\Controller\OverviewController::refresh'
+    _title: 'Loco translate refresh'
+  requirements:
+    _permission: 'access loco translate overview'
+
 loco_translate.push:
   path: '/admin/config/regional/loco_translate/push'
   defaults:
