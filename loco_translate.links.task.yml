@@ -14,3 +14,9 @@ loco_translate.pull:
   base_route: loco_translate.overview
   title: Pull
   weight: 30
+
+loco_translate.settings:
+  route_name: loco_translate.settings
+  base_route: loco_translate.overview
+  title: Settings
+  weight: 100
