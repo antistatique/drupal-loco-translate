@@ -106,6 +106,7 @@ class PushForm extends FormBase {
       'file_validate_extensions' => ['po'],
       'file_validate_size' => [file_upload_max_size()],
     ];
+
     $form['file'] = [
       '#type' => 'file',
       '#title' => $this->t('Translation file'),
