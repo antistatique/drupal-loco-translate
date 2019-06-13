@@ -28,7 +28,7 @@
           {% set percent = (locale.progress.translated / variables.assets|length * 100)|number_format(2, '.') %}
           <div class="progress" data-drupal-progress="">
             <div class="progress__track">
-              <div class="progress__bar" style="width: {{ percent }}%"></div>
+              <div class="progress__bar progress__still" style="width: {{ percent }}%"></div>
             </div>
             <div class="progress__percentage">{{ percent }}%</div>
             <div class="progress__description">{{ '@translated/@total translated'|t({'@translated': locale.progress.translated,'@total': variables.assets|length}) }}

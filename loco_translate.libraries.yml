@@ -1,0 +1,5 @@
+drupal.loco_translate.admin_css:
+  version: VERSION
+  css:
+    theme:
+      css/loco_translate.admin.css: {}

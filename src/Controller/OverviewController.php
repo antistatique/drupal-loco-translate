@@ -157,6 +157,9 @@ class OverviewController extends ControllerBase {
     return [
       '#theme' => 'loco_translate_overview_page',
       '#variables' => $variables,
+      '#attached' => [
+        'library' => ['loco_translate/drupal.loco_translate.admin_css'],
+      ],
     ];
   }
 

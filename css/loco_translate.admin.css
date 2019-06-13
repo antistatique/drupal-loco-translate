@@ -1,0 +1,10 @@
+/**
+ * @file
+ * Administration styles for the Loco Translate module.
+ */
+
+/* Remove animation */
+.progress__bar.progress__still {
+  background-image: none;
+}
+
