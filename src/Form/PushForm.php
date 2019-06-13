@@ -5,6 +5,7 @@ namespace Drupal\loco_translate\Form;
 use Drupal\Component\Utility\Environment;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\loco_translate\Loco\Push as LocoPush;
@@ -16,6 +17,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @internal
  */
 class PushForm extends FormBase {
+
+  /**
+   * The state service.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
 
   /**
    * Uploaded file entity.
@@ -50,6 +58,7 @@ class PushForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('state'),
       $container->get('language_manager'),
       $container->get('file_system'),
       $container->get('loco_translate.loco_api.push')
@@ -59,6 +68,8 @@ class PushForm extends FormBase {
   /**
    * Constructs a form for language push.
    *
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state service.
    * @param \Drupal\language\ConfigurableLanguageManagerInterface $language_manager
    *   The configurable language manager.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
@@ -66,7 +77,8 @@ class PushForm extends FormBase {
    * @param \Drupal\loco_translate\Loco\Push $loco_push
    *   The Loco translate push manager.
    */
-  public function __construct(ConfigurableLanguageManagerInterface $language_manager, FileSystemInterface $file_system, LocoPush $loco_push) {
+  public function __construct(StateInterface $state, ConfigurableLanguageManagerInterface $language_manager, FileSystemInterface $file_system, LocoPush $loco_push) {
+    $this->state = $state;
     $this->languageManager = $language_manager;
     $this->fileSystem = $file_system;
     $this->locoPush = $loco_push;
@@ -93,7 +105,7 @@ class PushForm extends FormBase {
 
     $validators = [
       'file_validate_extensions' => ['po'],
-      'file_validate_size' => [Environment::getUploadMaxSize()],
+      'file_validate_size' => [file_upload_max_size()],
     ];
     $form['file'] = [
       '#type' => 'file',
@@ -147,6 +159,12 @@ class PushForm extends FormBase {
     try {
       $this->locoPush->setApiClientFromConfig();
       $response = $this->locoPush->fromFileToLoco($path, $langcode);
+
+      // Save the last push by langcode.
+      $request_time = $this->getRequest()->server->get('REQUEST_TIME');
+      $push_last = (array)$this->state->get('loco_translate.api.push_last');
+      $push_last[$langcode] = $request_time;
+      $this->state->set('loco_translate.api.push_last', $push_last);
     }
     catch (\Exception $e) {
       $this->messenger()->addError($e->getMessage());
