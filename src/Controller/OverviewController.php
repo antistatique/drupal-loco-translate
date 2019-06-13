@@ -83,6 +83,9 @@ class OverviewController extends ControllerBase {
   public function dashboard() {
     $variables = [];
 
+    // Get the Loco Porject.
+    $variables['project'] = $this->cache->get('loco_translate.cache.api.project')->data;
+
     // Get the Loco Locales & Progress.
     $variables['locales'] = $this->cache->get('loco_translate.cache.api.locales')->data;
 
@@ -123,21 +126,30 @@ class OverviewController extends ControllerBase {
       'key' => $config->get('api.export_key'),
     ]);
 
-    // Get the Loco Locales & Progress.
-    $locales = $client->getLocales();
-    $this->cache->set('loco_translate.cache.api.locales', $locales, CacheBackendInterface::CACHE_PERMANENT);
+    try {
+      // Get Project.
+      $auth = $client->authVerify();
+      $this->cache->set('loco_translate.cache.api.project', $auth->offsetGet('project'), CacheBackendInterface::CACHE_PERMANENT);
 
-    // Get the Loco Assets.
-    $assets = $client->getAssets();
-    $this->cache->set('loco_translate.cache.api.assets', $assets, CacheBackendInterface::CACHE_PERMANENT);
+      // Get the Loco Locales & Progress.
+      $locales = $client->getLocales();
+      $this->cache->set('loco_translate.cache.api.locales', $locales, CacheBackendInterface::CACHE_PERMANENT);
 
-    // Get the Loco Status.
-    /* @var \GuzzleHttp\Command\Result $result */
-    $result = $client->ping();
-    $this->cache->set('loco_translate.cache.versions', [
-      'api' => $result->offsetGet('version'),
-      'library' => ApiClient::API_VERSION,
-    ], CacheBackendInterface::CACHE_PERMANENT);
+      // Get the Loco Assets.
+      $assets = $client->getAssets();
+      $this->cache->set('loco_translate.cache.api.assets', $assets, CacheBackendInterface::CACHE_PERMANENT);
+
+      // Get the Loco Status.
+      /* @var \GuzzleHttp\Command\Result $result */
+      $result = $client->ping();
+      $this->cache->set('loco_translate.cache.versions', [
+        'api' => $result->offsetGet('version'),
+        'library' => ApiClient::API_VERSION,
+      ], CacheBackendInterface::CACHE_PERMANENT);
+    }
+    catch (\Throwable $th) {
+      $this->messenger()->addError($th->getMessage());
+    }
 
     $this->messenger()->addMessage($this->t('Loco data refreshed.'));
     return $this->redirect('loco_translate.overview');

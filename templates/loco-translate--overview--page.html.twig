@@ -1,14 +1,22 @@
 <div class="system-status-general-info">
   <h2 class="system-status-general-info__header">{{ 'General Information'|t }}</h2>
   <div class="system-status-general-info__items">
+
+    {# Project #}
     <div class="system-status-general-info__item">
       <span class="system-status-general-info__item-icon system-status-general-info__item-icon--database"></span>
       <div class="system-status-general-info__item-details">
         <h3 class="system-status-general-info__item-title">{{ 'Loco'|t }}</h3>
+        <div class="description">{{ variables.project.name|capitalize }}
+          <small>(<a href="{{ variables.project.url }}" target="_blank">{{ 'see on loco'|t }}</a>)</small>
+        </div>
+
         <div class="description">{{ '<strong>@count</strong> locales'|t({'@count': variables.locales|length}) }}</div>
         <div class="description">{{ '<strong>@count</strong> assets'|t({'@count': variables.assets|length}) }}</div>
       </div>
     </div>
+
+    {# Progression #}
     <div class="system-status-general-info__item">
       <span class="system-status-general-info__item-icon system-status-general-info__item-icon--server"></span>
       <div class="system-status-general-info__item-details">
@@ -23,9 +31,10 @@
               <div class="progress__bar" style="width: {{ percent }}%"></div>
             </div>
             <div class="progress__percentage">{{ percent }}%</div>
-            <div class="progress__description">{{ '@translated/@total translated'|t({'@translated': locale.progress.translated,'@total': variables.assets|length}) }}  <small>
-              <a href="{{ loco_translate_export(locale.code) }}" target="_blank">({{ 'download from loco'|t }})</a>
-            </small>
+            <div class="progress__description">{{ '@translated/@total translated'|t({'@translated': locale.progress.translated,'@total': variables.assets|length}) }}
+              <small>
+                (<a href="{{ loco_translate_export(locale.code) }}" target="_blank" download>{{ 'download from loco'|t }}</a>)
+              </small>
           </div>
         </div>
 
@@ -38,15 +47,7 @@
 
   </div>
 
-  <div class="system-status-general-info__item">
-    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
-    <div class="system-status-general-info__item-details">
-      <h3 class="system-status-general-info__item-title">{{ 'Last Pull'|t }}</h3>
-      {% for pull_last in variables.pull_last %}
-      <p>{{ pull_last }}</p>
-      {% endfor %}
-    </div>
-  </div>
+  {# Push #}
   <div class="system-status-general-info__item">
     <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
     <div class="system-status-general-info__item-details">
@@ -56,6 +57,18 @@
       {% endfor %}
     </div>
   </div>
+
+  {# Pull #}
+  <div class="system-status-general-info__item">
+    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
+    <div class="system-status-general-info__item-details">
+      <h3 class="system-status-general-info__item-title">{{ 'Last Pull'|t }}</h3>
+      {% for pull_last in variables.pull_last %}
+      <p>{{ pull_last }}</p>
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 </div>
 
