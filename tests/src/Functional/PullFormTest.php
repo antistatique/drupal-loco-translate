@@ -9,7 +9,6 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group loco_translate
  * @group loco_translate_browser
- * @group kevin
  */
 class PullFormTest extends BrowserTestBase {
 
