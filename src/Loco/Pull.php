@@ -67,14 +67,16 @@ class Pull {
   }
 
   /**
-   * Get back all assets & translated string from Loco to Drupal.
+   * Get back all assets & translation string from Loco to Drupal.
    *
    * @param string $locale
    *   The locale code.
+   * @param string $status
+   *   Export translations with a specific status or flag.
    *
    * @see https://localise.biz/api/#!/import/import
    */
-  public function fromLocoToDrupal($locale) {
+  public function fromLocoToDrupal($locale, $status = NULL) {
     // Check for existing & enabled langcode.
     if (!$this->utility->isLangcodeEnabled($locale)) {
       throw LocoTranslateException::invalidLangcode($locale);
@@ -87,7 +89,7 @@ class Pull {
         'index' => 'id',
         'locale' => $locale,
         'no-folding' => TRUE,
-        'status' => 'translated',
+        'status' => $status ? $status : 'translated',
       ]);
     }
     catch (\Exception $e) {

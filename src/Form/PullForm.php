@@ -107,11 +107,23 @@ class PullForm extends FormBase {
       $language_options[$langcode] = $language->getName();
     }
 
-    $form['langcode'] = [
-      '#type' => 'select',
+    $form['langcodes'] = [
+      '#type' => 'checkboxes',
       '#title' => $this->t('Language'),
       '#options' => $language_options,
-      '#attributes' => ['class' => ['langcode-input']],
+    ];
+
+    $form['status'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Status/Flag'),
+      '#options' => [
+        '_none' => $this->t('None'),
+        'translated' => $this->t('Translated'),
+        '!translated' => $this->t('Untranslated'),
+        'fuzzy' => $this->t('Fuzzy'),
+        '!fuzzy' => $this->t('Unuzzy'),
+      ],
+      '#description' => $this->t('Pull translations with a specific status or flag.'),
     ];
 
     $form['actions'] = [
@@ -128,54 +140,64 @@ class PullForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $langcode = $form_state->getValue('langcode');
+    $langcodes = $form_state->getValue('langcodes');
+    $status = $form_state->getValue('status') != '_none' ? $form_state->getValue('status') : NULL;
 
-    try {
-      $this->locoPull->setApiClientFromConfig();
-      $response = $this->locoPull->fromLocoToDrupal($langcode);
+    foreach ($langcodes as $langcode) {
+      // Skip unchecked langcode.
+      if ($langcode === 0) {
+        continue;
+      }
+
+      try {
+        $this->locoPull->setApiClientFromConfig();
+        $response = $this->locoPull->fromLocoToDrupal($langcode, $status);
+
+        /** @var \Drupal\file\FileInterface $file */
+        $file = file_save_data($response->__toString(), 'translations://');
+        $form_state->setValue('files[' . $langcode . ']', $this->fileSystem->realPath($file->getFileUri()));
+      }
+      catch (\Exception $e) {
+
+        $form_state->setError($form, $e->getMessage());
+      }
     }
-    catch (\Exception $e) {
-      $form_state->setError($form, $e->getMessage());
-      return;
-    }
-
-    /** @var \Drupal\file\FileInterface $file */
-    $file = file_save_data($response->__toString(), 'translations://');
-
-    if (!$file) {
-      $form_state->setError($form, 'error');
-      return;
-    }
-
-    $form_state->setValue('file', $this->fileSystem->realPath($file->getFileUri()));
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $langcode = $form_state->getValue('langcode');
-    $path = $form_state->getValue('file');
+    $langcodes = $form_state->getValue('langcodes');
 
-    try {
-      $report = $this->translationsImport->fromFile($path, $langcode);
+    foreach ($langcodes as $langcode) {
+      // Skip unchecked langcode.
+      if ($langcode === 0) {
+        continue;
+      }
 
-      // Save the last pull by langcode.
-      $request_time = $this->getRequest()->server->get('REQUEST_TIME');
-      $pull_last = (array) $this->state->get('loco_translate.api.pull_last');
-      $pull_last[$langcode] = $request_time;
-      $this->state->set('loco_translate.api.pull_last', $pull_last);
+      $path = $form_state->getValue('files[' . $langcode . ']');
+
+      try {
+        $report = $this->translationsImport->fromFile($path, $langcode);
+
+        // Save the last pull by langcode.
+        $request_time = $this->getRequest()->server->get('REQUEST_TIME');
+        $pull_last = (array) $this->state->get('loco_translate.api.pull_last');
+        $pull_last[$langcode] = $request_time;
+        $this->state->set('loco_translate.api.pull_last', $pull_last);
+
+        $this->messenger()->addMessage($this->t('Successfuly download all translations from locale <b>:langcode</b> of Loco.', [':langcode' => $langcode]));
+        $this->messenger()->addMessage($this->t('Additions: <b>:additions</b>', [':additions' => $report['additions']]));
+        $this->messenger()->addMessage($this->t('Updates: <b>:updates</b>', [':updates' => $report['updates']]));
+        $this->messenger()->addMessage($this->t('Deletes: <b>:deletes</b>', [':deletes' => $report['deletes']]));
+        $this->messenger()->addMessage($this->t('Skips: <b>:skips</b>', [':skips' => $report['skips']]));
+
+      }
+      catch (\Exception $e) {
+        $this->messenger()->addError($e->getMessage());
+      }
     }
-    catch (\Exception $e) {
-      $this->messenger()->addError($e->getMessage());
-      return;
-    }
-
-    $this->messenger()->addMessage($this->t('Successfuly download all translations from locale <b>:langcode</b> of Loco.', [':langcode' => $langcode]));
-    $this->messenger()->addMessage($this->t('Additions: <b>:additions</b>', [':additions' => $report['additions']]));
-    $this->messenger()->addMessage($this->t('Updates: <b>:updates</b>', [':updates' => $report['updates']]));
-    $this->messenger()->addMessage($this->t('Deletes: <b>:deletes</b>', [':deletes' => $report['deletes']]));
-    $this->messenger()->addMessage($this->t('Skips: <b>:skips</b>', [':skips' => $report['skips']]));
   }
 
 }
