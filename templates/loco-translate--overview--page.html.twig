@@ -68,24 +68,43 @@
       {% endfor %}
     </div>
   </div>
-
+  </div>
 </div>
-</div>
 
-<br/>
-<br/>
-<table class="summary" data-striping="1">
-  <tbody>
-    <tr class="summary--status {% if variables.versions.api != variables.versions.library %}color-error{% endif %}">
-      <th>{{ 'Loco Status'|t }}</th>
-      <td>
+<div class="system-status-report">
+  <div class="system-status-report__requirements-group">
+  <h3>{{ 'Summary'|t }}</h3>
+
+
+    <details class="system-status-report__entry system-status-report__entry {% if variables.versions.api != variables.versions.library %}color-warning{% endif %}" open="open">
+      <summary class="system-status-report__status-title system-status-report__status-icon {% if variables.versions.api != variables.versions.library %}system-status-report__status-icon--warning{% endif %}" role="button" aria-expanded="true">
+        {{ 'Loco update status'|t }}
+      </summary>
+      <div class="system-status-report__entry__value">
         {% if variables.versions.api != variables.versions.library %}
-          {{ 'The Loco API (@api-version) and the Loco SDK (@sdk-version) missmatch.'|t({'@api-version': variables.versions.api, '@sdk-version': variables.versions.library}) }}
-          {{ 'Please upgrade your Loco SDK to the latests version.'|t }}
+          {{ 'Update available'|t }}
+          <div class="description">
+            {{ 'The Loco API (@api-version) and the Loco SDK (@sdk-version) missmatch.'|t({'@api-version': variables.versions.api, '@sdk-version': variables.versions.library}) }}
+            {{ 'Please upgrade your Loco SDK to the latests version.'|t }}
+          </div>
         {% else %}
-          <img src="/core/misc/icons/73b355/check.svg" width="18" height="18">
+          {{ 'No update data available'|t }}
         {% endif %}
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </details>
+
+    {% for requirement in variables.requirements %}
+      <details class="system-status-report__entry system-status-report__entry {% if requirement.severity %}color-warning{% endif %}" open="open">
+        <summary class="system-status-report__status-title system-status-report__status-icon {% if requirement.severity %}system-status-report__status-icon--warning{% endif %}" role="button" aria-expanded="true">
+          {{ requirement.title }}
+        </summary>
+        <div class="system-status-report__entry__value">
+          {{ requirement.value }}
+          <div class="description">
+            {{ requirement.description }}
+          </div>
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+</div>
