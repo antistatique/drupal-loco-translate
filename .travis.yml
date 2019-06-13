@@ -122,6 +122,9 @@ before_script:
   - composer require "loco/loco" --no-interaction --working-dir=${TRAVIS_BUILD_DIR}/../drupal-8/drupal
 
 script:
+  # Disable deprecations helper to avoid build failed caused by usage of
+  # deprecations in Drupal Core.
+  - export SYMFONY_DEPRECATIONS_HELPER=disabled
   - drupal-ti script
 
 after_script:
