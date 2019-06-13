@@ -10,6 +10,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Loco\Http\ApiClient;
 use Drupal\Core\Url;
+use Drupal\system\SystemManager;
 
 /**
  * Loco dashboard overview.
@@ -85,31 +86,35 @@ class OverviewController extends ControllerBase {
     $variables = [];
 
     // Get the Loco Porject.
-    $variables['project'] = $this->cache->get('loco_translate.cache.api.project')->data;
+    $variables['project'] = $this->cache->get('loco_translate.cache.api.project') ? $this->cache->get('loco_translate.cache.api.project')->data : NULL;
 
     // Get the Loco Locales & Progress.
-    $variables['locales'] = $this->cache->get('loco_translate.cache.api.locales')->data;
+    $variables['locales'] = $this->cache->get('loco_translate.cache.api.locales') ? $this->cache->get('loco_translate.cache.api.locales')->data : NULL;
 
     // Get the Loco Assets.
-    $variables['assets'] = $this->cache->get('loco_translate.cache.api.assets')->data;
+    $variables['assets'] = $this->cache->get('loco_translate.cache.api.assets') ? $this->cache->get('loco_translate.cache.api.assets')->data : NULL;
 
     // Get the Loco Status.
-    $variables['versions'] = $this->cache->get('loco_translate.cache.versions')->data;
+    $variables['versions'] = $this->cache->get('loco_translate.cache.versions') ? $this->cache->get('loco_translate.cache.versions')->data : NULL;
 
     // Get Last Pull time by langcode.
-    foreach ($this->state->get('loco_translate.api.pull_last') as $langcode => $pull_last) {
-      $variables['pull_last'][$langcode] = $this->t('<strong>%langcode</strong> - last run: %time ago.', [
-        '%langcode' => strtoupper($langcode),
-        '%time' => $this->dateFormatter->formatTimeDiffSince($pull_last),
-      ]);
+    if ($this->state->get('loco_translate.api.pull_last')) {
+      foreach ($this->state->get('loco_translate.api.pull_last') as $langcode => $pull_last) {
+        $variables['pull_last'][$langcode] = $this->t('<strong>%langcode</strong> - last run: %time ago.', [
+          '%langcode' => strtoupper($langcode),
+          '%time' => $this->dateFormatter->formatTimeDiffSince($pull_last),
+        ]);
+      }
     }
 
     // Get Last Push time by langcode.
-    foreach ($this->state->get('loco_translate.api.push_last') as $langcode => $push_last) {
-      $variables['push_last'][$langcode] = $this->t('<strong>%langcode</strong> - last run: %time ago.', [
-        '%langcode' => strtoupper($langcode),
-        '%time' => $this->dateFormatter->formatTimeDiffSince($push_last),
-      ]);
+    if ($this->state->get('loco_translate.api.push_last')) {
+      foreach ($this->state->get('loco_translate.api.push_last') as $langcode => $push_last) {
+        $variables['push_last'][$langcode] = $this->t('<strong>%langcode</strong> - last run: %time ago.', [
+          '%langcode' => strtoupper($langcode),
+          '%time' => $this->dateFormatter->formatTimeDiffSince($push_last),
+        ]);
+      }
     }
 
     // Asserts loco/loco library is installed.
@@ -120,7 +125,7 @@ class OverviewController extends ControllerBase {
 
     if (!class_exists('Loco\Http\ApiClient')) {
       $variables['requirements']['loco_translate_loco_sdk']['value'] = $this->t('Missing libraries');
-      $variables['requirements']['loco_translate_loco_sdk']['severity'] = REQUIREMENT_ERROR;
+      $variables['requirements']['loco_translate_loco_sdk']['severity'] = SystemManager::REQUIREMENT_ERROR;
       $variables['requirements']['loco_translate_loco_sdk']['description'] = $this->t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>.', [
         ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
         ':composer-url' => 'https://getcomposer.org',
@@ -134,7 +139,7 @@ class OverviewController extends ControllerBase {
     ];
     if (empty($config->get('api.export_key'))) {
       $variables['requirements']['loco_translate_export_key']['value'] = $this->t('Missing');
-      $variables['requirements']['loco_translate_export_key']['severity'] = REQUIREMENT_ERROR;
+      $variables['requirements']['loco_translate_export_key']['severity'] = SystemManager::REQUIREMENT_ERROR;
       $variables['requirements']['loco_translate_export_key']['description'] = $this->t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
         ':loco-url' => 'https://localise.biz/help/developers/api-keys',
         ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
@@ -147,7 +152,7 @@ class OverviewController extends ControllerBase {
     ];
     if (empty($config->get('api.fullaccess_key'))) {
       $variables['requirements']['loco_translate_fullaccess_key']['value'] = $this->t('Missing');
-      $variables['requirements']['loco_translate_fullaccess_key']['severity'] = REQUIREMENT_ERROR;
+      $variables['requirements']['loco_translate_fullaccess_key']['severity'] = SystemManager::REQUIREMENT_ERROR;
       $variables['requirements']['loco_translate_fullaccess_key']['description'] = $this->t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href="">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
         ':loco-url' => 'https://localise.biz/help/developers/api-keys',
         ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
