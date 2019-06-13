@@ -76,7 +76,7 @@ class TranslationsImport {
       throw LocoTranslateException::invalidLangcode($locale);
     }
 
-    // Load Drupal 8 Core local global functions.
+    // Load Drupal 8 Core locale global functions.
     $this->moduleHandler->loadInclude('locale', 'translation.inc');
     $this->moduleHandler->loadInclude('locale', 'bulk.inc');
 

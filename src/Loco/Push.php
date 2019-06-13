@@ -61,7 +61,7 @@ class Push {
    * @param string $source
    *   The .po file to upload on Loco.
    * @param string $locale
-   *   The local code.
+   *   The locale code.
    *
    * @see https://localise.biz/api/#!/import/import
    */

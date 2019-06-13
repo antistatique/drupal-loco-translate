@@ -70,7 +70,7 @@ class Pull {
    * Get back all assets & translated string from Loco to Drupal.
    *
    * @param string $locale
-   *   The local code.
+   *   The locale code.
    *
    * @see https://localise.biz/api/#!/import/import
    */
