@@ -15,4 +15,3 @@ loco_translate.pull_tasks:
   title: 'Pull from Loco'
   appears_on:
     - loco_translate.overview
-
