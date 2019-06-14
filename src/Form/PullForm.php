@@ -107,6 +107,11 @@ class PullForm extends FormBase {
       $language_options[$langcode] = $language->getName();
     }
 
+    $form['help'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('The pull form allow you to populate a single locale, or your whole project at once.'),
+    ];
+
     $form['langcodes'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Language'),
@@ -124,7 +129,7 @@ class PullForm extends FormBase {
         '!fuzzy' => $this->t('Unuzzy'),
       ],
       '#default_value' => 'translated',
-      '#description' => $this->t('Pull translations with a specific status or flag.'),
+      '#description' => $this->t('Pull translations with a specific status or flag. <br/>Bear in mind that this option is primarily intended for pulling single-language. <br/>The status of asset translations is likely to differ between locales, so the result may not make sense.'),
     ];
 
     $form['actions'] = [
