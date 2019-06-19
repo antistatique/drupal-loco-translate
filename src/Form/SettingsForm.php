@@ -123,7 +123,7 @@ class SettingsForm extends ConfigFormBase {
         3600 => $this->t('1 hour'),
         10800 => $this->t('3 hours'),
         21600 => $this->t('6 hours'),
-        43200 => $this->t('12hour'),
+        43200 => $this->t('12 hours'),
         86400 => $this->t('1 day'),
         604800 => $this->t('1 week'),
       ],
@@ -154,17 +154,17 @@ class SettingsForm extends ConfigFormBase {
 
     $form['automation']['pull'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Pull'),
+      '#title' => $this->t('Import from Loco'),
     ];
     $form['automation']['pull']['interval'] = [
       '#type' => 'select',
-      '#title' => $this->t('Run pull every'),
+      '#title' => $this->t('Run every'),
       '#options' => [
         0 => $this->t('Never'),
         3600 => $this->t('1 hour'),
         10800 => $this->t('3 hours'),
         21600 => $this->t('6 hours'),
-        43200 => $this->t('12hour'),
+        43200 => $this->t('12 hours'),
         86400 => $this->t('1 day'),
         604800 => $this->t('1 week'),
       ],
@@ -183,12 +183,13 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['automation']['pull']['status'] = [
       '#type' => 'select',
-      '#title' => $this->t('Flag'),
+      '#title' => $this->t('Status', [], ['context' => 'Loco Translate']),
       '#options' => [
-        '_none' => $this->t('None'),
-        'translated' => $this->t('Translated'),
+        '_none' => $this->t('All'),
+        'translated' => $this->t('Only translated'),
+        'fuzzy' => $this->t('Only fuzzy'),
       ],
-      '#description' => $this->t('Pull translations with a specific status or flag.'),
+      '#description' => $this->t('Pull translations with a specific status.'),
       '#default_value' => $config->get('automation.pull.status') ?? 'translated',
       '#states' => [
         'invisible' => [
