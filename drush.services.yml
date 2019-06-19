@@ -1,0 +1,8 @@
+services:
+  loco_translate.push_command:
+    class: \Drupal\loco_translate\Commands\PushCommand
+    arguments:
+      - '@loco_translate.loco_api.push'
+      - '@loco_translate.utility'
+    tags:
+      - { name: drush.command }

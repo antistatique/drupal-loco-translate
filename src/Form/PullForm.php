@@ -4,7 +4,7 @@ namespace Drupal\loco_translate\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\State\StateInterface;
+use Drupal\loco_translate\Utility;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
@@ -19,11 +19,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PullForm extends FormBase {
 
   /**
-   * The state service.
+   * The Utility service of Loco Translate.
    *
-   * @var \Drupal\Core\State\StateInterface
+   * @var \Drupal\loco_translate\Utility
    */
-  protected $state;
+  protected $utility;
 
   /**
    * The configurable language manager.
@@ -58,7 +58,7 @@ class PullForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('state'),
+      $container->get('loco_translate.utility'),
       $container->get('language_manager'),
       $container->get('file_system'),
       $container->get('loco_translate.loco_api.pull'),
@@ -69,8 +69,8 @@ class PullForm extends FormBase {
   /**
    * Constructs a form for language pull.
    *
-   * @param \Drupal\Core\State\StateInterface $state
-   *   The state service.
+   * @param \Drupal\loco_translate\Utility $utility
+   *   The Utility service of Loco Translate.
    * @param \Drupal\language\ConfigurableLanguageManagerInterface $language_manager
    *   The configurable language manager.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
@@ -80,8 +80,8 @@ class PullForm extends FormBase {
    * @param \Drupal\loco_translate\TranslationsImport $translatons_import
    *   The Translation importer.
    */
-  public function __construct(StateInterface $state, ConfigurableLanguageManagerInterface $language_manager, FileSystemInterface $file_system, LocoPull $loco_pull, TranslationsImport $translatons_import) {
-    $this->state = $state;
+  public function __construct(Utility $utility, ConfigurableLanguageManagerInterface $language_manager, FileSystemInterface $file_system, LocoPull $loco_pull, TranslationsImport $translatons_import) {
+    $this->utility = $utility;
     $this->languageManager = $language_manager;
     $this->fileSystem = $file_system;
     $this->locoPull = $loco_pull;
@@ -187,9 +187,7 @@ class PullForm extends FormBase {
 
         // Save the last pull by langcode.
         $request_time = $this->getRequest()->server->get('REQUEST_TIME');
-        $pull_last = (array) $this->state->get('loco_translate.api.pull_last');
-        $pull_last[$langcode] = $request_time;
-        $this->state->set('loco_translate.api.pull_last', $pull_last);
+        $this->utility->setLastPull($langcode, $request_time);
 
         $this->messenger()->addMessage($this->t('Successfuly download all translations from locale <b>:langcode</b> of Loco.', [':langcode' => $langcode]));
         $this->messenger()->addMessage($this->t('Additions: <b>:additions</b>', [':additions' => $report['additions']]));

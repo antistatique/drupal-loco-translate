@@ -5,6 +5,7 @@ namespace Drupal\Tests\loco_translate\Unit;
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Utility;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\Core\Language\Language;
 
 /**
@@ -43,8 +44,10 @@ abstract class UtilityTestBase extends UnitTestCase {
 
     /** @var \Drupal\Core\Language\LanguageManagerInterface|\Prophecy\Prophecy\ProphecyInterface $language_manager */
     $language_manager = $this->prophesize(LanguageManagerInterface::class);
+    /** @var \Drupal\Core\State\StateInterface|\Prophecy\Prophecy\ProphecyInterface $state */
+    $state = $this->prophesize(StateInterface::class);
 
-    $this->utility = new Utility($language_manager->reveal());
+    $this->utility = new Utility($language_manager->reveal(), $state->reveal());
     $language_manager->getLanguages()
       ->willReturn(['en' => $en, 'fr' => $fr]);
   }

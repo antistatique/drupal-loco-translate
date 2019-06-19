@@ -89,3 +89,14 @@ Configure your API Keys - as required by Loco - by adding the following code in 
   */
   $config['loco_translate.settings']['api']['fullaccess_key'] = 'YOUR-KEY-HERE';
   ```
+
+## Exposed Drush Commands
+
+This module is shipped with drush commands to assist you in your workflow.
+
+### Push Command
+The Push command will create new translations keys from a reference .po files:
+
+  ```bash
+  drush loco_translate:push --language="fr" ./translations/fr.po
+  ```
