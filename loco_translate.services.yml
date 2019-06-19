@@ -4,6 +4,7 @@ services:
     class: Drupal\loco_translate\Utility
     arguments:
       - '@language_manager'
+      - '@state'
 
   loco_translate.translations.import:
     class: \Drupal\loco_translate\TranslationsImport
