@@ -31,7 +31,7 @@ loco_translate.settings:
               label: 'Template'
         pull:
           type: mapping
-          label: 'Pull'
+          label: 'Import'
           mapping:
             interval:
               type: integer

@@ -107,6 +107,11 @@ class PullForm extends FormBase {
       $language_options[$langcode] = $language->getName();
     }
 
+    $form['help'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('This form allows you to import a single locale from Loco, or your whole project at once.'),
+    ];
+
     $form['langcodes'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Language'),
@@ -115,16 +120,14 @@ class PullForm extends FormBase {
 
     $form['status'] = [
       '#type' => 'select',
-      '#title' => $this->t('Flag'),
+      '#title' => $this->t('Status', [], ['context' => 'Loco Translate']),
       '#options' => [
-        '_none' => $this->t('None'),
-        'translated' => $this->t('Translated'),
-        '!translated' => $this->t('Untranslated'),
-        'fuzzy' => $this->t('Fuzzy'),
-        '!fuzzy' => $this->t('Unuzzy'),
+        '_none' => $this->t('All'),
+        'translated' => $this->t('Only translated'),
+        'fuzzy' => $this->t('Only fuzzy'),
       ],
       '#default_value' => 'translated',
-      '#description' => $this->t('Pull translations with a specific status or flag.'),
+      '#description' => $this->t('Import translations with a specific status. <br/>Bear in mind that this option is primarily intended for importing single-language. <br/>The status of asset translations is likely to differ between locales, so the result may not make sense.'),
     ];
 
     $form['actions'] = [
@@ -132,7 +135,7 @@ class PullForm extends FormBase {
     ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Pull'),
+      '#value' => $this->t('Import'),
     ];
     return $form;
   }

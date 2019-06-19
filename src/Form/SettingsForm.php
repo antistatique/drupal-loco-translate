@@ -134,12 +134,22 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Template'),
       '#description' => $this->t('Template file containing assets to be pushed on Loco.'),
       '#default_value' => $config->get('automation.push.template'),
+      '#states' => [
+        'invisible' => [
+          ':input[name="automation[push][interval]"]' => ['value' => 0],
+        ],
+      ],
     ];
     $form['automation']['push']['langcodes'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Language'),
       '#options' => $language_options,
       '#default_value' => $config->get('automation.push.langcodes'),
+      '#states' => [
+        'invisible' => [
+          ':input[name="automation[push][interval]"]' => ['value' => 0],
+        ],
+      ],
     ];
 
     $form['automation']['pull'] = [
@@ -165,6 +175,11 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Language'),
       '#options' => $language_options,
       '#default_value' => $config->get('automation.pull.langcodes'),
+      '#states' => [
+        'invisible' => [
+          ':input[name="automation[pull][interval]"]' => ['value' => 0],
+        ],
+      ],
     ];
     $form['automation']['pull']['status'] = [
       '#type' => 'select',
@@ -175,6 +190,11 @@ class SettingsForm extends ConfigFormBase {
       ],
       '#description' => $this->t('Pull translations with a specific status or flag.'),
       '#default_value' => $config->get('automation.pull.status') ?? 'translated',
+      '#states' => [
+        'invisible' => [
+          ':input[name="automation[pull][interval]"]' => ['value' => 0],
+        ],
+      ],
     ];
 
     $form['gettext'] = [

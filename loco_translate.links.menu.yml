@@ -1,6 +1,6 @@
 loco_translate.overview:
   title: 'Loco translation'
-  description: 'Overview the Loco translation progression, pull latests translations or pull assets.'
+  description: 'Overview the Loco translation progression, import latest translations & assets.'
   route_name: loco_translate.overview
   parent: system.admin_config_regional
   weight: 20

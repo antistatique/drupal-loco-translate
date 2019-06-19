@@ -102,6 +102,11 @@ class PushForm extends FormBase {
       $language_options[$langcode] = $language->getName();
     }
 
+    $form['help'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('The push form loads translations from your language pack (.po file) into your Loco project.'),
+    ];
+
     $validators = [
       'file_validate_extensions' => ['po'],
       'file_validate_size' => [file_upload_max_size()],
