@@ -46,16 +46,16 @@ class PushCommand extends DrushCommands {
    * @param array $options
    *   (Optional) An array of options.
    *
-   * @command loco_translate:push
+   * @throws \Drupal\loco_translate\Exception\LocoApiException
+   * @throws \Drupal\loco_translate\Exception\LocoTranslateException
    *
+   * @command loco_translate:push
    * @option language
    *   Ex: 'en' or 'fr'. Define in which language the .po file is written
    *   and in which locale you want to import this file into Loco.
    *   [default: detect the language from the .po filename]
-   *
    * @aliases loco:push
-   *
-   * @usage drush loco_translate:push --language="fr" ./translations/fr.po
+   * @usage drush loco_translate:push --language="fr" ./config/translations/fr.po
    *   Push a local .po file into the Loco SAAS in the french locale.
    */
   public function push($file, array $options = ['language' => NULL]) {
