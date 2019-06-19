@@ -92,4 +92,32 @@ class Utility {
     $this->state->set('loco_translate.api.push_last', $push_last);
   }
 
+  /**
+   * Set the last pull time by given langcode.
+   *
+   * @param string $langcode
+   *   The locale to use.
+   *
+   * @return string
+   *   The last pull timestamp.
+   */
+  public function getLastPull($langcode) {
+    $pull_last = (array) $this->state->get('loco_translate.api.pull_last');
+    return $pull_last[$langcode];
+  }
+
+  /**
+   * Set the last push time by given langcode.
+   *
+   * @param string $langcode
+   *   The locale to use.
+   *
+   * @return string
+   *   The last push timestamp.
+   */
+  public function getLastPush($langcode) {
+    $push_last = $this->state->get('loco_translate.api.push_last');
+    return $push_last[$langcode];
+  }
+
 }

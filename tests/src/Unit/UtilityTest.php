@@ -40,7 +40,7 @@ class UtilityTest extends UtilityTestBase {
   /**
    * @covers \Drupal\loco_translate\Utility::setLastPull
    */
-  public function testLastPush() {
+  public function testSetLastPush() {
     $this->markTestIncomplete(
       'This test has not been implemented yet.'
     );
@@ -49,7 +49,25 @@ class UtilityTest extends UtilityTestBase {
   /**
    * @covers \Drupal\loco_translate\Utility::setLastPull
    */
-  public function testLastPull() {
+  public function testSetLastPull() {
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
+
+  /**
+   * @covers \Drupal\loco_translate\Utility::getLastPull
+   */
+  public function testGetLastPush() {
+    $this->markTestIncomplete(
+      'This test has not been implemented yet.'
+    );
+  }
+
+  /**
+   * @covers \Drupal\loco_translate\Utility::getLastPull
+   */
+  public function testGetLastPull() {
     $this->markTestIncomplete(
       'This test has not been implemented yet.'
     );
