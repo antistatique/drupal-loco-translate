@@ -31,7 +31,7 @@ services:
   loco_translate.loco_api.pull:
     class: \Drupal\loco_translate\Loco\Pull
     arguments:
-      - 'loco_translate.api_client.read_only'
+      - '@loco_translate.api_client.read_only'
       - '@loco_translate.utility'
 
   loco_translate.twig.loco_export:
