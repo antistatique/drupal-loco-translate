@@ -74,6 +74,12 @@ class Pull {
    * @param string $status
    *   Export translations with a specific status or flag.
    *
+   * @return  The result of the query.
+   *   The result of the query.
+   *
+   * @throws \Drupal\loco_translate\Exception\LocoApiException
+   * @throws \Drupal\loco_translate\Exception\LocoTranslateException
+   *
    * @see https://localise.biz/api/#!/import/import
    */
   public function fromLocoToDrupal($locale, $status = NULL) {
@@ -89,7 +95,7 @@ class Pull {
         'index' => 'id',
         'locale' => $locale,
         'no-folding' => TRUE,
-        'status' => $status ?? NULL,
+        'status' => $status,
       ]);
     }
     catch (\Exception $e) {

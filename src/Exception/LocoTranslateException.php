@@ -17,7 +17,7 @@ class LocoTranslateException extends \Exception {
    *   Exception used when the langcode is not enabled/available on Drupal.
    */
   public static function invalidLangcode($langcode) {
-    return new static(sprintf('The langcode %s is not defined. Please create & enabled it before trying to use it.', $langcode));
+    return new static(sprintf('The langcode %s is not defined. Please create & enable it before trying to use it.', $langcode));
   }
 
   /**
