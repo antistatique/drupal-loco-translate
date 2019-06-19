@@ -12,7 +12,7 @@ loco_translate.push_tasks:
 
 loco_translate.pull_tasks:
   route_name: loco_translate.pull
-  title: 'Pull from Loco'
+  title: 'Import from Loco'
   appears_on:
     - loco_translate.overview
 

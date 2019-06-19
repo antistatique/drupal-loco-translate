@@ -78,8 +78,8 @@
   <div class="system-status-general-info__item">
     <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
     <div class="system-status-general-info__item-details">
-      <h3 class="system-status-general-info__item-title">{{ 'Last Pull'|t }}</h3>
-      <div class="description">{{ 'Keep track of the last pull from Loco by locales.'|t }}</div>
+      <h3 class="system-status-general-info__item-title">{{ 'Last Import'|t }}</h3>
+      <div class="description">{{ 'Keep track of the last import from Loco by locales.'|t }}</div>
 
       {% for pull_last in variables.pull_last %}
       <p>{{ pull_last }}</p>
@@ -103,7 +103,7 @@
           {{ 'Update available'|t }}
           <div class="description">
             {{ 'The Loco API (@api-version) and the Loco SDK (@sdk-version) missmatch.'|t({'@api-version': variables.versions.api, '@sdk-version': variables.versions.library}) }}
-            {{ 'Please upgrade your Loco SDK to the latests version.'|t }}
+            {{ 'Please upgrade your Loco SDK to the latest version.'|t }}
           </div>
         {% else %}
           {{ 'No update data available'|t }}

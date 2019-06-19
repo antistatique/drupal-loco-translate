@@ -12,7 +12,7 @@ loco_translate.push:
 loco_translate.pull:
   route_name: loco_translate.pull
   base_route: loco_translate.overview
-  title: Pull
+  title: Import
   weight: 30
 
 loco_translate.settings:

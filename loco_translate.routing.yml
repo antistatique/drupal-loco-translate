@@ -26,7 +26,7 @@ loco_translate.pull:
   path: '/admin/config/regional/loco_translate/pull'
   defaults:
     _form: '\Drupal\loco_translate\Form\PullForm'
-    _title: 'Loco translate pull'
+    _title: 'Loco translate import'
   requirements:
     _permission: 'pull using loco translate'
 
