@@ -2,8 +2,9 @@
 
 namespace Drupal\loco_translate\Commands;
 
-use Drupal\loco_translate\Loco\Push;
 use Drush\Commands\DrushCommands;
+use Drupal\loco_translate\Loco\Push;
+use Drupal\loco_translate\Utility;
 
 /**
  * Drush Loco Push Commands.
@@ -18,13 +19,23 @@ class PushCommand extends DrushCommands {
   private $locoPush;
 
   /**
+   * The Utility service of Loco Translate.
+   *
+   * @var \Drupal\loco_translate\Utility
+   */
+  private $utility;
+
+  /**
    * PushCommand constructor.
    *
    * @param \Drupal\loco_translate\Loco\Push $locoPush
    *   The Loco Push Api Wrapper.
+   * @param \Drupal\loco_translate\Utility $utility
+   *   The Utility service of Loco Translate.
    */
-  public function __construct(Push $locoPush) {
+  public function __construct(Push $locoPush, Utility $utility) {
     $this->locoPush = $locoPush;
+    $this->utility = $utility;
   }
 
   /**
@@ -60,6 +71,10 @@ class PushCommand extends DrushCommands {
     $this->locoPush->setApiClientFromConfig();
 
     $response = $this->locoPush->fromFileToLoco($file, $language);
+
+    // Save the last push by langcode.
+    $time = time();
+    $this->utility->setLastPush($language, $time);
 
     $this->output()->writeln($response['message']);
   }
