@@ -68,8 +68,6 @@ class PushCommand extends DrushCommands {
 
     $this->output()->writeln(sprintf('Pushing file "%s" in locale "%s"', $file, $language));
 
-    $this->locoPush->setApiClientFromConfig();
-
     $response = $this->locoPush->fromFileToLoco($file, $language);
 
     // Save the last push by langcode.

@@ -15,25 +15,18 @@ class Push {
   /**
    * The Loco SDK HTTP client.
    *
-   * @var \Loco\Http\ApiClientLocoApiClient
+   * @var \Loco\Http\ApiClient
    */
   private $client;
 
   /**
-   * The loco translate settings.
-   *
-   * @var \Drupal\Core\Config\Config
-   */
-  protected $locoConfig;
-
-  /**
    * Constructor.
    *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory.
+   * @param \Loco\Http\ApiClient $api_client
+   *   Loco Api Client.
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    $this->locoConfig = $config_factory->get('loco_translate.settings');
+  public function __construct(ApiClient $api_client) {
+    $this->client = $api_client;
   }
 
   /**
@@ -44,15 +37,6 @@ class Push {
    */
   public function setApiClient(ApiClient $api_client) {
     $this->client = $api_client;
-  }
-
-  /**
-   * Set the API Client automatically from Drupal settings.
-   */
-  public function setApiClientFromConfig() {
-    $this->client = ApiClient::factory([
-      'key' => $this->locoConfig->get('api.fullaccess_key'),
-    ]);
   }
 
   /**

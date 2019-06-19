@@ -162,7 +162,6 @@ class PushForm extends FormBase {
     $path = $this->fileSystem->realpath($this->file->getFileUri());
 
     try {
-      $this->locoPush->setApiClientFromConfig();
       $response = $this->locoPush->fromFileToLoco($path, $langcode);
 
       // Save the last push by langcode.

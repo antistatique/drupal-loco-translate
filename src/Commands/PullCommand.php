@@ -82,8 +82,6 @@ class PullCommand extends DrushCommands {
 
     $this->output()->writeln(sprintf('Importing %s "%s" translations from Loco.', $status ?? 'all', $language));
 
-    $this->locoPull->setApiClientFromConfig();
-
     $response = $this->locoPull->fromLocoToDrupal($language, $status);
 
     /** @var \Drupal\file\FileInterface $file */
