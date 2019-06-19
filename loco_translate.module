@@ -5,6 +5,8 @@
  * Primary module hooks for Loco Translate module.
  */
 
+require_once 'inc/cron_pull.inc';
+
 /**
  * Implements hook_theme().
  */
@@ -15,4 +17,40 @@ function loco_translate_theme($existing, $type, $theme, $path) {
       'template'  => 'loco-translate--overview--page',
     ],
   ];
+}
+
+/**
+ * Implements hook_cron().
+ *
+ */
+function loco_translate_cron() {
+  $now = time();
+  $config = \Drupal::config('loco_translate.settings');
+  $utility = \Drupal::service('loco_translate.utility');
+
+  // Get configured langcode to pull from loco.
+  $langcodes = $config->get('automation.pull.langcodes');
+  if ($langcodes) {
+    foreach ($langcodes as $langcode => $status) {
+      // Skip unchecked langcode.
+      if (!$status) {
+        continue;
+      }
+
+      // Check last run of this langcode.
+      $last_run = $utility->getLastPull($langcode);
+
+      if ($now - $last_run >= $config->get('automation.pull.interval')) {
+        continue;
+      }
+
+      try {
+        loco_translate_cron_pull($langcode, $config->get('automation.pull'));
+        $utility->setLastPull($langcode, $now);
+      } catch (\Throwable $th) {
+        watchdog_exception('loco_translate', $th, 'Error while trying to pull from Loco.');
+      }
+    }
+  }
+
 }
