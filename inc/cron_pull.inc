@@ -5,7 +5,15 @@
  * Pull cron function for Loco Translate module.
  */
 
-function loco_translate_cron_pull($langcode, $settings) {
+/**
+ * Pull assets & translations from Loco.
+ *
+ * @param string $langcode
+ *   The langcode to pull from.
+ * @param array $settings
+ *   The configurations needed to pull from Loco.
+ */
+function loco_translate_cron_pull($langcode, array $settings) {
   $loco_pull = \Drupal::service('loco_translate.loco_api.pull');
   $translations_import = \Drupal::service('loco_translate.translations.import');
   $file_system = \Drupal::service('file_system');

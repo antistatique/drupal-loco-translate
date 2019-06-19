@@ -6,6 +6,7 @@
  */
 
 require_once 'inc/cron_pull.inc';
+require_once 'inc/cron_push.inc';
 
 /**
  * Implements hook_theme().
@@ -22,6 +23,7 @@ function loco_translate_theme($existing, $type, $theme, $path) {
 /**
  * Implements hook_cron().
  *
+ * Automation of Loco Translate module.
  */
 function loco_translate_cron() {
   $now = time();
@@ -47,10 +49,34 @@ function loco_translate_cron() {
       try {
         loco_translate_cron_pull($langcode, $config->get('automation.pull'));
         $utility->setLastPull($langcode, $now);
-      } catch (\Throwable $th) {
+      }
+      catch (\Throwable $th) {
         watchdog_exception('loco_translate', $th, 'Error while trying to pull from Loco.');
       }
     }
   }
 
+  // Get configured langcode to pull from loco.
+  $langcodes = $config->get('automation.push.langcodes');
+  if ($langcodes && $config->get('automation.push.template')) {
+    foreach ($langcodes as $langcode => $status) {
+      // Skip unchecked langcode.
+      if (!$status) {
+        continue;
+      }
+
+      $last_run = $utility->getLastPush($langcode);
+      if ($now - $last_run >= $config->get('automation.push.interval')) {
+        continue;
+      }
+
+      try {
+        loco_translate_cron_push($langcode, $config->get('automation.push'));
+        $utility->setLastPush($langcode, $now);
+      }
+      catch (\Throwable $th) {
+        watchdog_exception('loco_translate', $th, 'Error while trying to push to Loco.');
+      }
+    }
+  }
 }
