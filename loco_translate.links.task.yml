@@ -3,12 +3,6 @@ loco_translate.overview:
   base_route: loco_translate.overview
   title: Overview
 
-loco_translate.push:
-  route_name: loco_translate.push
-  base_route: loco_translate.overview
-  title: Push
-  weight: 20
-
 loco_translate.pull:
   route_name: loco_translate.pull
   base_route: loco_translate.overview
