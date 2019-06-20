@@ -11,11 +11,13 @@ use Loco\Http\ApiClient;
 class ApiClientFactory {
 
   /**
+   * Get the Loco API Client with a full access key.
+   *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *  The Drupal Config Factory.
+   *   The Drupal Config Factory.
    *
    * @return \Loco\Http\ApiClient
-   *  The Loco ApiClient.
+   *   The Loco ApiClient.
    */
   public static function withFullAccess(ConfigFactoryInterface $config_factory) {
     $config = $config_factory->get('loco_translate.settings');
@@ -27,11 +29,13 @@ class ApiClientFactory {
   }
 
   /**
+   * Get the Loco API Client with a read-only access key.
+   *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *  The Drupal Config Factory.
+   *   The Drupal Config Factory.
    *
    * @return \Loco\Http\ApiClient
-   *  The Loco ApiClient.
+   *   The Loco ApiClient.
    */
   public static function withReadOnlyAccess(ConfigFactoryInterface $config_factory) {
     $config = $config_factory->get('loco_translate.settings');

@@ -3,7 +3,6 @@
 namespace Drupal\loco_translate\Loco;
 
 use Loco\Http\ApiClient;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\loco_translate\Utility;
 use Drupal\loco_translate\Exception\LocoTranslateException;
 use Drupal\loco_translate\Exception\LocoApiException;
