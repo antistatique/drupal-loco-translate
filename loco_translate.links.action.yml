@@ -4,12 +4,6 @@ loco_translate.refresh_tasks:
   appears_on:
     - loco_translate.overview
 
-loco_translate.push_tasks:
-  route_name: loco_translate.push
-  title: 'Push to Loco'
-  appears_on:
-    - loco_translate.overview
-
 loco_translate.pull_tasks:
   route_name: loco_translate.pull
   title: 'Import from Loco'

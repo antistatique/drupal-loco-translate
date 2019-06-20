@@ -14,14 +14,6 @@ loco_translate.refresh:
   requirements:
     _permission: 'access loco translate overview'
 
-loco_translate.push:
-  path: '/admin/config/regional/loco_translate/push'
-  defaults:
-    _form: '\Drupal\loco_translate\Form\PushForm'
-    _title: 'Loco translate push'
-  requirements:
-    _permission: 'push using loco translate'
-
 loco_translate.pull:
   path: '/admin/config/regional/loco_translate/pull'
   defaults:
