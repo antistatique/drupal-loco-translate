@@ -6,6 +6,16 @@ services:
       - '@language_manager'
       - '@state'
 
+  loco_translate.api_client.read_only:
+    class: \Loco\Http\ApiClient
+    factory: '\Drupal\loco_translate\Loco\ApiClientFactory::withReadOnlyAccess'
+    arguments: ['@config.factory']
+
+  loco_translate.api_client.full_access:
+    class: \Loco\Http\ApiClient
+    factory: '\Drupal\loco_translate\Loco\ApiClientFactory::withFullAccess'
+    arguments: ['@config.factory']
+
   loco_translate.translations.import:
     class: \Drupal\loco_translate\TranslationsImport
     arguments:
@@ -16,12 +26,12 @@ services:
   loco_translate.loco_api.push:
     class: \Drupal\loco_translate\Loco\Push
     arguments:
-      - '@config.factory'
+      - '@loco_translate.api_client.full_access'
 
   loco_translate.loco_api.pull:
     class: \Drupal\loco_translate\Loco\Pull
     arguments:
-      - '@config.factory'
+      - '@loco_translate.api_client.read_only'
       - '@loco_translate.utility'
 
   loco_translate.twig.loco_export:

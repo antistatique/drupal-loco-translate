@@ -5,7 +5,6 @@ namespace Drupal\Tests\loco_translate\Unit;
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Loco\Pull as locoPull;
 use Loco\Http\ApiClient;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\loco_translate\Utility;
 use Drupal\loco_translate\Exception\LocoApiException;
 use Loco\Http\Result\RawResult;
@@ -47,12 +46,8 @@ class LocoPullTest extends UnitTestCase {
     // Mock a fake Loco API Client.
     $this->apiClient = $this->prophesize(ApiClient::class);
 
-    /** @var \Drupal\Core\Config\ConfigFactoryInterface|\Prophecy\Prophecy\ProphecyInterface $language_manager */
-    $config_factory = $this->prophesize(ConfigFactoryInterface::class);
-
     // Mock the loco pull manager.
-    $this->locoPull = new locoPull($config_factory->reveal(), $utility->reveal());
-    $this->locoPull->setApiClient($this->apiClient->reveal());
+    $this->locoPull = new locoPull($this->apiClient->reveal(), $utility->reveal());
   }
 
   /**

@@ -154,7 +154,6 @@ class PullForm extends FormBase {
       }
 
       try {
-        $this->locoPull->setApiClientFromConfig();
         $response = $this->locoPull->fromLocoToDrupal($langcode, $status);
 
         /** @var \Drupal\file\FileInterface $file */
