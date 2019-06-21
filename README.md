@@ -80,7 +80,7 @@ Configure your API Keys - as required by Loco - by adding the following code in 
    *
    * @var string
   */
-  $config['loco_translate.settings']['api']['export_key'] = 'YOUR-KEY-HERE';
+  $config['loco_translate.settings']['api']['readonly_key'] = 'YOUR-KEY-HERE';
 
   /**
    * Loco Translate Full Access Key.

@@ -133,14 +133,14 @@ class OverviewController extends ControllerBase {
     }
 
     $config = $this->configFactory->get('loco_translate.settings');
-    $variables['requirements']['loco_translate_export_key'] = [
+    $variables['requirements']['loco_translate_readonly_key'] = [
       'title' => $this->t('Loco Export API key'),
       'value' => $this->t('Configured'),
     ];
-    if (empty($config->get('api.export_key'))) {
-      $variables['requirements']['loco_translate_export_key']['value'] = $this->t('Missing');
-      $variables['requirements']['loco_translate_export_key']['severity'] = SystemManager::REQUIREMENT_ERROR;
-      $variables['requirements']['loco_translate_export_key']['description'] = $this->t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
+    if (empty($config->get('api.readonly_key'))) {
+      $variables['requirements']['loco_translate_readonly_key']['value'] = $this->t('Missing');
+      $variables['requirements']['loco_translate_readonly_key']['severity'] = SystemManager::REQUIREMENT_ERROR;
+      $variables['requirements']['loco_translate_readonly_key']['description'] = $this->t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
         ':loco-url' => 'https://localise.biz/help/developers/api-keys',
         ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
       ]);
@@ -174,7 +174,7 @@ class OverviewController extends ControllerBase {
   public function refresh() {
     $config = $this->configFactory->get('loco_translate.settings');
     $client = ApiClient::factory([
-      'key' => $config->get('api.export_key'),
+      'key' => $config->get('api.readonly_key'),
     ]);
 
     try {
