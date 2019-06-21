@@ -197,12 +197,13 @@ class OverviewController extends ControllerBase {
         'api' => $result->offsetGet('version'),
         'library' => ApiClient::API_VERSION,
       ], CacheBackendInterface::CACHE_PERMANENT);
+
+      $this->messenger()->addMessage($this->t('Loco data refreshed.'));
     }
     catch (\Throwable $th) {
       $this->messenger()->addError($th->getMessage());
     }
 
-    $this->messenger()->addMessage($this->t('Loco data refreshed.'));
     return $this->redirect('loco_translate.overview');
   }
 
