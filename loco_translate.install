@@ -15,7 +15,7 @@ function loco_translate_install() {
 
   // Asserts loco/loco is installed.
   if (!class_exists('Loco\Http\ApiClient')) {
-    drupal_set_message(t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>.', [
+    drupal_set_message(t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
       ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
       ':composer-url' => 'https://getcomposer.org',
     ]), 'error');
@@ -34,7 +34,7 @@ function loco_translate_requirements($phase) {
       'title' => t('Loco libraries'),
       'value' => t('Missing libraries'),
       'severity' => REQUIREMENT_ERROR,
-      'description' => t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>.', [
+      'description' => t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
         ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
         ':composer-url' => 'https://getcomposer.org',
       ]),

@@ -126,7 +126,7 @@ class OverviewController extends ControllerBase {
     if (!class_exists('Loco\Http\ApiClient')) {
       $variables['requirements']['loco_translate_loco_sdk']['value'] = $this->t('Missing libraries');
       $variables['requirements']['loco_translate_loco_sdk']['severity'] = SystemManager::REQUIREMENT_ERROR;
-      $variables['requirements']['loco_translate_loco_sdk']['description'] = $this->t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>.', [
+      $variables['requirements']['loco_translate_loco_sdk']['description'] = $this->t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
         ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
         ':composer-url' => 'https://getcomposer.org',
       ]);
