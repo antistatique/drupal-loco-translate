@@ -100,9 +100,9 @@ class OverviewController extends ControllerBase {
     // Get Last Pull time by langcode.
     if ($this->state->get('loco_translate.api.pull_last')) {
       foreach ($this->state->get('loco_translate.api.pull_last') as $langcode => $pull_last) {
-        $variables['pull_last'][$langcode] = $this->t('<strong>%langcode</strong> - last run: %time ago.', [
-          '%langcode' => strtoupper($langcode),
-          '%time' => $this->dateFormatter->formatTimeDiffSince($pull_last),
+        $variables['pull_last'][$langcode] = $this->t('<strong>@langcode</strong> was imported @time ago', [
+          '@langcode' => strtoupper($langcode),
+          '@time' => $this->dateFormatter->formatTimeDiffSince($pull_last),
         ]);
       }
     }
@@ -110,9 +110,9 @@ class OverviewController extends ControllerBase {
     // Get Last Push time by langcode.
     if ($this->state->get('loco_translate.api.push_last')) {
       foreach ($this->state->get('loco_translate.api.push_last') as $langcode => $push_last) {
-        $variables['push_last'][$langcode] = $this->t('<strong>%langcode</strong> - last run: %time ago.', [
-          '%langcode' => strtoupper($langcode),
-          '%time' => $this->dateFormatter->formatTimeDiffSince($push_last),
+        $variables['push_last'][$langcode] = $this->t('<strong>@langcode</strong> was uploaded to Loco @time ago.', [
+          '@langcode' => strtoupper($langcode),
+          '@time' => $this->dateFormatter->formatTimeDiffSince($push_last),
         ]);
       }
     }
