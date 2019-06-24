@@ -55,7 +55,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
    */
   public function testInvalidLangcode() {
     $this->expectException(LocoTranslateException::class);
-    $this->expectExceptionMessage("The langcode ru is not defined. Please create & enabled it before trying to use it.");
+    $this->expectExceptionMessage("The langcode ru is not defined. Please create & enable it before trying to use it.");
 
     $source = $this->translationsPath . '/fr.po';
     $this->translationsImport->fromFile($source, 'ru');

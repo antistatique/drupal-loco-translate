@@ -6,3 +6,12 @@ services:
       - '@loco_translate.utility'
     tags:
       - { name: drush.command }
+
+  loco_translate.pull_command:
+    class: \Drupal\loco_translate\Commands\PullCommand
+    arguments:
+      - '@loco_translate.loco_api.pull'
+      - '@loco_translate.translations.import'
+      - '@file_system'
+    tags:
+      - { name: drush.command }

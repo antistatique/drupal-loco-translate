@@ -3,7 +3,6 @@
 namespace Drupal\loco_translate\Loco;
 
 use Loco\Http\ApiClient;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\loco_translate\Utility;
 use Drupal\loco_translate\Exception\LocoTranslateException;
 use Drupal\loco_translate\Exception\LocoApiException;
@@ -16,16 +15,9 @@ class Pull {
   /**
    * The Loco SDK HTTP client.
    *
-   * @var \Loco\Http\ApiClientLocoApiClient
+   * @var \Loco\Http\ApiClient
    */
   private $client;
-
-  /**
-   * The loco translate settings.
-   *
-   * @var \Drupal\Core\Config\Config
-   */
-  protected $locoConfig;
 
   /**
    * The Utility service of Loco Translate.
@@ -37,13 +29,13 @@ class Pull {
   /**
    * Constructor.
    *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory.
+   * @param \Loco\Http\ApiClient $api_client
+   *   Loco Api Client.
    * @param \Drupal\loco_translate\Utility $utility
    *   Utility methods for Loco Translate.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, Utility $utility) {
-    $this->locoConfig = $config_factory->get('loco_translate.settings');
+  public function __construct(ApiClient $api_client, Utility $utility) {
+    $this->client = $api_client;
     $this->utility = $utility;
   }
 
@@ -58,21 +50,18 @@ class Pull {
   }
 
   /**
-   * Set the API Client automatically from Drupal settings.
-   */
-  public function setApiClientFromConfig() {
-    $this->client = ApiClient::factory([
-      'key' => $this->locoConfig->get('api.export_key'),
-    ]);
-  }
-
-  /**
    * Get back all assets & translation string from Loco to Drupal.
    *
    * @param string $locale
    *   The locale code.
    * @param string $status
    *   Export translations with a specific status or flag.
+   *
+   * @return \Loco\Http\Result\RawResult
+   *   The result of the query.
+   *
+   * @throws \Drupal\loco_translate\Exception\LocoApiException
+   * @throws \Drupal\loco_translate\Exception\LocoTranslateException
    *
    * @see https://localise.biz/api/#!/import/import
    */
@@ -89,7 +78,7 @@ class Pull {
         'index' => 'id',
         'locale' => $locale,
         'no-folding' => TRUE,
-        'status' => $status ?? NULL,
+        'status' => $status,
       ]);
     }
     catch (\Exception $e) {

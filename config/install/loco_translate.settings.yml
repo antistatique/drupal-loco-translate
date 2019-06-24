@@ -1,6 +1,6 @@
 api:
   fullaccess_key: ''
-  export_key: ''
+  readonly_key: ''
 automation:
   push:
     interval: 0

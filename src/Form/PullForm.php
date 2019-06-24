@@ -154,7 +154,6 @@ class PullForm extends FormBase {
       }
 
       try {
-        $this->locoPull->setApiClientFromConfig();
         $response = $this->locoPull->fromLocoToDrupal($langcode, $status);
 
         /** @var \Drupal\file\FileInterface $file */
@@ -189,7 +188,7 @@ class PullForm extends FormBase {
         $request_time = $this->getRequest()->server->get('REQUEST_TIME');
         $this->utility->setLastPull($langcode, $request_time);
 
-        $this->messenger()->addMessage($this->t('Successfuly download all translations from locale <b>:langcode</b> of Loco.', [':langcode' => $langcode]));
+        $this->messenger()->addMessage($this->t('Successfully imported all <b>:langcode</b> translations from Loco.', [':langcode' => $langcode]));
         $this->messenger()->addMessage($this->t('Additions: <b>:additions</b>', [':additions' => $report['additions']]));
         $this->messenger()->addMessage($this->t('Updates: <b>:updates</b>', [':updates' => $report['updates']]));
         $this->messenger()->addMessage($this->t('Deletes: <b>:deletes</b>', [':deletes' => $report['deletes']]));

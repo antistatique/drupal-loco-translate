@@ -5,6 +5,8 @@
  * Primary module hooks for Loco Translate module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 require_once 'inc/cron_pull.inc';
 require_once 'inc/cron_push.inc';
 
@@ -78,5 +80,39 @@ function loco_translate_cron() {
         watchdog_exception('loco_translate', $th, 'Error while trying to push to Loco.');
       }
     }
+
+/**
+ * Implements hook_help().
+ *
+ * Hook to generate help page.
+ */
+function loco_translate_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.loco_translate':
+      $readme = __DIR__ . '/README.md';
+      $text = file_get_contents($readme);
+      $output = '';
+
+      // If the Markdown module is installed, use it to render the README.
+      if ($text && \Drupal::moduleHandler()->moduleExists('markdown') === TRUE) {
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        $output = $filter->process($text, 'en');
+      }
+      // Else the Markdown module is not installed output the README as text.
+      elseif ($text) {
+        $output = '<pre>' . $text . '</pre>';
+      }
+
+      // Add a link to the Drupal.org project.
+      $output .= '<p>';
+      $output .= t('Visit the <a href=":project_link">Loco Translate project page</a> on Drupal.org for more information.', [
+        ':project_link' => 'https://www.drupal.org/project/loco_translate',
+      ]);
+      $output .= '</p>';
+
+      return $output;
   }
 }
