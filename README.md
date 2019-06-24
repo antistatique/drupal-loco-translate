@@ -95,8 +95,17 @@ Configure your API Keys - as required by Loco - by adding the following code in 
 This module is shipped with drush commands to assist you in your workflow.
 
 ### Push Command
-The Push command will create new translations keys from a reference .po files:
+
+The Push command will create new translations keys (a.k.a assets) into your Loco SaSS - from a reference .po files which should be in your Drupal or Local environmment:
 
   ```bash
-  drush loco_translate:push --language="fr" ./translations/fr.po
+  drush loco:push --language="fr" ./translations/fr.po
+  ```
+
+### Pull Command
+
+The Pull command will fetch keys & translations from your Loco SaSS into Drupal:
+
+  ```bash
+  drush loco:pull --language="fr"
   ```
