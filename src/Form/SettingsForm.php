@@ -74,10 +74,10 @@ class SettingsForm extends ConfigFormBase {
     }
 
     // Get configurations values for both mandatory API keys.
-    $export_key = $config->get('api.export_key');
+    $readonly_key = $config->get('api.readonly_key');
     $fullaccess_key = $config->get('api.fullaccess_key');
 
-    if (!$export_key || !$fullaccess_key) {
+    if (!$readonly_key || !$fullaccess_key) {
       $this->messenger()->addWarning($this->t('Loco Translate requires your Export API key & Full Access API Key.<br/>Fill out the form below or keep secret by adding them to your <code>settings.php</code> file.<br/><small>You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages.</small>', [
         ':loco-url' => 'https://localise.biz/help/developers/api-keys',
       ]));
@@ -87,13 +87,13 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'details',
       '#title' => $this->t('Loco API Keys'),
       // Close the details by default when any API keys is fill.
-      '#open' => $export_key || $fullaccess_key ? FALSE : TRUE,
+      '#open' => $readonly_key || $fullaccess_key ? FALSE : TRUE,
     ];
-    $form['api']['export_key'] = [
+    $form['api']['readonly_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Export key'),
       '#description' => $this->t('This key provides read-only access to your data.'),
-      '#default_value' => $config->get('api.export_key'),
+      '#default_value' => $config->get('api.readonly_key'),
     ];
     $form['api']['fullaccess_key'] = [
       '#type' => 'textfield',
@@ -108,7 +108,7 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Automation'),
       '#description' => $this->t('Automation takes care of running periodic tasks like pulling translations from Loco or pushing new assets to Loco.'),
       // Open the details by default when at least one API keys is fill.
-      '#open' => $export_key || $fullaccess_key ? TRUE : FALSE,
+      '#open' => $readonly_key || $fullaccess_key ? TRUE : FALSE,
     ];
 
     $form['automation']['push'] = [
@@ -219,7 +219,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->validateKey($form_state->getValue('export_key'), $form['api']['export_key'], $form_state);
+    $this->validateKey($form_state->getValue('readonly_key'), $form['api']['readonly_key'], $form_state);
     $this->validateKey($form_state->getValue('fullaccess_key'), $form['api']['fullaccess_key'], $form_state);
     $this->validatePath($form_state);
 
@@ -314,7 +314,7 @@ class SettingsForm extends ConfigFormBase {
     $values = $form_state->getValues();
 
     $config = $this->config('loco_translate.settings');
-    $config->set('api.export_key', $values['export_key'])->save();
+    $config->set('api.readonly_key', $values['readonly_key'])->save();
     $config->set('api.fullaccess_key', $values['fullaccess_key'])->save();
     $config->set('gettext.path', $values['path'])->save();
 

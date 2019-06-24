@@ -39,7 +39,7 @@ class ApiClientFactory {
    */
   public static function withReadOnlyAccess(ConfigFactoryInterface $config_factory) {
     $config = $config_factory->get('loco_translate.settings');
-    $key = $config->get('api.export_key');
+    $key = $config->get('api.readonly_key');
 
     return ApiClient::factory([
       'key' => $key,

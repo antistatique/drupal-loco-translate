@@ -43,8 +43,8 @@ function loco_translate_requirements($phase) {
 
   $config = \Drupal::config('loco_translate.settings');
   if ($phase == 'runtime') {
-    if (empty($config->get('api.export_key'))) {
-      $requirements['loco_translate_export_key'] = [
+    if (empty($config->get('api.readonly_key'))) {
+      $requirements['loco_translate_readonly_key'] = [
         'title' => t('Loco Export API key'),
         'value' => t('Missing'),
         'severity' => REQUIREMENT_ERROR,

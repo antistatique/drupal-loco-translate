@@ -9,7 +9,7 @@ loco_translate.settings:
         fullaccess_key:
           type: string
           label: 'Full Access API Key'
-        export_key:
+        readonly_key:
           type: string
           label: 'Export API Key'
     automation:
