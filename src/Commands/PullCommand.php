@@ -50,7 +50,7 @@ class PullCommand extends DrushCommands {
   }
 
   /**
-   * Pull a local .po file into Loco SAAS.
+   * Pull keys & translations from your Loco SaSS into Drupal.
    *
    * @param array $options
    *   (Optional) An array of options.
@@ -59,6 +59,7 @@ class PullCommand extends DrushCommands {
    * @throws \Drupal\loco_translate\Exception\LocoTranslateException
    *
    * @command loco_translate:pull
+   *
    * @option language
    *   Ex: 'en' or 'fr'. Define in which language the .po file is written
    *   and in which locale you want to import this file into Loco.
@@ -66,8 +67,10 @@ class PullCommand extends DrushCommands {
    * @option status
    *   Ex: 'translated' or 'fuzzy'. The status of translations to be pulled.
    *   [default: all translations are pulled]
+   *
    * @aliases loco:pull
-   * @usage drush loco_translate:pull --language="fr" --status="fuzzy" ./config/translations/fr.po
+   *
+   * @usage drush loco_translate:pull --language="fr" --status="fuzzy"
    *   Pull only fuzzy translations from the Loco SAAS in the french locale.
    */
   public function pull(array $options = ['language' => NULL, 'status' => NULL]) {
