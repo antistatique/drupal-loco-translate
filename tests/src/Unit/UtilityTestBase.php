@@ -21,6 +21,13 @@ abstract class UtilityTestBase extends UnitTestCase {
   protected $utility;
 
   /**
+   * The state mocked service.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -45,9 +52,9 @@ abstract class UtilityTestBase extends UnitTestCase {
     /** @var \Drupal\Core\Language\LanguageManagerInterface|\Prophecy\Prophecy\ProphecyInterface $language_manager */
     $language_manager = $this->prophesize(LanguageManagerInterface::class);
     /** @var \Drupal\Core\State\StateInterface|\Prophecy\Prophecy\ProphecyInterface $state */
-    $state = $this->prophesize(StateInterface::class);
+    $this->state = $this->prophesize(StateInterface::class);
 
-    $this->utility = new Utility($language_manager->reveal(), $state->reveal());
+    $this->utility = new Utility($language_manager->reveal(), $this->state->reveal());
     $language_manager->getLanguages()
       ->willReturn(['en' => $en, 'fr' => $fr]);
   }
