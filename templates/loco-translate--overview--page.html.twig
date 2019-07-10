@@ -1,92 +1,74 @@
-
-<br/>
-<div class="description">{{ 'The "Dashboard" page is designed for organizing your project. You can mainly see translations progress on Loco from this screen, this is also where you\'ll get an overview of your module configuration.'|t }}</div>
-
-<div class="description">{{ 'If you\'re a translator, clicking the "Start translating on Loco" below to open the translation editor.'|t }}</div>
-<br/>
-
-<div class="system-status-general-info">
-  <h2 class="system-status-general-info__header">{{ 'General Loco Information'|t }}</h2>
-  <div class="system-status-general-info__items">
+<div class="system-status-general-info__items">
+  <div class="system-status-general-info__item" style="margin-right: 1em;">
 
     {# Project #}
-    <div class="system-status-general-info__item">
-      <span class="system-status-general-info__item-icon system-status-general-info__item-icon--database"></span>
-      <div class="system-status-general-info__item-details">
-        <h3 class="system-status-general-info__item-title">{{ variables.project.name|capitalize|default('Loco'|t) }}</h3>
-        <div class="description">{{ 'Your project overview on Loco.'|t }}</div>
+    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--database"></span>
+    <div class="system-status-general-info__item-details">
+      <h3 class="system-status-general-info__item-title">{{ variables.project.name|capitalize|default('Loco'|t) }}</h3>
+      <div class="description">{{ 'Your project overview on Loco.'|t }}</div>
 
-        <div class="description">{{ '<strong>@count</strong> locales'|t({'@count': variables.locales|length}) }}</div>
-        <div class="description">{{ '<strong>@count</strong> assets'|t({'@count': variables.assets|length}) }}</div>
+      <div class="description">{{ '<strong>@count</strong> locales'|t({'@count': variables.locales|length}) }}</div>
+      <div class="description">{{ '<strong>@count</strong> assets'|t({'@count': variables.assets|length}) }}</div>
 
-        {% if variables.project.url %}
+      {% if variables.project.url %}
         <ul class="action-links">
           <li><a href="{{ variables.project.url }}" target="_blank" class="button button--primary button--small">{{ 'Start translating on Loco'|t }}</a></li>
         </ul>
-        {% endif %}
-
-      </div>
+      {% endif %}
     </div>
 
-    {# Translation progress #}
-    <div class="system-status-general-info__item">
-      <span class="system-status-general-info__item-icon system-status-general-info__item-icon--server"></span>
-      <div class="system-status-general-info__item-details">
-        <h3 class="system-status-general-info__item-title">{{ 'Translation progress'|t }}</h3>
-        <div class="description">{{ 'The progress of an individual locale shows further detail about the portions that are translated & untranslated into Loco.'|t }}</div>
-        <br/>
+    {# Import and uploads #}
+    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
+    <div class="system-status-general-info__item-details">
+      <h3 class="system-status-general-info__item-title">{{ 'Synchronisation'|t }}</h3>
+      <div class="description">{{ 'Keep track of the last imports & uploads with Loco.'|t }}</div>
 
-        {% for locale in variables.locales %}
-          <h4 class="system-status-general-info__sub-item-title">{{ locale.name }}</h4>
+      {% for pull_last in variables.pull_last %}
+        {{ pull_last }}<br>
+      {% endfor %}
 
-          {% set percent = (locale.progress.translated / variables.assets|length * 100)|number_format(2, '.') %}
-          <div class="progress" data-drupal-progress="">
-            <div class="progress__track">
-              <div class="progress__bar progress__still" style="width: {{ percent }}%"></div>
-            </div>
-            <div class="progress__percentage">{{ percent }}%</div>
-            <div class="progress__description">{{ '@translated/@total translated assets'|t({'@translated': locale.progress.translated,'@total': variables.assets|length}) }}
-              <small>
-                (<a href="{{ loco_translate_export(locale.code) }}" target="_blank" download>{{ 'download from loco'|t }}</a>)
-              </small>
+      {% if variables.push_last is not empty %}
+        —<br>
+        {% for push_last in variables.push_last %}
+          {{ push_last }}<br>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+  </div>
+
+  {# Translation progress #}
+  <div class="system-status-general-info__item">
+    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--server"></span>
+    <div class="system-status-general-info__item-details">
+      <h3 class="system-status-general-info__item-title">{{ 'Translation progress'|t }}</h3>
+      <div class="description">{{ 'Try to translate 100% of everything!'|t }}</div>
+      <br/>
+
+      {% for locale in variables.locales %}
+        <h4 class="system-status-general-info__sub-item-title">{{ locale.name }}</h4>
+
+        {% set percent = (locale.progress.translated / variables.assets|length * 100)|number_format(2, '.') %}
+        <div class="progress" data-drupal-progress="">
+          <div class="progress__track">
+            <div class="progress__bar progress__still" style="width: {{ percent }}%"></div>
+          </div>
+          <div class="progress__percentage">{{ percent }}%</div>
+          <div class="progress__description">{{ '@translated/@total translated assets'|t({'@translated': locale.progress.translated,'@total': variables.assets|length}) }}
+            <small>
+              (<a href="{{ loco_translate_export(locale.code) }}" target="_blank" download>{{ 'download from loco'|t }}</a>)
+            </small>
           </div>
         </div>
 
         {% if not loop.last %}
-        <br/>
-        <br/>
+          <br/>
+          <br/>
         {% endif %}
       {% endfor %}
     </div>
-
   </div>
 
-  {# Push #}
-  <div class="system-status-general-info__item">
-    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
-    <div class="system-status-general-info__item-details">
-      <h3 class="system-status-general-info__item-title">{{ 'Last Push'|t }}</h3>
-      <div class="description">{{ 'Keep track of the last push to Loco by locales.'|t }}</div>
-
-      {% for push_last in variables.push_last %}
-      <p>{{ push_last }}</p>
-      {% endfor %}
-    </div>
-  </div>
-
-  {# Pull #}
-  <div class="system-status-general-info__item">
-    <span class="system-status-general-info__item-icon system-status-general-info__item-icon--clock"></span>
-    <div class="system-status-general-info__item-details">
-      <h3 class="system-status-general-info__item-title">{{ 'Last Import'|t }}</h3>
-      <div class="description">{{ 'Keep track of the last import from Loco by locales.'|t }}</div>
-
-      {% for pull_last in variables.pull_last %}
-      <p>{{ pull_last }}</p>
-      {% endfor %}
-    </div>
-  </div>
-  </div>
 </div>
 
 <div class="system-status-report">

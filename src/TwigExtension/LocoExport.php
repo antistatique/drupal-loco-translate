@@ -40,12 +40,12 @@ class LocoExport extends \Twig_Extension {
     $config_factory = $this->container->get('config.factory');
 
     $config = $config_factory->get('loco_translate.settings');
-    $export_key = $config->get('api.export_key');
+    $readonly_key = $config->get('api.readonly_key');
 
     $params = [
       'index' => 'id',
       'no-folding' => TRUE,
-      'key' => $export_key,
+      'key' => $readonly_key,
     ];
     return 'https://localise.biz:443/api/export/locale/' . $locale . '.po?' . http_build_query($params);
   }

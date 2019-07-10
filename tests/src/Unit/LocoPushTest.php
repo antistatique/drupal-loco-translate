@@ -5,7 +5,6 @@ namespace Drupal\Tests\loco_translate\Unit;
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Loco\Push as LocoPush;
 use Loco\Http\ApiClient;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\Command\Result;
 use Drupal\loco_translate\Exception\LocoApiException;
 
@@ -39,12 +38,8 @@ class LocoPushTest extends UnitTestCase {
     // Mock a fake Loco API Client.
     $this->apiClient = $this->prophesize(ApiClient::class);
 
-    /** @var \Drupal\Core\Config\ConfigFactoryInterface|\Prophecy\Prophecy\ProphecyInterface $language_manager */
-    $config_factory = $this->prophesize(ConfigFactoryInterface::class);
-
     // Mock the loco push manager.
-    $this->locoPush = new LocoPush($config_factory->reveal());
-    $this->locoPush->setApiClient($this->apiClient->reveal());
+    $this->locoPush = new LocoPush($this->apiClient->reveal());
   }
 
   /**

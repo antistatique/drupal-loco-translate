@@ -16,7 +16,6 @@
 function loco_translate_cron_push($langcode, array $settings) {
   $loco_push = \Drupal::service('loco_translate.loco_api.push');
 
-  $loco_push->setApiClientFromConfig();
   $path = $settings['template'];
 
   $loco_push->fromFileToLoco($path, $langcode);

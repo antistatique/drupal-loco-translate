@@ -18,7 +18,6 @@ function loco_translate_cron_pull($langcode, array $settings) {
   $translations_import = \Drupal::service('loco_translate.translations.import');
   $file_system = \Drupal::service('file_system');
 
-  $loco_pull->setApiClientFromConfig();
   $status = $settings['status'] ?? NULL;
   $response = $loco_pull->fromLocoToDrupal($langcode, $status);
 
