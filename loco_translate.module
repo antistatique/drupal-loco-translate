@@ -58,7 +58,7 @@ function loco_translate_cron() {
     }
   }
 
-  // Get configured langcode to pull from loco.
+  // Get configured langcode to push from loco.
   $langcodes = $config->get('automation.push.langcodes');
   if ($langcodes && $config->get('automation.push.template')) {
     foreach ($langcodes as $langcode => $status) {
