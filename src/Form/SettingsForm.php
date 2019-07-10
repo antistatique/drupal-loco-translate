@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Loco\Http\ApiClient;
+use Drupal\Component\Utility\Xss;
 
 /**
  * Configure loco translate settings for this site.
@@ -198,20 +199,6 @@ class SettingsForm extends ConfigFormBase {
       ],
     ];
 
-    $form['gettext'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Gettext'),
-      '#open' => FALSE,
-    ];
-
-    $form['gettext']['path'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Path to gettext binaries files'),
-      '#description' => $this->t('Enter the full path to <code>gettext</code> executable files. Example: "/var/gettext/bin". This may be overridden in settings.php'),
-      '#required' => FALSE,
-      '#default_value' => $config->get('gettext.path'),
-    ];
-
     return parent::buildForm($form, $form_state);
   }
 
@@ -219,9 +206,18 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+
     $this->validateKey($form_state->getValue('readonly_key'), $form['api']['readonly_key'], $form_state);
     $this->validateKey($form_state->getValue('fullaccess_key'), $form['api']['fullaccess_key'], $form_state);
-    $this->validatePath($form_state);
+
+    if ($values['automation']['push']['interval'] > 0) {
+      $this->validatePushAutomation($values['automation']['push'], $form['automation']['push'], $form_state);
+    }
+
+    if ($values['automation']['pull']['interval'] > 0) {
+      $this->validatePullAutomation($values['automation']['pull'], $form['automation']['pull'], $form_state);
+    }
 
     parent::validateForm($form, $form_state);
   }
@@ -255,55 +251,50 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Validate the optional Gettext path value.
+   * Validate the optional push automation.
    *
+   * @param array $values
+   *   An associative array containing the values to validate.
+   * @param array $form
+   *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  private function validatePath(FormStateInterface $form_state) {
-    // Allow the value to be empty.
-    if (empty($form_state->getValue('path'))) {
-      return;
+  private function validatePushAutomation(array $values, array &$form, FormStateInterface $form_state) {
+    // Get enabled langcode(s).
+    $langcodes = array_filter($values['langcodes'], function ($enabled) {
+      return $enabled !== 0;
+    });
+    if (!$langcodes) {
+      $form_state->setError($form['langcodes'], $this->t('@name field is required.', ['@name' => $form['langcodes']['#title']]));
     }
 
-    // Collection of utilities that must be executable in the gettext $path.
-    $utilities = [
-      'autopoint',
-      'gettext',
-      'gettextize',
-      'msgcat',
-      'msgcomm',
-      'msgen',
-      'msgfilter',
-      'msggrep',
-      'msgmerge',
-      'msguniq',
-      'recode-sr-latin',
-      'envsubst',
-      'msgattrib',
-      'msgcmp',
-      'msgconv',
-      'msgexec',
-      'msgfmt',
-      'msginit',
-      'msgunfmt',
-      'ngettext',
-      'xgettext',
-    ];
-
-    $path = $form_state->getValue('path');
-    if (!is_dir($path)) {
-      $form_state->setErrorByName('path', $this->t("The directory %directory does not exist.", ['%directory' => $path]));
+    if (!$values['template']) {
+      $form_state->setError($form['template'], $this->t('@name field is required.', ['@name' => $form['template']['#title']]));
     }
-    else {
-      foreach ($utilities as $utility) {
-        if (!is_file($path . $utility)) {
-          $form_state->setErrorByName('path', $this->t("The utility %utility does not exist.", ['%utility' => $path . $utility]));
-        }
-        if (!is_executable($path . $utility)) {
-          $form_state->setErrorByName('path', $this->t("The utility %utility is not executable.", ['%utility' => $path . $utility]));
-        }
-      }
+
+    if ($values['template'] && !is_file($values['template'])) {
+      $form_state->setError($form['template'], $this->t('@name path should be a readable file.', ['@name' => $form['template']['#title']]));
+    }
+  }
+
+  /**
+   * Validate the optional pull automation.
+   *
+   * @param array $values
+   *   An associative array containing the values to validate.
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  private function validatePullAutomation(array $values, array &$form, FormStateInterface $form_state) {
+    // Get enabled langcode(s).
+    $langcodes = array_filter($values['langcodes'], function ($enabled) {
+      return $enabled !== 0;
+    });
+    if (!$langcodes) {
+      $form_state->setError($form['langcodes'], $this->t('@name field is required.', ['@name' => $form['langcodes']['#title']]));
     }
   }
 
@@ -312,11 +303,11 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
+    $values['automation']['push']['template'] = Xss::filter($values['automation']['push']['template']);
 
     $config = $this->config('loco_translate.settings');
     $config->set('api.readonly_key', $values['readonly_key'])->save();
     $config->set('api.fullaccess_key', $values['fullaccess_key'])->save();
-    $config->set('gettext.path', $values['path'])->save();
 
     // Push config.
     $config->set('automation.push.interval', $values['automation']['push']['interval'])->save();
