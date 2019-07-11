@@ -117,7 +117,6 @@ class UtilityTest extends UtilityTestBase {
   /**
    * @covers \Drupal\loco_translate\Utility::getLastPull
    *
-   * @group kevin
    * @dataProvider getterProvider
    */
   public function testGetLastPull($langcode, array $last_state, $expected) {
