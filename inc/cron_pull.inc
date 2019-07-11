@@ -12,6 +12,10 @@
  *   The langcode to pull from.
  * @param array $settings
  *   The configurations needed to pull from Loco.
+ *
+ *   $settings['status']
+ *     Ex: 'translated' or 'fuzzy'. The status of translations to be pulled.
+ *     [default: all translations are pulled].
  */
 function loco_translate_cron_pull($langcode, array $settings) {
   $loco_pull = \Drupal::service('loco_translate.loco_api.pull');
