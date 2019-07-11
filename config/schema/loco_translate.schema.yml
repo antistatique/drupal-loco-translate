@@ -26,6 +26,9 @@ loco_translate.settings:
             langcodes:
               type: sequence
               label: 'Langcodes'
+              sequence:
+                type: string
+                label: 'Langcode'
             template:
               type: string
               label: 'Template'
@@ -39,6 +42,9 @@ loco_translate.settings:
             langcodes:
               type: sequence
               label: 'Langcodes'
+              sequence:
+                type: string
+                label: 'Langcode'
             status:
               type: string
               label: 'Status'
