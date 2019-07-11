@@ -153,7 +153,7 @@ class UtilityTest extends UtilityTestBase {
       'ensure non-existing langcode returned 0' => [
         'de',
         ['fr' => 3600, 'en' => 3601],
-        NULL,
+        0,
       ],
     ];
   }
