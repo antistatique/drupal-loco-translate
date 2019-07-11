@@ -15,9 +15,6 @@ class PullFormTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  /**
-   * {@inheritdoc}
-   */
   public static $modules = [
     'locale',
     'language',
