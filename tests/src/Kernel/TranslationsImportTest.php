@@ -98,7 +98,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
         7 => "12",
         8 => "13",
       ],
-      "seek" => 885,
+      "seek" => 901,
     ], $report);
 
     // Load all source strings.
