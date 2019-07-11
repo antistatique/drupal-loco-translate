@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco Translate\n"
+"Project-Id-Version: Loco Translate\n"
+"Language: en\n"
+"PO-Revision-Date: en\n"
+"Last-Translator: en\n"
+"Language-Team: en\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "last year"
+msgstr "last year"
+
+msgid "Yesterday"
+msgstr "Yesterday"
+
+msgid "Today"
+msgstr "Today"

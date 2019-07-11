@@ -67,8 +67,14 @@ function loco_translate_cron() {
         continue;
       }
 
-      $last_run = $utility->getLastPush($langcode);
-      if ($now - $last_run >= $config->get('automation.push.interval')) {
+      // Skip when automation push is disabled.
+      if ($config->get('automation.push.interval') <= 0) {
+        continue;
+      }
+
+      // Check last run of this langcode.
+      $next_push = $utility->getLastPush($langcode) + $config->get('automation.push.interval');
+      if ($now <= $next_push) {
         continue;
       }
 
@@ -76,8 +82,8 @@ function loco_translate_cron() {
         loco_translate_cron_push($langcode, $config->get('automation.push'));
         $utility->setLastPush($langcode, $now);
       }
-      catch (\Throwable $th) {
-        watchdog_exception('loco_translate', $th, 'Error while trying to push to Loco.');
+      catch (\Exception $e) {
+        watchdog_exception('loco_translate', $e, 'Error while trying to push to Loco.');
       }
     }
   }

@@ -21,10 +21,7 @@ function loco_translate_cron_push($langcode, array $settings) {
 
   $path = $settings['template'];
   if (!is_file($path) || !is_readable($path)) {
-    \Drupal::service('logger.channel.loco_translate')->warning('Template file @file is not reacheable.', [
-      "@file" => $path,
-    ]);
-    return;
+    throw new \Exception(sprintf('Template file %s is not reacheable.', $path));
   }
 
   $loco_push->fromFileToLoco($path, $langcode);
