@@ -52,6 +52,9 @@ class PullCommand extends DrushCommands {
   /**
    * Pull keys & translations from your Loco SaSS into Drupal.
    *
+   * @param string $language
+   *   Define which language to pull from Loco and in which locale it will be
+   *   imported into Drupal. Eg: 'en' or 'fr'.
    * @param array $options
    *   (Optional) An array of options.
    *
@@ -60,27 +63,16 @@ class PullCommand extends DrushCommands {
    *
    * @command loco_translate:pull
    *
-   * @option language
-   *   Ex: 'en' or 'fr'. Define in which language the .po file is written
-   *   and in which locale you want to import this file into Loco.
-   *   [default: detect the language from the .po filename]
    * @option status
    *   Ex: 'translated' or 'fuzzy'. The status of translations to be pulled.
    *   [default: all translations are pulled]
    *
    * @aliases loco:pull
    *
-   * @usage drush loco_translate:pull --language="fr" --status="fuzzy"
+   * @usage drush loco_translate:pull fr --status="fuzzy"
    *   Pull only fuzzy translations from the Loco SAAS in the french locale.
    */
-  public function pull(array $options = ['language' => NULL, 'status' => NULL]) {
-    $language = $options['language'];
-
-    if (!$language) {
-      $this->output()->writeln('Language parameter is required.');
-      return;
-    }
-
+  public function pull($language, array $options = ['status' => NULL]) {
     $status = $options['status'];
 
     $this->output()->writeln(sprintf('Importing %s "%s" translations from Loco.', $status ?? 'all', $language));

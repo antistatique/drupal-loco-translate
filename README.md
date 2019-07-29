@@ -99,7 +99,7 @@ This module is shipped with drush commands to assist you in your workflow.
 The Push command will create new translations keys (a.k.a assets) into your Loco SaSS - from a reference .po files which should be in your Drupal or Local environmment:
 
   ```bash
-  drush loco:push --language="fr" ./translations/fr.po
+  drush loco:push ./translations/fr.po --language="fr"
   ```
 
 ### Pull Command
@@ -107,5 +107,5 @@ The Push command will create new translations keys (a.k.a assets) into your Loco
 The Pull command will fetch keys & translations from your Loco SaSS into Drupal:
 
   ```bash
-  drush loco:pull --language="fr"
+  drush loco:pull fr
   ```
