@@ -56,10 +56,31 @@ class LocoPushTest extends UnitTestCase {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
-      'index' => 'id',
+      'index' => NULL,
     ])->willReturn($response);
 
     $result = $this->locoPush->fromFileToLoco($file, 'fr');
+    $this->assertEquals($result, $response);
+  }
+
+  /**
+   * @covers ::fromFileToLoco
+   */
+  public function testPushFromFileToLocoAlteredIndexSuccess() {
+    $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
+    $data = file_get_contents($file);
+    $response = new Result(json_decode(file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/import-200.json'), TRUE));
+
+    $this->apiClient->import([
+      'data' => $data,
+      'locale' => 'fr',
+      'ext' => 'po',
+      'ignore-existing' => TRUE,
+      'tag-absent' => 'absent',
+      'index' => 'id',
+    ])->willReturn($response);
+
+    $result = $this->locoPush->fromFileToLoco($file, 'fr', 'id');
     $this->assertEquals($result, $response);
   }
 
@@ -77,7 +98,7 @@ class LocoPushTest extends UnitTestCase {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
-      'index' => 'id',
+      'index' => NULL,
     ])->willReturn($response);
 
     $this->expectException(LocoApiException::class);
@@ -99,7 +120,7 @@ class LocoPushTest extends UnitTestCase {
       'ext' => 'po',
       'ignore-existing' => TRUE,
       'tag-absent' => 'absent',
-      'index' => 'id',
+      'index' => NULL,
     ])->willReturn($response);
 
     $this->expectException(LocoApiException::class);

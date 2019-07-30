@@ -66,18 +66,22 @@ class PullCommand extends DrushCommands {
    * @option status
    *   Ex: 'translated' or 'fuzzy'. The status of translations to be pulled.
    *   [default: all translations are pulled]
+   * @option index
+   *   Override default lookup key for the file format.
+   *   Available: "id", "text" or a custom alias. [default: "text"].
    *
    * @aliases loco:pull
    *
    * @usage drush loco_translate:pull fr --status="fuzzy"
    *   Pull only fuzzy translations from the Loco SAAS in the french locale.
    */
-  public function pull($language, array $options = ['status' => NULL]) {
+  public function pull($language, array $options = ['status' => NULL, 'index' => NULL]) {
     $status = $options['status'];
+    $index = $options['index'];
 
     $this->output()->writeln(sprintf('Importing %s "%s" translations from Loco.', $status ?? 'all', $language));
 
-    $response = $this->locoPull->fromLocoToDrupal($language, $status);
+    $response = $this->locoPull->fromLocoToDrupal($language, $index, $status);
 
     /** @var \Drupal\file\FileInterface $file */
     $file = file_save_data($response->__toString(), 'translations://');

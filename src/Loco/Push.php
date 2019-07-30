@@ -45,10 +45,12 @@ class Push {
    *   The .po file to upload on Loco.
    * @param string $locale
    *   The locale code.
+   * @param string $index
+   *   Specify whether translations in your file are indexed by IDs or text.
    *
    * @see https://localise.biz/api/#!/import/import
    */
-  public function fromFileToLoco($source, $locale) {
+  public function fromFileToLoco($source, $locale, $index = NULL) {
     $file = realpath($source);
 
     if (!file_exists($file) || !is_file($file)) {
@@ -70,7 +72,7 @@ class Push {
         'ext' => 'po',
         'ignore-existing' => TRUE,
         'tag-absent' => 'absent',
-        'index' => 'id',
+        'index' => $index,
       ]);
 
       if ($result['status'] !== 200) {

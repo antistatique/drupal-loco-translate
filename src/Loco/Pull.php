@@ -56,6 +56,8 @@ class Pull {
    *   The locale code.
    * @param string $status
    *   Export translations with a specific status or flag.
+   * @param string $index
+   *   Override lookup key for the file format: "id", "text" or a custom alias.
    *
    * @return \Loco\Http\Result\RawResult
    *   The result of the query.
@@ -65,7 +67,7 @@ class Pull {
    *
    * @see https://localise.biz/api/#!/import/import
    */
-  public function fromLocoToDrupal($locale, $status = NULL) {
+  public function fromLocoToDrupal($locale, $status = NULL, $index = NULL) {
     // Check for existing & enabled langcode.
     if (!$this->utility->isLangcodeEnabled($locale)) {
       throw LocoTranslateException::invalidLangcode($locale);
@@ -75,7 +77,7 @@ class Pull {
       /* @var \Loco\Http\Result\RawResult */
       $result = $this->client->exportLocale([
         'ext' => 'po',
-        'index' => 'id',
+        'index' => $index,
         'locale' => $locale,
         'no-folding' => TRUE,
         'status' => $status,

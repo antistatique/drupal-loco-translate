@@ -60,13 +60,33 @@ class LocoPullTest extends UnitTestCase {
 
     $this->apiClient->exportLocale([
       'ext' => 'po',
-      'index' => 'id',
+      'index' => NULL,
       'locale' => 'fr',
       'no-folding' => TRUE,
       'status' => 'translated',
     ])->willReturn($response);
 
     $result = $this->locoPull->fromLocoToDrupal('fr', 'translated');
+    $this->assertEquals($result->__toString(), $data);
+  }
+
+  /**
+   * @covers ::fromLocoToDrupal
+   */
+  public function testPullFromLocoToDrupalAlteredIndex() {
+    $data = file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/export-200.po');
+    $response = new Response(200, [], $data);
+    $response = RawResult::fromResponse($response);
+
+    $this->apiClient->exportLocale([
+      'ext' => 'po',
+      'index' => 'id',
+      'locale' => 'fr',
+      'no-folding' => TRUE,
+      'status' => 'translated',
+    ])->willReturn($response);
+
+    $result = $this->locoPull->fromLocoToDrupal('fr', 'translated', 'id');
     $this->assertEquals($result->__toString(), $data);
   }
 
@@ -81,7 +101,7 @@ class LocoPullTest extends UnitTestCase {
     // Ony any non-200 HTTP response, Guzzle will throw an exception.
     $this->apiClient->exportLocale([
       'ext' => 'po',
-      'index' => 'id',
+      'index' => NULL,
       'locale' => 'fr',
       'no-folding' => TRUE,
       'status' => NULL,
@@ -102,7 +122,7 @@ class LocoPullTest extends UnitTestCase {
     // Ony any non-200 HTTP response, Guzzle will throw an exception.
     $this->apiClient->exportLocale([
       'ext' => 'po',
-      'index' => 'id',
+      'index' => NULL,
       'locale' => 'fr',
       'no-folding' => TRUE,
       'status' => 'translated',
