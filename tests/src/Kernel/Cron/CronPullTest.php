@@ -87,10 +87,11 @@ class CronPullTest extends KernelTestBase {
 
   /**
    * Ensure the configured interval is respected.
+   *
    * @dataProvider goodIntervalProvider
    */
   public function testCronPullGoodInterval($langcode, $last_run, $interval) {
-    $data = file_get_contents(drupal_get_path('module', 'loco_translate_test') .'/responses/export-200.po');
+    $data = file_get_contents(drupal_get_path('module', 'loco_translate_test') . '/responses/export-200.po');
     $response = new Response(200, [], $data);
     $response = RawResult::fromResponse($response);
 
@@ -132,13 +133,13 @@ class CronPullTest extends KernelTestBase {
   public function goodIntervalProvider() {
     return [
       [
-        'en', time() - 100000, 3600
+        'en', time() - 100000, 3600,
       ],
       [
-        'en', 0, 3600
+        'en', 0, 3600,
       ],
       [
-        'en', NULL, 3600
+        'en', NULL, 3600,
       ],
     ];
   }
@@ -173,7 +174,7 @@ class CronPullTest extends KernelTestBase {
   public function badIntervalProvider() {
     return [
       [
-        'en', time() - 4000, 50000
+        'en', time() - 4000, 50000,
       ],
     ];
   }
@@ -196,4 +197,5 @@ class CronPullTest extends KernelTestBase {
     $last_pull = $this->state->get('loco_translate.api.pull_last');
     $this->assertNull($last_pull['en']);
   }
+
 }

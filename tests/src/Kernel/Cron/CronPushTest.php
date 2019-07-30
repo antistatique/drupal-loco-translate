@@ -77,6 +77,7 @@ class CronPushTest extends KernelTestBase {
 
   /**
    * Ensure the configured interval is respected.
+   *
    * @dataProvider goodIntervalProvider
    */
   public function testCronPushGoodInterval($langcode, $last_run, $interval) {
@@ -106,19 +107,20 @@ class CronPushTest extends KernelTestBase {
   public function goodIntervalProvider() {
     return [
       [
-        'en', time() - 4000, 3600
+        'en', time() - 4000, 3600,
       ],
       [
-        'en', 0, 3600
+        'en', 0, 3600,
       ],
       [
-        'en', NULL, 3600
+        'en', NULL, 3600,
       ],
     ];
   }
 
   /**
    * Ensure the configured interval is respected.
+   *
    * @dataProvider badIntervalProvider
    */
   public function testCronPushBadInterval($langcode, $last_run, $interval) {
@@ -146,7 +148,7 @@ class CronPushTest extends KernelTestBase {
   public function badIntervalProvider() {
     return [
       [
-        'en', time() - 4000, 50000
+        'en', time() - 4000, 50000,
       ],
     ];
   }
