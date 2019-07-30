@@ -1,5 +1,0 @@
-name: Loco Translate Drush Commands
-description: Provides useful drush commands to work with Loco SAAS.
-core: 8.x
-type: module
-package: Custom

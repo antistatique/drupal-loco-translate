@@ -5,6 +5,9 @@
  * Primary module hooks for Loco Translate module.
  */
 
+require_once 'inc/cron_pull.inc';
+require_once 'inc/cron_push.inc';
+
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -17,6 +20,77 @@ function loco_translate_theme($existing, $type, $theme, $path) {
       'template'  => 'loco-translate--overview--page',
     ],
   ];
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Automation of Loco Translate module.
+ */
+function loco_translate_cron() {
+  $now = time();
+  $config = \Drupal::config('loco_translate.settings');
+  $utility = \Drupal::service('loco_translate.utility');
+
+  // Get configured langcode to pull from loco.
+  $langcodes = $config->get('automation.pull.langcodes');
+  if ($langcodes) {
+    foreach ($langcodes as $langcode => $status) {
+      // Skip unchecked langcode.
+      if (!$status) {
+        continue;
+      }
+
+      // Skip when automation pull is disabled.
+      if ($config->get('automation.pull.interval') <= 0) {
+        continue;
+      }
+
+      // Check last run of this langcode.
+      $next_pull = $utility->getLastPull($langcode) + $config->get('automation.pull.interval');
+      if ($now <= $next_pull) {
+        continue;
+      }
+
+      try {
+        loco_translate_cron_pull($langcode, $config->get('automation.pull'));
+        $utility->setLastPull($langcode, $now);
+      }
+      catch (\Exception $e) {
+        watchdog_exception('loco_translate', $e, 'Error while trying to pull from Loco.');
+      }
+    }
+  }
+
+  // Get configured langcode to push from loco.
+  $langcodes = $config->get('automation.push.langcodes');
+  if ($langcodes && $config->get('automation.push.template')) {
+    foreach ($langcodes as $langcode => $status) {
+      // Skip unchecked langcode.
+      if (!$status) {
+        continue;
+      }
+
+      // Skip when automation push is disabled.
+      if ($config->get('automation.push.interval') <= 0) {
+        continue;
+      }
+
+      // Check last run of this langcode.
+      $next_push = $utility->getLastPush($langcode) + $config->get('automation.push.interval');
+      if ($now <= $next_push) {
+        continue;
+      }
+
+      try {
+        loco_translate_cron_push($langcode, $config->get('automation.push'));
+        $utility->setLastPush($langcode, $now);
+      }
+      catch (\Exception $e) {
+        watchdog_exception('loco_translate', $e, 'Error while trying to push to Loco.');
+      }
+    }
+  }
 }
 
 /**

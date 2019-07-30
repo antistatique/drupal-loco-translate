@@ -15,9 +15,6 @@ class OverviewControllerTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  /**
-   * {@inheritdoc}
-   */
   public static $modules = [
     'locale',
     'language',
