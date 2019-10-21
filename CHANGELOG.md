@@ -1,6 +1,18 @@
 CHANGELOG
 ---------
 
-## 8.x-1.0-NEXT-RELEASE (2019-06-XX)
+## 8.x-1.0-beta1 (2019-10-21)
+ - add push automation via Cron
+ - add pull automation via Cron
+ - cover and improve the utility storage of last pull/push getter/setter
+ - change how the loco:pull command works by forcing the language as parameter instead of option
+ - add the 'index' on push/pull as optionnal
+ - update utility get last push/pull with default to zero instead of null
+ - update loco_translate schema with langcodes sequence type
+ - add form settings validations on push/pull automations & removed unecessary gettext
 
-  Text for the NEXT RELEASE.
+## 8.x-1.0-alpha1 (2019-06-24)
+ - first alpha release with basic features
+ - push command from .po file to Loco SaSS
+ - pull command from Loco SaSS to Drupal database 
+ - basic form settings with Loco SaSS API credentials
