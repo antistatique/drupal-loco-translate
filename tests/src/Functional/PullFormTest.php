@@ -30,6 +30,11 @@ class PullFormTest extends BrowserTestBase {
   protected $profile = 'minimal';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Ensure the routing permissions works.
    */
   public function testAccessPermission() {
