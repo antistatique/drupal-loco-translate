@@ -16,7 +16,7 @@ Drupal repo
 Github repo
 
   ```bash
-  git remote add github https://github.com/antistatique/drupal-loco-translate.git
+  git remote add github git@github.com:antistatique/drupal-loco-translate.git
   ```
 
 ## 🔧 Prerequisites
