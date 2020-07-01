@@ -1,6 +1,9 @@
 CHANGELOG
 ---------
 
+## NEXT RELEASE
+ - replace drupal_ti by wengerk/docker-drupal-for-contrib
+
 ## 8.x-1.0-beta1 (2019-10-21)
  - add push automation via Cron
  - add pull automation via Cron
