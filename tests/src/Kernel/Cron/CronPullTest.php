@@ -120,7 +120,7 @@ class CronPullTest extends KernelTestBase {
 
     $last_pull = $this->state->get('loco_translate.api.pull_last');
     $this->assertArrayHasKey($langcode, $last_pull);
-    $this->assertInternalType('int', $last_pull[$langcode]);
+    $this->assertIsInt($last_pull[$langcode]);
     $this->assertGreaterThan($last_run, $last_pull[$langcode]);
   }
 
