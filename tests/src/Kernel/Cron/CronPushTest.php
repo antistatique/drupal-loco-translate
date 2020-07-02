@@ -94,7 +94,7 @@ class CronPushTest extends KernelTestBase {
 
     $last_push = $this->state->get('loco_translate.api.push_last');
     $this->assertArrayHasKey($langcode, $last_push);
-    $this->assertInternalType('int', $last_push[$langcode]);
+    $this->assertIsInt($last_push[$langcode]);
     $this->assertGreaterThan($last_run, $last_push[$langcode]);
   }
 
