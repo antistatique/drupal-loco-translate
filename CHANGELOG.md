@@ -1,6 +1,9 @@
 CHANGELOG
 ---------
 
+## NEXT RELEASE
+ - fix Issue #3095292 by wengerk: drush loco_translate:pull can't specify the --status parameters
+
 ## 8.x-1.0 (2020-07-02)
  - stable release from 8.x to 8.7.x
 
