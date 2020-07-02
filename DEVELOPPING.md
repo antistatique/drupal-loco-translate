@@ -16,7 +16,7 @@ Drupal repo
 Github repo
 
   ```bash
-  git remote add github https://github.com/antistatique/drupal-loco-translate.git
+  git remote add github git@github.com:antistatique/drupal-loco-translate.git
   ```
 
 ## 🔧 Prerequisites
@@ -24,56 +24,31 @@ Github repo
 First of all, you will need to have the following tools installed
 globally on your environment:
 
+  * drush
   * Latest dev release of Drupal 8.x.
+  * docker
+  * docker-compose
+
+### Project bootstrap
+
+Once run, you will be able to access to your fresh installed Drupal on `localhost::8888`.
+
+    docker-compose build --pull --build-arg BASE_IMAGE_TAG=8.9 drupal
+    (get a coffee, this will take some time...)
+    docker-compose up -d drupal
+    docker-compose exec -u www-data drupal drush site-install standard --db-url="mysql://drupal:drupal@db/drupal" --site-name=Example -y
+    
+    # You may be interesed by reseting the admin passowrd of your Docker and install the module using those cmd.
+    docker-compose exec drupal drush user:password admin admin
+    docker-compose exec drupal drush en loco_translate
 
 ## 🏆 Tests
 
-Loco Translate us PHPUnit to run test coverage.
+We use the [Docker for Drupal Contrib images](https://hub.docker.com/r/wengerk/drupal-for-contrib) to run testing on our project.
 
-*Run Unit tests*
+Run testing by stopping at first failure using the following command:
 
-  ```bash
-  # You must be on the drupal-root folder - usually /web.
-  cd web
-  ../vendor/bin/phpunit -c core \
-  --group loco_translate_unit
-  ```
-
-*Run Functional tests*
-
-For some tests you need a working database connection and for browser tests
-your Drupal installation needs to be reachable via a web server.
-Copy the phpunit config file:
-
-  ```bash
-  cd core
-  cp phpunit.xml.dist phpunit.xml
-  ```
-
-You must provide `SIMPLETEST_BASE_URL`, Eg. `http://localhost`.
-You must provide `SIMPLETEST_DB`,
-Eg. `sqlite://localhost/build/loco_translate.sqlite`.
-
-  ```bash
-  # You must be on the drupal-root folder - usually /web.
-  cd web
-  SIMPLETEST_DB="sqlite://localhost//tmp/loco_translate.sqlite" \
-  SIMPLETEST_BASE_URL='http://d8.test' \
-  ../vendor/bin/phpunit -c core \
-  --group loco_translate_functionnal
-  ```
-
-Debug using
-
-  ```bash
-  # You must be on the drupal-root folder - usually /web.
-  cd web
-  SIMPLETEST_DB="sqlite://localhost//tmp/loco_translate.sqlite" \
-  SIMPLETEST_BASE_URL='http://d8.test' \
-  ../vendor/bin/phpunit -c core \
-  --group loco_translate \
-  --printer="\Drupal\Tests\Listeners\HtmlOutputPrinter" --stop-on-error
-  ```
+    docker-compose exec -u www-data drupal phpunit --group=loco_translate --no-coverage --stop-on-failure
 
 You must provide a `BROWSERTEST_OUTPUT_DIRECTORY`,
 Eg. `/path/to/webroot/sites/simpletest/browser_output`.

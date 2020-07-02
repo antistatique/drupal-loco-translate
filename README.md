@@ -40,6 +40,20 @@ The module is ready to be used in Drupal 8, there are no known issues.
 This version should work with all Drupal 8 releases using Drush 9+,
 and it is always recommended keeping Drupal core installations up to date.
 
+## Backerymails versions
+
+The version `8.x-1.x` is not compatible with Drupal `8.8.x`.
+Drupal `8.8.x` brings some breaking change with tests and so you
+must upgrade to `8.x-2.x` version of **Loco Translate**.
+
+## Which version should I use?
+
+|Drupal Core|Loco Translate|
+|:---------:|:------------:|
+|8.7.x      |1.x           |
+|8.8.x      |2.x           |
+|9.x        |2.x           |
+
 ## Dependencies
 
 This module relies on [Loco API](https://localise.biz) & the [Loco Library](https://symfony.com/doc/current/components/finder.html).
