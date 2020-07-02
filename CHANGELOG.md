@@ -1,6 +1,9 @@
 CHANGELOG
 ---------
 
+## NEXT RELEASE
+ - fix phpunit 9+ deprecation - assertInternalType
+
 ## 8.x-2.0-beta1 (2020-07-02)
  - replace drupal_ti by wengerk/docker-drupal-for-contrib
  - ensure compatibility with Drupal 8.8+
