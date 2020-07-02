@@ -1,8 +1,10 @@
 CHANGELOG
 ---------
 
-## NEXT RELEASE
+## 8.x-2.0-beta1 (2020-07-02)
  - replace drupal_ti by wengerk/docker-drupal-for-contrib
+ - ensure compatibility with Drupal 8.8+
+ - ensure compatibility with Drupal 9
 
 ## 8.x-1.0 (2020-07-02)
  - stable release from 8.x to 8.7.x
