@@ -83,8 +83,12 @@ class PullCommand extends DrushCommands {
 
     $response = $this->locoPull->fromLocoToDrupal($language, $status, $index);
 
+    // Prepare the translations directory if not already existing.
+    $translations_directory = 'translations://';
+    $this->fileSystem->prepareDirectory($translations_directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+
     /** @var \Drupal\file\FileInterface $file */
-    $file = file_save_data($response->__toString(), 'translations://');
+    $file = file_save_data($response->__toString(), $translations_directory);
     $path = $this->fileSystem->realPath($file->getFileUri());
 
     $report = $this->translationsImport->fromFile($path, $language);
