@@ -73,17 +73,17 @@ Visit us at [www.antistatique.net](https://www.antistatique.net) or
 We highly recommend you to install the module using `composer`.
 
   ```bash
-  composer require drupal/loco-translate
+  composer require drupal/loco_translate
   ```
 
 You can also install it using the `drush` or `drupal console` cli.
 
   ```bash
-  drush dl loco-translate
+  drush dl loco_translate
   ```
 
   ```bash
-  drupal module:install loco-translate
+  drupal module:install loco_translate
   ```
 
 Configure your API Keys - as required by Loco - by adding the following code in your `settings.php`
