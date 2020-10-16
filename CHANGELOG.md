@@ -5,6 +5,7 @@ CHANGELOG
  - fix phpunit 9+ deprecation - assertInternalType
  - fix Issue #3095292 by wengerk: drush loco_translate:pull can't specify the --status parameters
  - fix Issue #3156326 by wengerk: Translate folder does not exists when pull 
+ - fix Issue #3177286 by wengerk: Call to a member function getFileUri() on bool when "translations://" or "locale.settings.translation.path" not set
 
 ## 8.x-2.0-beta1 (2020-07-02)
  - replace drupal_ti by wengerk/docker-drupal-for-contrib
