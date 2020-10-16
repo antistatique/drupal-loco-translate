@@ -198,4 +198,69 @@ class CronPullTest extends KernelTestBase {
     $this->assertNull($last_pull['en']);
   }
 
+  /**
+   * Removing the locale.settings.translation.path should throw in Watchdog.
+   */
+  public function testCronPullWithoutTranslationDirDestinationFailSilently() {
+    \Drupal::configFactory()->getEditable('locale.settings')
+      ->set('translation.path', '')
+      ->save();
+
+    $data = file_get_contents(drupal_get_path('module', 'loco_translate_test') . '/responses/export-200.po');
+    $response = new Response(200, [], $data);
+    $response = RawResult::fromResponse($response);
+
+    // Mock the loco pull manager to prevent any API call.
+    $loco_pull = $this->prophesize(LocoPull::class);
+    $loco_pull->fromLocoToDrupal('en', Argument::any())->willReturn($response)->shouldBeCalled();
+    $this->container->set('loco_translate.loco_api.pull', $loco_pull->reveal());
+
+    // Mock the Translations importer.
+    $translation_import = $this->prophesize(TranslationsImport::class);
+    $translation_import->fromFile(Argument::type('string'), Argument::type('string'))->shouldNotBeCalled();
+    $this->container->set('loco_translate.translations.import', $translation_import->reveal());
+
+    $this->cronConfig->set('automation.pull.interval', time() - 100000)->save();
+    $this->state->set('loco_translate.api.pull_last', ['en' => 3600]);
+
+    // The interval has expired, so the cron should.
+    loco_translate_cron();
+
+    $last_pull = $this->state->get('loco_translate.api.pull_last');
+    $this->assertArrayHasKey('en', $last_pull);
+    $this->assertIsInt($last_pull['en']);
+  }
+
+  /**
+   * Removing the locale.settings.translation.path should throw an error.
+   */
+  public function testCronPullWithoutTranslationDirDestination() {
+    \Drupal::configFactory()->getEditable('locale.settings')
+      ->set('translation.path', '')
+      ->save();
+
+    $data = file_get_contents(drupal_get_path('module', 'loco_translate_test') . '/responses/export-200.po');
+    $response = new Response(200, [], $data);
+    $response = RawResult::fromResponse($response);
+
+    // Mock the loco pull manager to prevent any API call.
+    $loco_pull = $this->prophesize(LocoPull::class);
+    $loco_pull->fromLocoToDrupal('en', Argument::any())->willReturn($response)->shouldBeCalled();
+    $this->container->set('loco_translate.loco_api.pull', $loco_pull->reveal());
+
+    // Mock the Translations importer.
+    $translation_import = $this->prophesize(TranslationsImport::class);
+    $this->container->set('loco_translate.translations.import', $translation_import->reveal());
+
+    // When the download destination directory is not reachable, an exception
+    // should be thrown.
+    $this->expectException(\RuntimeException::class);
+    $this->expectExceptionMessage('Download error. Could not move downloaded file from Loco to destination translations://.');
+
+    loco_translate_cron_pull('en', [
+      'interval' => 1602738908,
+      'langcodes' => ['en' => 'en'],
+    ]);
+  }
+
 }

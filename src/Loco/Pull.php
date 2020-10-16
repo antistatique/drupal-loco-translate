@@ -74,7 +74,7 @@ class Pull {
     }
 
     try {
-      /* @var \Loco\Http\Result\RawResult */
+      /** @var \Loco\Http\Result\RawResult */
       $result = $this->client->exportLocale([
         'ext' => 'po',
         'index' => $index,

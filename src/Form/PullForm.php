@@ -156,8 +156,15 @@ class PullForm extends FormBase {
       try {
         $response = $this->locoPull->fromLocoToDrupal($langcode, $status);
 
+        $destination_directory = 'translations://';
+        $destination_writable = $this->fileSystem->prepareDirectory($destination_directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+
+        if (!$destination_writable) {
+          throw new \RuntimeException(sprintf('Download error. Could not move downloaded file from Loco to destination %s.', $destination_directory));
+        }
+
         /** @var \Drupal\file\FileInterface $file */
-        $file = file_save_data($response->__toString(), 'translations://');
+        $file = file_save_data($response->__toString(), $destination_directory);
         $form_state->setValue('files[' . $langcode . ']', $this->fileSystem->realPath($file->getFileUri()));
       }
       catch (\Exception $e) {
