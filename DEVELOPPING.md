@@ -48,7 +48,7 @@ We use the [Docker for Drupal Contrib images](https://hub.docker.com/r/wengerk/d
 
 Run testing by stopping at first failure using the following command:
 
-    docker-compose exec -u www-data drupal phpunit --group=loco_translate --no-coverage --stop-on-failure
+    docker-compose exec -u www-data drupal phpunit --group=loco_translate --no-coverage --stop-on-failure --configuration=/var/www/html/phpunit.xml
 
 You must provide a `BROWSERTEST_OUTPUT_DIRECTORY`,
 Eg. `/path/to/webroot/sites/simpletest/browser_output`.
