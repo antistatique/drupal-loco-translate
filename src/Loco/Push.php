@@ -65,7 +65,7 @@ class Push {
     $data = file_get_contents($file);
 
     try {
-      /* @var \GuzzleHttp\Command\Result */
+      /** @var \GuzzleHttp\Command\Result */
       $result = $this->client->import([
         'data' => $data,
         'locale' => $locale,

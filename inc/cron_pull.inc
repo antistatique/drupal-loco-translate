@@ -5,6 +5,8 @@
  * Pull cron function for Loco Translate module.
  */
 
+use Drupal\Core\File\FileSystemInterface;
+
 /**
  * Pull assets & translations from Loco.
  *
@@ -25,8 +27,15 @@ function loco_translate_cron_pull($langcode, array $settings) {
   $status = $settings['status'] ?? NULL;
   $response = $loco_pull->fromLocoToDrupal($langcode, $status);
 
+  $destination_directory = 'translations://';
+  $destination_writable = $file_system->prepareDirectory($destination_directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+
+  if (!$destination_writable) {
+    throw new \RuntimeException(sprintf('Download error. Could not move downloaded file from Loco to destination %s.', $destination_directory));
+  }
+
   /** @var \Drupal\file\FileInterface $file */
-  $file = file_save_data($response->__toString(), 'translations://');
+  $file = file_save_data($response->__toString(), $destination_directory);
   $path = $file_system->realPath($file->getFileUri());
   $report = $translations_import->fromFile($path, $langcode);
 

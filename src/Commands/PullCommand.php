@@ -83,12 +83,16 @@ class PullCommand extends DrushCommands {
 
     $response = $this->locoPull->fromLocoToDrupal($language, $status, $index);
 
+    $destination_directory = 'translations://';
     // Prepare the translations directory if not already existing.
-    $translations_directory = 'translations://';
-    $this->fileSystem->prepareDirectory($translations_directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+    $destination_writable = $this->fileSystem->prepareDirectory($destination_directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+
+    if (!$destination_writable) {
+      throw new \RuntimeException(sprintf('Download error. Could not move downloaded file from Loco to destination %s.', $destination_directory));
+    }
 
     /** @var \Drupal\file\FileInterface $file */
-    $file = file_save_data($response->__toString(), $translations_directory);
+    $file = file_save_data($response->__toString(), $destination_directory);
     $path = $this->fileSystem->realPath($file->getFileUri());
 
     $report = $this->translationsImport->fromFile($path, $language);
