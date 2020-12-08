@@ -38,7 +38,7 @@ class TranslationsTest extends TranslationsTestsBase {
     $strings = $this->localStorage->getStrings([]);
     $this->assertEquals(count($strings), 0, 'Found 0 source strings in the database.');
     $translations = $this->localStorage->findTranslation([]);
-    $this->assertEquals(count($translations), 0, 'Found 0 translations strings in the database.');
+    $this->assertNull($translations, 'Found 0 translations strings in the database.');
   }
 
 }
