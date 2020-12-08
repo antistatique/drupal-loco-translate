@@ -5,3 +5,6 @@ ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Install loco/loco as required by the module
 RUN composer require loco/loco:^2.0.7
+
+# Override the default template for PHPUnit testing.
+COPY phpunit.xml /opt/drupal/web/phpunit.xml
