@@ -37,7 +37,7 @@ Once run, you will be able to access to your fresh installed Drupal on `localhos
     (get a coffee, this will take some time...)
     docker-compose up -d drupal
     docker-compose exec -u www-data drupal drush site-install standard --db-url="mysql://drupal:drupal@db/drupal" --site-name=Example -y
-    
+
     # You may be interesed by reseting the admin passowrd of your Docker and install the module using those cmd.
     docker-compose exec drupal drush user:password admin admin
     docker-compose exec drupal drush en loco_translate
@@ -49,9 +49,6 @@ We use the [Docker for Drupal Contrib images](https://hub.docker.com/r/wengerk/d
 Run testing by stopping at first failure using the following command:
 
     docker-compose exec -u www-data drupal phpunit --group=loco_translate --no-coverage --stop-on-failure --configuration=/var/www/html/phpunit.xml
-
-You must provide a `BROWSERTEST_OUTPUT_DIRECTORY`,
-Eg. `/path/to/webroot/sites/simpletest/browser_output`.
 
 ## 🚔 Check Drupal coding standards & Drupal best practices
 
