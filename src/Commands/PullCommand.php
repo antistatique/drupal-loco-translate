@@ -75,7 +75,10 @@ class PullCommand extends DrushCommands {
    * @usage drush loco_translate:pull fr --status="fuzzy"
    *   Pull only fuzzy translations from the Loco SAAS in the french locale.
    */
-  public function pull($language, array $options = ['status' => NULL, 'index' => NULL]) {
+  public function pull($language, array $options = [
+    'status' => NULL,
+    'index' => NULL,
+  ]) {
     $status = $options['status'];
     $index = $options['index'];
 

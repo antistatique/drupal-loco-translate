@@ -5,7 +5,7 @@ namespace Drupal\loco_translate\TwigExtension;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
- * Class LocoExport.
+ * Loco Twig Extensions.
  */
 class LocoExport extends \Twig_Extension {
   use ContainerAwareTrait;
