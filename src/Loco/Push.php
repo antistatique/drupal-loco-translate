@@ -61,7 +61,7 @@ class Push {
       throw LocoTranslateException::isNotReadable($file);
     }
 
-    // TODO: Check Basic PO Formats.
+    // @todo Check Basic PO Formats.
     $data = file_get_contents($file);
 
     try {

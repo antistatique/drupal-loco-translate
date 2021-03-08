@@ -107,51 +107,84 @@ class TranslationsImportTest extends TranslationsTestsBase {
 
     // Existing "non-customized" source has been overrided.
     $source = $this->localStorage->findString(['source' => 'last year']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertEquals($string->translation, 'l’année dernière');
 
     // Assert unexisting source (new string) w/ context is imported as
     // "non-customized".
-    $source = $this->localStorage->findString(['source' => 'Jul', 'context' => 'Abbreviated month name']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $source = $this->localStorage->findString([
+      'source' => 'Jul',
+      'context' => 'Abbreviated month name',
+    ]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertEquals($string->translation, 'Juil.', 'Successfully loaded translation by source and context.');
 
     // Existing "non-customized" trans w/o context has not been overrided.
     $source = $this->localStorage->findString(['source' => 'Jul']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertNotEquals($string->translation, 'Juil.');
 
     // Existing "customized" trans w/o context has not been overrided.
     $source = $this->localStorage->findString(['source' => 'Jan']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_CUSTOMIZED);
     $this->assertNotEquals($string->translation, 'Janv.');
 
     // Assert new strings with vars are imported as "non-customized".
     $source = $this->localStorage->findString(['source' => 'I love @color car']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertEquals($string->translation, "J'adore les voitures @color", 'Successfully loaded translation with var(s).');
 
     // Assert new plural forms are imported as "non-customized".
     $source = $this->localStorage->findString(['source' => '@count doctor@count doctors']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertNotNull($string, 'Successfully loaded plural translation.');
 
     // Existing "non-customized" translations w/ context has been overrided.
-    $source = $this->localStorage->findString(['source' => 'March', 'context' => 'Long month name']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $source = $this->localStorage->findString([
+      'source' => 'March',
+      'context' => 'Long month name',
+    ]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertEquals($string->translation, 'Mars');
 
     // Existing "customized" translations w/ context has been overrided and
     // revert-back as "non-customized".
-    $source = $this->localStorage->findString(['source' => 'April', 'context' => 'Long month name']);
-    $string = $this->localStorage->findTranslation(['language' => 'fr', 'lid' => $source->lid]);
+    $source = $this->localStorage->findString([
+      'source' => 'April',
+      'context' => 'Long month name',
+    ]);
+    $string = $this->localStorage->findTranslation([
+      'language' => 'fr',
+      'lid' => $source->lid,
+    ]);
     $this->assertEquals($string->customized, LOCALE_NOT_CUSTOMIZED);
     $this->assertEquals($string->translation, 'April');
   }

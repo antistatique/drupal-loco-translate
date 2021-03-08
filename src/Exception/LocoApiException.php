@@ -20,7 +20,7 @@ class LocoApiException extends \Exception {
    *   Exception used when the given path or file does not exist.
    */
   public static function uploadFailed(Result $result) {
-    $message[] = 'Loco upload failed.';
+    $message = ['Loco upload failed.'];
 
     // Build the message based on available keys.
     if (isset($result['status'])) {
@@ -43,7 +43,7 @@ class LocoApiException extends \Exception {
    *   Exception used when the given path or file does not exist.
    */
   public static function downloadFailed(RawResult $raw_result) {
-    $message[] = 'Loco download failed.';
+    $message = ['Loco upload failed.'];
     return new static(implode(' ', $message));
   }
 
@@ -57,7 +57,7 @@ class LocoApiException extends \Exception {
    *   Exception used when we don't have a specific use-case for this error.
    */
   public static function unhandled(\Exception $exception) {
-    $message[] = 'Loco connection failed.';
+    $message = ['Loco upload failed.'];
 
     // Build the message based on available keys.
     $message[] = sprintf('Returned status %s.', $exception->getCode());

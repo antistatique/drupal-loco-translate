@@ -64,7 +64,10 @@ class PushCommand extends DrushCommands {
    * @usage drush loco_translate:push --language="fr" ./config/translations/fr.po
    *   Push a local .po file into the Loco SAAS in the french locale.
    */
-  public function push($file, array $options = ['language' => NULL, 'index' => NULL]) {
+  public function push($file, array $options = [
+    'language' => NULL,
+    'index' => NULL,
+  ]) {
     // Try to guess the language.
     $language = $options['language'];
     if (NULL === $language) {
