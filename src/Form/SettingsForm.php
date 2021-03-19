@@ -242,7 +242,7 @@ class SettingsForm extends ConfigFormBase {
     ]);
 
     try {
-      /* @var \GuzzleHttp\Command\Result */
+      /** @var \GuzzleHttp\Command\Result */
       $client->authVerify();
     }
     catch (\Exception $e) {

@@ -191,7 +191,7 @@ class OverviewController extends ControllerBase {
       $this->cache->set('loco_translate.cache.api.assets', $assets, CacheBackendInterface::CACHE_PERMANENT);
 
       // Get the Loco Status.
-      /* @var \GuzzleHttp\Command\Result $result */
+      /** @var \GuzzleHttp\Command\Result $result */
       $result = $client->ping();
       $this->cache->set('loco_translate.cache.versions', [
         'api' => $result->offsetGet('version'),
