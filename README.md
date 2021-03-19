@@ -3,10 +3,9 @@
 Loco Translate provides a normalised way to collect & gather internationalisation assets & translations into & from Loco.
 Ensure an enhanced Developer Experience (DX) when dealing with translations & multilingual websites.
 
-|       Travis-CI        |        Style-CI         |        Downloads        |         Releases         |
+|       Tests-CI         |        Style-CI         |        Downloads        |         Releases         |
 |:----------------------:|:-----------------------:|:-----------------------:|:------------------------:|
-| [![Travis](https://travis-ci.org/antistatique/drupal-loco-translate.svg?branch=8.x-1.x)](https://travis-ci.org/antistatique/drupal-loco-translate) |  [![StyleCI](https://styleci.io/repos/85471768/shield)](https://styleci.io/repos/190755687) | [![Downloads](https://img.shields.io/badge/downloads-8.x--1.0-green.svg?style=flat-square)](https://ftp.drupal.org/files/projects/loco_translate-8.x-1.0.tar.gz) | [![Latest Stable Version](https://img.shields.io/badge/release-v1.0-blue.svg?style=flat-square)](https://www.drupal.org/project/loco_translate/releases) |
-
+| [![Build Status](https://github.com/antistatique/drupal-loco-translate/actions/workflows/ci.yml/badge.svg)](https://github.com/antistatique/drupal-loco-translate/actions/workflows/ci.yml) | [![Code styles](https://github.com/antistatique/drupal-loco-translate/actions/workflows/styles.yml/badge.svg)](https://github.com/antistatique/drupal-loco-translate/actions/workflows/styles.yml) | [![Downloads](https://img.shields.io/badge/downloads-8.x--1.0-green.svg?style=flat-square)](https://ftp.drupal.org/files/projects/loco_translate-8.x-1.0.tar.gz) | [![Latest Stable Version](https://img.shields.io/badge/release-v1.0-blue.svg?style=flat-square)](https://www.drupal.org/project/loco_translate/releases) |
 
 ## You need Loco Translate if
 
