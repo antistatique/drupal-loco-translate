@@ -38,7 +38,7 @@ class CronPullTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'locale',
     'language',
@@ -51,10 +51,9 @@ class CronPullTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
-    $this->installSchema('system', ['key_value_expire']);
     $this->installSchema('file', ['file_usage']);
     $this->installSchema('locale', [
       'locales_location',

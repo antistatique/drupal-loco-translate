@@ -30,7 +30,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'locale',
     'language',
     'file',
@@ -40,7 +40,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     /** @var \Drupal\loco_translate\TranslationsImport $translationsImport */
