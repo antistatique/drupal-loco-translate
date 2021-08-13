@@ -37,7 +37,7 @@ class LocoPullTest extends UnitTestCase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     /** @var \Drupal\loco_translate\Utility|\Prophecy\Prophecy\ProphecyInterface $language_manager */
     $utility = $this->prophesize(Utility::class);
     $utility->isLangcodeEnabled(Argument::any())
