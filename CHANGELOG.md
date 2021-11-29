@@ -2,6 +2,8 @@ CHANGELOG
 ---------
 
 ## NEXT RELEASE
+
+## 8.x-2.0 (2021-11-29)
  - fix phpunit 9+ deprecation - assertInternalType
  - fix Issue #3095292 by wengerk: drush loco_translate:pull can't specify the --status parameters
  - fix Issue #3156326 by wengerk: Translate folder does not exists when pull 
