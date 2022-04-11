@@ -2,6 +2,7 @@ CHANGELOG
 ---------
 
 ## NEXT RELEASE
+ - fix generated File on Pull operation as Permanent 
 
 ## 8.x-2.0 (2021-11-29)
  - fix phpunit 9+ deprecation - assertInternalType

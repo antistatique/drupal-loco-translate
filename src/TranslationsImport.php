@@ -61,7 +61,7 @@ class TranslationsImport {
    *   Report array as defined in @see \Drupal\locale\PoDatabaseWriter.
    */
   public function fromFile($source, $locale) {
-    $path = realpath($source);
+    $path = $this->realpath($source);
 
     if (!file_exists($path) || !is_file($path)) {
       throw LocoTranslateException::notFound($source);
@@ -96,6 +96,13 @@ class TranslationsImport {
     $file->timestamp = filemtime($path);
 
     return Gettext::fileToDatabase($file, $options);
+  }
+
+  /**
+   * Wrapper around PHP Built-in realpath in order to mock it for VFS tests.
+   */
+  public function realpath($source) {
+    return $this->realpath($source);
   }
 
 }
