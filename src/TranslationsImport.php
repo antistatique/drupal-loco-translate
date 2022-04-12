@@ -102,7 +102,7 @@ class TranslationsImport {
    * Wrapper around PHP Built-in realpath in order to mock it for VFS tests.
    */
   public function realpath($source) {
-    return $this->realpath($source);
+    return realpath($source);
   }
 
 }
