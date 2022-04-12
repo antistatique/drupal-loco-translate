@@ -7,7 +7,6 @@ namespace Drupal\Tests\loco_translate\Kernel;
  *
  * @group loco_translate
  * @group loco_translate_kernel
- * @group loco_translate_debug
  *
  * @internal
  */
