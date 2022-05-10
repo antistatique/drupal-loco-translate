@@ -96,6 +96,11 @@ class PullCommand extends DrushCommands {
 
     /** @var \Drupal\file\FileInterface $file */
     $file = file_save_data($response->__toString(), $destination_directory);
+
+    // Be sure the file is temporary, so will be garbage collected.
+    $file->setTemporary();
+    $file->save();
+
     $path = $this->fileSystem->realPath($file->getFileUri());
 
     $report = $this->translationsImport->fromFile($path, $language);
