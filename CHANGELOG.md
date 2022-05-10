@@ -2,6 +2,8 @@ CHANGELOG
 ---------
 
 ## NEXT RELEASE
+
+## 8.x-2.1 (2022-05-10)
  - fix generated File on Pull operation as Permanent 
 
 ## 8.x-2.0 (2021-11-29)
