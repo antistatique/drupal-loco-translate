@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - update changelog form to follow keepachangelog format
+- add dependabot for Github Action dependency
 
 ## [2.1.0] - (2022-05-10)
 ### Added
