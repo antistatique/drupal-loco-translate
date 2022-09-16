@@ -143,12 +143,12 @@ class UtilityTest extends UtilityTestBase {
       'ensure a string timestamp will still be returned as string' => [
         'fr',
         ['fr' => '8000', 'en' => 3601],
-        '8000',
+        8000,
       ],
       'ensure an non-int value will be still returned as string' => [
         'fr',
         ['fr' => 'abcdef', 'en' => 3601],
-        'abcdef',
+        0,
       ],
       'ensure non-existing langcode returned 0' => [
         'de',

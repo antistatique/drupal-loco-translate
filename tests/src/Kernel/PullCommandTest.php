@@ -2,11 +2,19 @@
 
 namespace Drupal\Tests\loco_translate\Kernel;
 
+use org\bovigo\vfs\vfsStream;
+use Drupal\loco_translate\TranslationsImport;
+use Drupal\loco_translate\Commands\PullCommand;
+use Loco\Http\Result\RawResult;
+use GuzzleHttp\Psr7\Response;
+use Drupal\loco_translate\Loco\Pull as LocoPull;
+
 /**
  * @coversDefaultClass \Drupal\loco_translate\Commands\PullCommand
  *
  * @group loco_translate
  * @group loco_translate_kernel
+ * @group kevin
  *
  * @internal
  */
@@ -54,7 +62,7 @@ final class PullCommandTest extends TranslationsTestsBase {
     $this->fileStorage = $this->container->get('entity_type.manager')->getStorage('file');
 
     // Mock the loco pull manager to prevent any API call.
-    $this->locoPull = $this->prophesize(\LocoPull::class);
+    $this->locoPull = $this->prophesize(LocoPull::class);
 
     // Partially mock the translation importer in order to prevent realpath
     // on VFS.
