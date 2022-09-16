@@ -1,6 +1,8 @@
 ARG BASE_IMAGE_TAG=8.9
 FROM wengerk/drupal-for-contrib:${BASE_IMAGE_TAG}
 
+# Disable deprecation notice.
+ENV SYMFONY_DEPRECATIONS_HELPER=disabled
 ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Install loco/loco as required by the module

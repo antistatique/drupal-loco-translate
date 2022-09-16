@@ -103,7 +103,7 @@ class Utility {
    */
   public function getLastPull($langcode) {
     $pull_last = (array) $this->state->get('loco_translate.api.pull_last');
-    return (int) $pull_last[$langcode] ?? 0;
+    return isset($pull_last[$langcode]) ? (int) $pull_last[$langcode] : 0;
   }
 
   /**
@@ -117,7 +117,7 @@ class Utility {
    */
   public function getLastPush($langcode) {
     $push_last = $this->state->get('loco_translate.api.push_last');
-    return (int) $push_last[$langcode] ?? 0;
+    return isset($push_last[$langcode]) ? (int) $push_last[$langcode] : 0;
   }
 
 }
