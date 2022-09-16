@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - update changelog form to follow keepachangelog format
 - add dependabot for Github Action dependency
 
+### Removed
+- disable symfony deprecations helper on phpunit
+
 ## [2.1.0] - (2022-05-10)
 ### Added
 - fix generated File on Pull operation as Permanent
