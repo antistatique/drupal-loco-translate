@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - update changelog form to follow keepachangelog format
 - add dependabot for Github Action dependency
 - add support Drupal 9.5
+- add upgrade-status check
 
 ### Removed
 - drop support Drupal 8.8
