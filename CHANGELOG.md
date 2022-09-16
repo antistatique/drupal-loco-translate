@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - update changelog form to follow keepachangelog format
 - add dependabot for Github Action dependency
+- add support Drupal 9.5
+
+### Removed
+- drop support Drupal 8.8
 
 ### Removed
 - disable symfony deprecations helper on phpunit

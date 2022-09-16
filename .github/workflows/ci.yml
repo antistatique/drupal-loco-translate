@@ -12,11 +12,11 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: ['8.8', '8.9', '9.0', '9.1', '9.2']
+        drupal_version: ['8.9', '9.0', '9.1', '9.2', '9.3', '9.4', '9.5']
         module: ['loco_translate']
         experimental: [ false ]
         include:
-          - drupal_version: '9.3'
+          - drupal_version: '9.5'
             module: 'loco_translate'
             experimental: true
 
@@ -42,11 +42,11 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: ['8.8', '8.9', '9.0', '9.1', '9.2']
+        drupal_version: ['8.9', '9.0', '9.1', '9.2', '9.3', '9.4', '9.5']
         module: [ 'loco_translate' ]
         experimental: [ false ]
         include:
-          - drupal_version: '9.3'
+          - drupal_version: '9.5'
             module: 'loco_translate'
             experimental: true
 
