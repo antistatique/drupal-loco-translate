@@ -14,7 +14,6 @@ use Drupal\loco_translate\Loco\Pull as LocoPull;
  *
  * @group loco_translate
  * @group loco_translate_kernel
- * @group kevin
  *
  * @internal
  */
