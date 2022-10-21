@@ -47,11 +47,12 @@ must upgrade to `8.x-2.x` version of **Loco Translate**.
 
 ## Which version should I use?
 
-|Drupal Core|Loco Translate|
-|:---------:|:------------:|
-|8.7.x      |1.x           |
-|8.8.x      |2.x           |
-|9.x        |2.x           |
+|Drupal Core| Loco Translate |
+|:---------:|:--------------:|
+|8.7.x      |      1.x       |
+|8.8.x      |      2.1       |
+|8.8.x      |      2.1       |
+|9.x        |      2.x       |
 
 ## Dependencies
 

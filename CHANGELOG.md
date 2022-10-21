@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - drop support Drupal 8.8
+- drop support of drupal below 9.0
 
 ### Removed
 - disable symfony deprecations helper on phpunit
