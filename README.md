@@ -46,7 +46,7 @@ and it is always recommended keeping Drupal core installations up to date.
 |    8.8.x    |      2.1       |
 |    8.8.x    |      2.1       |
 |     9.x     |      2.x       |
-|    10.x     |     2.2.x      |
+|    10.x     |     2.3.x      |
 
 ## Dependencies
 
