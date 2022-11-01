@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - add Drush 10 on Drupal CI
 - add Drush 10 as dev dependency
+- add official support of drupal 9.5 & 10.0
+
+### Removed
+- drop support of drupal below 9.3.x
 
 ### Fixed
 - fix issue #3318022 by wengerk: DrupalCI - Error: Class "Drush\Commands\DrushCommands
