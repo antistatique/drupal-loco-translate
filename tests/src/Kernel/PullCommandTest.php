@@ -70,7 +70,7 @@ final class PullCommandTest extends TranslationsTestsBase {
       ->setConstructorArgs([
         $this->container->get('loco_translate.utility'),
         $this->container->get('module_handler'),
-        $this->container->get('file_system')
+        $this->container->get('file_system'),
       ])
       ->getMock();
 

@@ -10,6 +10,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
 use Drupal\loco_translate\TranslationsImport;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\file\FileRepositoryInterface;
 
 /**
  * Form constructor for the translation pull screen.
