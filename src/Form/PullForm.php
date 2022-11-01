@@ -54,6 +54,13 @@ class PullForm extends FormBase {
   protected $translationsImport;
 
   /**
+   * The file repository service.
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -61,6 +68,7 @@ class PullForm extends FormBase {
       $container->get('loco_translate.utility'),
       $container->get('language_manager'),
       $container->get('file_system'),
+      $container->get('file.repository'),
       $container->get('loco_translate.loco_api.pull'),
       $container->get('loco_translate.translations.import')
     );
@@ -75,15 +83,18 @@ class PullForm extends FormBase {
    *   The configurable language manager.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
+   * @param \Drupal\file\FileRepositoryInterface|null $file_repository
+   *   The file repository service.
    * @param \Drupal\loco_translate\Loco\Pull $loco_pull
    *   The Loco translations pull manager.
    * @param \Drupal\loco_translate\TranslationsImport $translatons_import
    *   The Translation importer.
    */
-  public function __construct(Utility $utility, ConfigurableLanguageManagerInterface $language_manager, FileSystemInterface $file_system, LocoPull $loco_pull, TranslationsImport $translatons_import) {
+  public function __construct(Utility $utility, ConfigurableLanguageManagerInterface $language_manager, FileSystemInterface $file_system, FileRepositoryInterface $file_repository, LocoPull $loco_pull, TranslationsImport $translatons_import) {
     $this->utility = $utility;
     $this->languageManager = $language_manager;
     $this->fileSystem = $file_system;
+    $this->fileRepository = $file_repository;
     $this->locoPull = $loco_pull;
     $this->translationsImport = $translatons_import;
   }
@@ -164,7 +175,7 @@ class PullForm extends FormBase {
         }
 
         /** @var \Drupal\file\FileInterface $file */
-        $file = file_save_data($response->__toString(), $destination_directory);
+        $file = $this->fileRepository->writeData($response->__toString(), $destination_directory);
         $form_state->setValue('files[' . $langcode . ']', $this->fileSystem->realPath($file->getFileUri()));
       }
       catch (\Exception $e) {

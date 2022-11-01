@@ -66,11 +66,11 @@ final class PullCommandTest extends TranslationsTestsBase {
     // Partially mock the translation importer in order to prevent realpath
     // on VFS.
     $translationImport = $this->getMockBuilder(TranslationsImport::class)
-      ->setMethods(['realpath'])
+      ->onlyMethods(['realpath'])
       ->setConstructorArgs([
         $this->container->get('loco_translate.utility'),
         $this->container->get('module_handler'),
-        $this->container->get('file_system'),
+        $this->container->get('file_system')
       ])
       ->getMock();
 
@@ -81,7 +81,8 @@ final class PullCommandTest extends TranslationsTestsBase {
     $this->pullCommand = new PullCommand(
       $this->locoPull->reveal(),
       $translationImport,
-      $this->container->get('file_system')
+      $this->container->get('file_system'),
+      $this->container->get('file.repository')
     );
   }
 

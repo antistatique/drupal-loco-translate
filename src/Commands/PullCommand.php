@@ -6,6 +6,7 @@ use Drupal\loco_translate\Loco\Pull;
 use Drupal\loco_translate\TranslationsImport;
 use Drush\Commands\DrushCommands;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\file\FileRepositoryInterface;
 
 /**
  * Drush Loco Pull Commands.
@@ -34,6 +35,13 @@ class PullCommand extends DrushCommands {
   protected $fileSystem;
 
   /**
+   * The file repository service.
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
+
+  /**
    * PullCommand constructor.
    *
    * @param \Drupal\loco_translate\Loco\Pull $locoPull
@@ -42,11 +50,14 @@ class PullCommand extends DrushCommands {
    *   The translation import service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
+   * @param \Drupal\file\FileRepositoryInterface $file_repository
+   *   The file repository service.
    */
-  public function __construct(Pull $locoPull, TranslationsImport $translations_import, FileSystemInterface $file_system) {
+  public function __construct(Pull $locoPull, TranslationsImport $translations_import, FileSystemInterface $file_system, FileRepositoryInterface $file_repository) {
     $this->locoPull = $locoPull;
     $this->translationsImport = $translations_import;
     $this->fileSystem = $file_system;
+    $this->fileRepository = $file_repository;
   }
 
   /**
@@ -95,7 +106,7 @@ class PullCommand extends DrushCommands {
     }
 
     /** @var \Drupal\file\FileInterface $file */
-    $file = file_save_data($response->__toString(), $destination_directory);
+    $file = $this->fileRepository->writeData($response->__toString(), $destination_directory);
 
     // Be sure the file is temporary, so will be garbage collected.
     $file->setTemporary();

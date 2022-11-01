@@ -23,6 +23,7 @@ function loco_translate_cron_pull($langcode, array $settings) {
   $loco_pull = \Drupal::service('loco_translate.loco_api.pull');
   $translations_import = \Drupal::service('loco_translate.translations.import');
   $file_system = \Drupal::service('file_system');
+  $file_repository = \Drupal::service('file.repository');
 
   $status = $settings['status'] ?? NULL;
   $response = $loco_pull->fromLocoToDrupal($langcode, $status);
@@ -35,7 +36,7 @@ function loco_translate_cron_pull($langcode, array $settings) {
   }
 
   /** @var \Drupal\file\FileInterface $file */
-  $file = file_save_data($response->__toString(), $destination_directory);
+  $file = $file_repository->writeData($response->__toString(), $destination_directory);
   $path = $file_system->realPath($file->getFileUri());
   $report = $translations_import->fromFile($path, $langcode);
 

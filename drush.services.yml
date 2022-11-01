@@ -13,5 +13,6 @@ services:
       - '@loco_translate.loco_api.pull'
       - '@loco_translate.translations.import'
       - '@file_system'
+      - '@file.repository'
     tags:
       - { name: drush.command }
