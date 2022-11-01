@@ -90,7 +90,7 @@ final class PullCommandTest extends TranslationsTestsBase {
    */
   public function testPull(): void {
     // Mock the Loco Response export response.
-    $data = file_get_contents(drupal_get_path('module', 'loco_translate_test') . '/responses/export-200.po');
+    $data = file_get_contents(\Drupal::service('extension.list.module')->getPath('loco_translate_test') . '/responses/export-200.po');
     $response = new Response(200, [], $data);
     $response = RawResult::fromResponse($response);
     $this->locoPull->fromLocoToDrupal('en', NULL, NULL)

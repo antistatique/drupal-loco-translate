@@ -61,7 +61,7 @@ class CronPushTest extends KernelTestBase {
     $this->cronConfig = \Drupal::configFactory()->getEditable('loco_translate.settings');
 
     /** @var string $translationsPath */
-    $this->translationsPath = drupal_get_path('module', 'loco_translate_test') . DIRECTORY_SEPARATOR . 'assets';
+    $this->translationsPath = \Drupal::service('extension.list.module')->getPath('loco_translate_test') . DIRECTORY_SEPARATOR . 'assets';
 
     // Save the default push configurations.
     $this->cronConfig->set('automation.push.interval', 3600)->save();
