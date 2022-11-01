@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - fix issue #3318022 by wengerk: DrupalCI - Error: Class "Drush\Commands\DrushCommands
+- fix deprecation file_save_data for Drupal 10 compatibilities
+- fix deprecation drupal_get_path for Drupal 10 compatibilities
+- fix TwigExtensions deprecation for Drupal 10 compatibilities
+- fix deprecation of theme classy for Drupal 10 compatibilities
 
 ## [2.2.0] - 2022-10-21
 ### Added
