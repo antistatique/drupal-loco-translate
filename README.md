@@ -33,26 +33,20 @@ TBD
 
 ## Versions
 
-Loco Translate is only available for Drupal 8 !
-The module is ready to be used in Drupal 8, there are no known issues.
+This module works on Drupal 8, Drupal 9 & Drupal 10 !
 
-This version should work with all Drupal 8 releases using Drush 9+,
+The latest version should work with all Drupal 9/10 releases using Drush 10+,
 and it is always recommended keeping Drupal core installations up to date.
-
-## Backerymails versions
-
-The version `8.x-1.x` is not compatible with Drupal `8.8.x`.
-Drupal `8.8.x` brings some breaking change with tests and so you
-must upgrade to `8.x-2.x` version of **Loco Translate**.
 
 ## Which version should I use?
 
-|Drupal Core| Loco Translate |
-|:---------:|:--------------:|
-|8.7.x      |      1.x       |
-|8.8.x      |      2.1       |
-|8.8.x      |      2.1       |
-|9.x        |      2.x       |
+| Drupal Core | Loco Translate |
+|:-----------:|:--------------:|
+|    8.7.x    |      1.x       |
+|    8.8.x    |      2.1       |
+|    8.8.x    |      2.1       |
+|     9.x     |      2.x       |
+|    10.x     |     2.3.x      |
 
 ## Dependencies
 

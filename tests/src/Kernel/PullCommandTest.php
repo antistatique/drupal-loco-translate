@@ -66,7 +66,7 @@ final class PullCommandTest extends TranslationsTestsBase {
     // Partially mock the translation importer in order to prevent realpath
     // on VFS.
     $translationImport = $this->getMockBuilder(TranslationsImport::class)
-      ->setMethods(['realpath'])
+      ->onlyMethods(['realpath'])
       ->setConstructorArgs([
         $this->container->get('loco_translate.utility'),
         $this->container->get('module_handler'),
@@ -81,7 +81,8 @@ final class PullCommandTest extends TranslationsTestsBase {
     $this->pullCommand = new PullCommand(
       $this->locoPull->reveal(),
       $translationImport,
-      $this->container->get('file_system')
+      $this->container->get('file_system'),
+      $this->container->get('file.repository')
     );
   }
 
@@ -90,7 +91,7 @@ final class PullCommandTest extends TranslationsTestsBase {
    */
   public function testPull(): void {
     // Mock the Loco Response export response.
-    $data = file_get_contents(drupal_get_path('module', 'loco_translate_test') . '/responses/export-200.po');
+    $data = file_get_contents(\Drupal::service('extension.list.module')->getPath('loco_translate_test') . '/responses/export-200.po');
     $response = new Response(200, [], $data);
     $response = RawResult::fromResponse($response);
     $this->locoPull->fromLocoToDrupal('en', NULL, NULL)

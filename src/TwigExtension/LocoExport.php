@@ -3,11 +3,13 @@
 namespace Drupal\loco_translate\TwigExtension;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Loco Twig Extensions.
  */
-class LocoExport extends \Twig_Extension {
+class LocoExport extends AbstractExtension {
   use ContainerAwareTrait;
 
   /**
@@ -15,7 +17,9 @@ class LocoExport extends \Twig_Extension {
    */
   public function getFunctions() {
     return [
-      new \Twig_SimpleFunction('loco_translate_export', [$this, 'exportLink']),
+      new TwigFunction('loco_translate_export', [
+        $this, 'exportLink',
+      ]),
     ];
   }
 
