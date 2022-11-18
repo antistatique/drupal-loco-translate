@@ -5,10 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.0] - 2022-11-18
 ### Added
 - add Drush 10 on Drupal CI
 - add Drush 10 as dev dependency
 - add official support of drupal 9.5 & 10.0
+
+### Changed
+- Bump major release number in order of using Drupal new semver system
 
 ### Removed
 - drop support of drupal below 9.3.x
@@ -72,7 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - pull command from Loco SaSS to Drupal database
 - basic form settings with Loco SaSS API credentials
 
-[Unreleased]: https://github.com/antistatique/drupal-loco-translate/compare/8.x-2.2...HEAD
+[Unreleased]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.x...HEAD
+[3.0.0]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.0...3.0.x
 [2.2.0]: https://github.com/antistatique/drupal-loco-translate/compare/8.x-2.1...8.x-2.2
 [2.1.0]: https://github.com/antistatique/drupal-loco-translate/compare/8.x-2.0...8.x-2.1
 [2.0.0]: https://github.com/antistatique/drupal-loco-translate/compare/8.x-2.0-beta1...8.x-2.0
