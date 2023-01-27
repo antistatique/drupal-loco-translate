@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\loco_translate\Kernel;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use org\bovigo\vfs\vfsStream;
 use Drupal\loco_translate\TranslationsImport;
 use Drupal\loco_translate\Commands\PullCommand;
@@ -18,6 +19,8 @@ use Drupal\loco_translate\Loco\Pull as LocoPull;
  * @internal
  */
 final class PullCommandTest extends TranslationsTestsBase {
+
+  use ProphecyTrait;
 
   /**
    * {@inheritdoc}

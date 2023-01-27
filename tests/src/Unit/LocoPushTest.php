@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\loco_translate\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Loco\Push as LocoPush;
 use Loco\Http\ApiClient;
@@ -16,6 +17,8 @@ use Drupal\loco_translate\Exception\LocoApiException;
  * @group loco_translate_unit_upload
  */
 class LocoPushTest extends UnitTestCase {
+
+  use ProphecyTrait;
 
   /**
    * Uploader to Loco.

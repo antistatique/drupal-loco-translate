@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - re-enable PHPUnit Symfony Deprecation notice
 
+### Fixed
+- fix issue #3329340 - PHPUnit deprecated prophecy integration
+
 ## [3.0.0] - 2022-11-18
 ### Added
 - add Drush 10 on Drupal CI

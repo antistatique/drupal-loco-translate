@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\loco_translate\Kernel\Cron;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\loco_translate\Loco\Push as LocoPush;
 use Prophecy\Argument;
@@ -16,6 +17,8 @@ use Prophecy\Argument;
  * @group loco_translate_cron
  */
 class CronPushTest extends KernelTestBase {
+
+  use ProphecyTrait;
 
   /**
    * The directory of tests .po files.
