@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\loco_translate\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Utility;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -12,6 +13,8 @@ use Drupal\Core\Language\Language;
  * Base class for Utility unit tests.
  */
 abstract class UtilityTestBase extends UnitTestCase {
+
+  use ProphecyTrait;
 
   /**
    * The Utility service of Loco Translate.
