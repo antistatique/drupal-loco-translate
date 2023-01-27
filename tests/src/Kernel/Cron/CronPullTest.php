@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\loco_translate\Kernel\Cron;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
 use Drupal\loco_translate\TranslationsImport;
@@ -20,6 +21,8 @@ use org\bovigo\vfs\vfsStream;
  * @group loco_translate_cron
  */
 class CronPullTest extends KernelTestBase {
+
+  use ProphecyTrait;
 
   /**
    * An editable config object for access to 'loco_translate.settings'.

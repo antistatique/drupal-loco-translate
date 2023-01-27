@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\loco_translate\Unit;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\UnitTestCase;
 use Drupal\loco_translate\Loco\Pull as locoPull;
 use Loco\Http\ApiClient;
@@ -19,6 +20,8 @@ use Prophecy\Argument;
  * @group loco_translate_unit_upload
  */
 class LocoPullTest extends UnitTestCase {
+
+  use ProphecyTrait;
 
   /**
    * The Loco translations pull manager.

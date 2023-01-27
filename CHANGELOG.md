@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix deprecation drupal_get_path for Drupal 10 compatibilities
 - fix TwigExtensions deprecation for Drupal 10 compatibilities
 - fix deprecation of theme classy for Drupal 10 compatibilities
+- fix issue #3297549 - PHPUnit deprecated prophecy integration
 
 ## [2.2.0] - 2022-10-21
 ### Added
