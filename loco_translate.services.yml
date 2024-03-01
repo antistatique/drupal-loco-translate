@@ -36,10 +36,9 @@ services:
 
   loco_translate.twig.loco_export:
     class: Drupal\loco_translate\TwigExtension\LocoExport
+    arguments: ['@config.factory']
     tags:
       - { name: twig.extension }
-    calls:
-      - [setContainer, ['@service_container']]
 
   logger.channel.loco_translate:
     parent: logger.channel_base
