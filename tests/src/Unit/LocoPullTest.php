@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\loco_translate\Unit;
 
-use Prophecy\PhpUnit\ProphecyTrait;
-use Drupal\Tests\UnitTestCase;
-use Drupal\loco_translate\Loco\Pull as locoPull;
-use Loco\Http\ApiClient;
-use Drupal\loco_translate\Utility;
 use Drupal\loco_translate\Exception\LocoApiException;
-use Loco\Http\Result\RawResult;
+use Drupal\loco_translate\Loco\Pull as locoPull;
+use Drupal\loco_translate\Utility;
+use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Psr7\Response;
+use Loco\Http\ApiClient;
+use Loco\Http\Result\RawResult;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @coversDefaultClass \Drupal\loco_translate\Loco\Pull
@@ -41,6 +41,8 @@ class LocoPullTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp(): void {
+    parent::setUp();
+
     /** @var \Drupal\loco_translate\Utility|\Prophecy\Prophecy\ProphecyInterface $language_manager */
     $utility = $this->prophesize(Utility::class);
     $utility->isLangcodeEnabled(Argument::any())

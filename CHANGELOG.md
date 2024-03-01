@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - fix issue #3329340 - PHPUnit deprecated prophecy integration
+- fix phpcs use statements should be sorted alphabetically
+- add phpstan.neon file
+
+### Added
+- add Drupal GitlabCI
 
 ## [3.0.0] - 2022-11-18
 ### Added

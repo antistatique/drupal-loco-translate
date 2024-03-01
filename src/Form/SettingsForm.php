@@ -2,13 +2,13 @@
 
 namespace Drupal\loco_translate\Form;
 
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Loco\Http\ApiClient;
-use Drupal\Component\Utility\Xss;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Configure loco translate settings for this site.

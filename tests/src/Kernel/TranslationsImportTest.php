@@ -66,8 +66,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
    */
   public function testSourceNotFound() {
     $this->expectException(LocoTranslateException::class);
-    $this->expectExceptionMessage('No such file or directory "modules/contrib/loco_translate/tests/modules/loco_translate_test/assets/ru.po".');
-
+    $this->expectExceptionMessageMatches('/No such file or directory "modules\/(custom|contrib)\/loco_translate\/tests\/modules\/loco_translate_test\/assets\/ru.po"./');
     $source = $this->translationsPath . '/ru.po';
     $this->translationsImport->fromFile($source, 'fr');
   }

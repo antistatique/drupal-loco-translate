@@ -2,10 +2,10 @@
 
 namespace Drupal\Tests\loco_translate\Kernel\Cron;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\loco_translate\Loco\Push as LocoPush;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Cover the Push hook_cron exposed by Loco Translate.

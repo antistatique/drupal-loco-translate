@@ -2,13 +2,13 @@
 
 namespace Drupal\Tests\loco_translate\Kernel;
 
-use Prophecy\PhpUnit\ProphecyTrait;
-use org\bovigo\vfs\vfsStream;
-use Drupal\loco_translate\TranslationsImport;
 use Drupal\loco_translate\Commands\PullCommand;
-use Loco\Http\Result\RawResult;
-use GuzzleHttp\Psr7\Response;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
+use Drupal\loco_translate\TranslationsImport;
+use GuzzleHttp\Psr7\Response;
+use Loco\Http\Result\RawResult;
+use org\bovigo\vfs\vfsStream;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @coversDefaultClass \Drupal\loco_translate\Commands\PullCommand
@@ -21,6 +21,20 @@ use Drupal\loco_translate\Loco\Pull as LocoPull;
 final class PullCommandTest extends TranslationsTestsBase {
 
   use ProphecyTrait;
+
+  /**
+   * The file storage service.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $fileStorage;
+
+  /**
+   * The Loco translations pull manager.
+   *
+   * @var \Drupal\loco_translate\Loco\Pull
+   */
+  private $locoPull;
 
   /**
    * {@inheritdoc}

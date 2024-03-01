@@ -2,12 +2,12 @@
 
 namespace Drupal\Tests\loco_translate\Unit;
 
-use Prophecy\PhpUnit\ProphecyTrait;
-use Drupal\Tests\UnitTestCase;
-use Drupal\loco_translate\Loco\Push as LocoPush;
-use Loco\Http\ApiClient;
-use GuzzleHttp\Command\Result;
 use Drupal\loco_translate\Exception\LocoApiException;
+use Drupal\loco_translate\Loco\Push as LocoPush;
+use Drupal\Tests\UnitTestCase;
+use GuzzleHttp\Command\Result;
+use Loco\Http\ApiClient;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @coversDefaultClass \Drupal\loco_translate\Loco\Push
@@ -38,6 +38,8 @@ class LocoPushTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp(): void {
+    parent::setUp();
+
     // Mock a fake Loco API Client.
     $this->apiClient = $this->prophesize(ApiClient::class);
 

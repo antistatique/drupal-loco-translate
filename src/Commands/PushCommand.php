@@ -2,9 +2,9 @@
 
 namespace Drupal\loco_translate\Commands;
 
-use Drush\Commands\DrushCommands;
 use Drupal\loco_translate\Loco\Push;
 use Drupal\loco_translate\Utility;
+use Drush\Commands\DrushCommands;
 
 /**
  * Drush Loco Push Commands.
