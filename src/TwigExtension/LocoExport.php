@@ -2,7 +2,7 @@
 
 namespace Drupal\loco_translate\TwigExtension;
 
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -10,7 +10,15 @@ use Twig\TwigFunction;
  * Loco Twig Extensions.
  */
 class LocoExport extends AbstractExtension {
-  use ContainerAwareTrait;
+
+  /**
+   * The config factory.
+   */
+  protected ConfigFactoryInterface $configFactory;
+
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->configFactory = $config_factory;
+  }
 
   /**
    * {@inheritdoc}
@@ -40,10 +48,7 @@ class LocoExport extends AbstractExtension {
    *   The export GET link for Loco API.
    */
   public function exportLink($locale) {
-    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config_factory */
-    $config_factory = $this->container->get('config.factory');
-
-    $config = $config_factory->get('loco_translate.settings');
+    $config = $this->configFactory->get('loco_translate.settings');
     $readonly_key = $config->get('api.readonly_key');
 
     $params = [
