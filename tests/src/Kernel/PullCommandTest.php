@@ -23,6 +23,20 @@ final class PullCommandTest extends TranslationsTestsBase {
   use ProphecyTrait;
 
   /**
+   * The file storage service.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $fileStorage;
+
+  /**
+   * The Loco translations pull manager.
+   *
+   * @var \Drupal\loco_translate\Loco\Pull
+   */
+  private $locoPull;
+
+  /**
    * {@inheritdoc}
    */
   protected static $modules = [
