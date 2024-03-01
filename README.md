@@ -33,9 +33,9 @@ TBD
 
 ## Versions
 
-This module works on Drupal 8, Drupal 9 & Drupal 10 !
+This module works on Drupal 8, Drupal 9, Drupal 10 & Drupal 11 (dev) !
 
-The latest version should work with all Drupal 9/10 releases using Drush 10+,
+The latest version should work with all Drupal 9/10/11 releases using Drush 10+,
 and it is always recommended keeping Drupal core installations up to date.
 
 ## Which version should I use?
@@ -47,6 +47,7 @@ and it is always recommended keeping Drupal core installations up to date.
 |    8.8.x    |      2.1       |
 |     9.x     |      2.x       |
 |    10.x     |     3.0.x      |
+|   11.x-dev   |     3.0.x      |
 
 ## Dependencies
 
@@ -68,16 +69,6 @@ We highly recommend you to install the module using `composer`.
 
   ```bash
   composer require drupal/loco_translate
-  ```
-
-You can also install it using the `drush` or `drupal console` cli.
-
-  ```bash
-  drush dl loco_translate
-  ```
-
-  ```bash
-  drupal module:install loco_translate
   ```
 
 Configure your API Keys - as required by Loco - by adding the following code in your `settings.php`

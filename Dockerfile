@@ -1,8 +1,9 @@
 ARG BASE_IMAGE_TAG=9.3
 FROM wengerk/drupal-for-contrib:${BASE_IMAGE_TAG}
 
-# Disable deprecation notice.
-# ENV SYMFONY_DEPRECATIONS_HELPER=disabled
+# Disable deprecation notice since PHPUnit 10 with Drupal 10.2 and upper.
+# @see https://www.drupal.org/project/drupal/issues/3403491
+ENV SYMFONY_DEPRECATIONS_HELPER=weak
 
 ENV COMPOSER_MEMORY_LIMIT=-1
 
