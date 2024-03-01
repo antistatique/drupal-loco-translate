@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - re-enable PHPUnit Symfony Deprecation notice
 - remove usage of deprecated ContainerAware class
+- replace deprecated watchdog_exception by Drupal::logger
 
 ### Fixed
 - fix issue #3329340 - PHPUnit deprecated prophecy integration
