@@ -39,5 +39,10 @@
   },
   "require": {
     "loco/loco": "^2.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
