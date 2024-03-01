@@ -2,11 +2,11 @@
 
 namespace Drupal\loco_translate\Commands;
 
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\file\FileRepositoryInterface;
 use Drupal\loco_translate\Loco\Pull;
 use Drupal\loco_translate\TranslationsImport;
 use Drush\Commands\DrushCommands;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\file\FileRepositoryInterface;
 
 /**
  * Drush Loco Pull Commands.

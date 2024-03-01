@@ -2,9 +2,9 @@
 
 namespace Drupal\loco_translate\Loco;
 
-use Loco\Http\ApiClient;
-use Drupal\loco_translate\Exception\LocoTranslateException;
 use Drupal\loco_translate\Exception\LocoApiException;
+use Drupal\loco_translate\Exception\LocoTranslateException;
+use Loco\Http\ApiClient;
 
 /**
  * Push/Upload asset(s) & translation(s) to Loco.

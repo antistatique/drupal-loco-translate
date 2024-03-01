@@ -2,15 +2,15 @@
 
 namespace Drupal\loco_translate\Form;
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\loco_translate\Utility;
+use Drupal\file\FileRepositoryInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
 use Drupal\loco_translate\TranslationsImport;
+use Drupal\loco_translate\Utility;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\file\FileRepositoryInterface;
 
 /**
  * Form constructor for the translation pull screen.

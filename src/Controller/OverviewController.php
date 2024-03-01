@@ -2,15 +2,15 @@
 
 namespace Drupal\loco_translate\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\State\StateInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
-use Loco\Http\ApiClient;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
 use Drupal\system\SystemManager;
+use Loco\Http\ApiClient;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Loco dashboard overview.

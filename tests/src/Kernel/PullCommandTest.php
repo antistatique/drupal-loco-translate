@@ -2,13 +2,13 @@
 
 namespace Drupal\Tests\loco_translate\Kernel;
 
-use Prophecy\PhpUnit\ProphecyTrait;
-use org\bovigo\vfs\vfsStream;
-use Drupal\loco_translate\TranslationsImport;
 use Drupal\loco_translate\Commands\PullCommand;
-use Loco\Http\Result\RawResult;
-use GuzzleHttp\Psr7\Response;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
+use Drupal\loco_translate\TranslationsImport;
+use GuzzleHttp\Psr7\Response;
+use Loco\Http\Result\RawResult;
+use org\bovigo\vfs\vfsStream;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @coversDefaultClass \Drupal\loco_translate\Commands\PullCommand

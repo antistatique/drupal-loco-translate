@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\loco_translate\Kernel\Cron;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\loco_translate\Loco\Pull as LocoPull;
 use Drupal\loco_translate\TranslationsImport;
-use Prophecy\Argument;
-use Loco\Http\Result\RawResult;
 use GuzzleHttp\Psr7\Response;
+use Loco\Http\Result\RawResult;
 use org\bovigo\vfs\vfsStream;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Cover the Pull hook_cron exposed by Loco Translate.
