@@ -57,7 +57,7 @@ function loco_translate_cron() {
         $utility->setLastPull($langcode, $now);
       }
       catch (\Exception $e) {
-        watchdog_exception('loco_translate', $e, 'Error while trying to pull from Loco.');
+        \Drupal::logger('loco_translate')->error($e);
       }
     }
   }
@@ -87,7 +87,7 @@ function loco_translate_cron() {
         $utility->setLastPush($langcode, $now);
       }
       catch (\Exception $e) {
-        watchdog_exception('loco_translate', $e, 'Error while trying to push to Loco.');
+        \Drupal::logger('loco_translate')->error($e);
       }
     }
   }
