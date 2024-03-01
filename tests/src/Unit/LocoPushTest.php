@@ -38,6 +38,8 @@ class LocoPushTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp(): void {
+    parent::setUp();
+
     // Mock a fake Loco API Client.
     $this->apiClient = $this->prophesize(ApiClient::class);
 
