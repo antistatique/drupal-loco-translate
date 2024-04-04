@@ -25,9 +25,7 @@ class LocoExport extends AbstractExtension {
    */
   public function getFunctions() {
     return [
-      new TwigFunction('loco_translate_export', [
-        $this, 'exportLink',
-      ]),
+      new TwigFunction('loco_translate_export', $this->exportLink(...)),
     ];
   }
 
