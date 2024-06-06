@@ -27,7 +27,7 @@ class UtilityTest extends UtilityTestBase {
    * @return array
    *   Return an array of arrays.
    */
-  public function getTestIsLangcodeEnabled() {
+  public static function getTestIsLangcodeEnabled(): iterable {
     return [
       ['fr', TRUE],
       ['fr-ch', FALSE],
@@ -71,7 +71,7 @@ class UtilityTest extends UtilityTestBase {
    * @return array
    *   Return an array of arrays.
    */
-  public function setterProvider() {
+  public static function setterProvider(): iterable {
     return [
       'ensure an existing langcode will be replaced' => [
         'fr', 8000,
@@ -133,7 +133,7 @@ class UtilityTest extends UtilityTestBase {
    * @return array
    *   Return an array of arrays.
    */
-  public function getterProvider() {
+  public static function getterProvider(): iterable {
     return [
       'ensure an existing langcode will be returned' => [
         'fr',

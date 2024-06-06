@@ -132,7 +132,7 @@ class CronPullTest extends KernelTestBase {
    * @return array
    *   Return an array of arrays.
    */
-  public function goodIntervalProvider() {
+  public static function goodIntervalProvider(): iterable {
     return [
       [
         'en', time() - 100000, 3600,
@@ -173,7 +173,7 @@ class CronPullTest extends KernelTestBase {
    * @return array
    *   Return an array of arrays.
    */
-  public function badIntervalProvider() {
+  public static function badIntervalProvider(): iterable {
     return [
       [
         'en', time() - 4000, 50000,

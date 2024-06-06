@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - opt out to testing Drupal 11 until loco/loco is compliant Symfony 7
+- fix deprecation by passing @dataprovider as static function
 
 ### Added
 - add cpsell project words for Gitlab-CI
