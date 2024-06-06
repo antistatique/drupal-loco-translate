@@ -93,7 +93,7 @@ final class PullCommandTest extends TranslationsTestsBase {
 
     $translationImport->expects(self::any())
       ->method('realpath')
-      ->will($this->returnArgument(0));
+      ->willReturnArgument(0);
 
     $this->pullCommand = new PullCommand(
       $this->locoPull->reveal(),

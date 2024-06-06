@@ -3,10 +3,8 @@
 namespace Drupal\loco_translate\Form;
 
 use Drupal\Component\Utility\Xss;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\language\ConfigurableLanguageManagerInterface;
 use Loco\Http\ApiClient;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,26 +23,12 @@ class SettingsForm extends ConfigFormBase {
   protected $languageManager;
 
   /**
-   * Constructs a loco translate settings form object.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The factory for configuration objects.
-   * @param \Drupal\language\ConfigurableLanguageManagerInterface $language_manager
-   *   The configurable language manager.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, ConfigurableLanguageManagerInterface $language_manager) {
-    parent::__construct($config_factory);
-    $this->languageManager = $language_manager;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('language_manager')
-    );
+    $instance = parent::create($container);
+    $instance->languageManager = $container->get('language_manager');
+    return $instance;
   }
 
   /**
