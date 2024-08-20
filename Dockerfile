@@ -8,7 +8,8 @@ ENV SYMFONY_DEPRECATIONS_HELPER=weak
 ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Install loco/loco as required by the module
-RUN composer require loco/loco:^2.0.7
+RUN COMPOSER_MEMORY_LIMIT=-1 composer config minimum-stability dev
+RUN composer require loco/loco:dev-master
 
 # Register the Drupal and DrupalPractice Standard with PHPCS.
 RUN ./vendor/bin/phpcs --config-set installed_paths \
