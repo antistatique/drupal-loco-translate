@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix usage of deprecated method returnArgument use willReturnArgument instead
 - fix construction of SettingsForm with new parameter added to \Drupal\Core\Form\ConfigFormBase for Drupal 10.2
 - add coverage of Drupal 11.0-dev
+- upgrade Docker Database mariadb 10.3.8 -> 10.6
 
 ### Added
 - add cpsell project words for Gitlab-CI
