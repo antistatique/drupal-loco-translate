@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - remove legacy version annotation on docker-compose.yml
 
+### Fixed
+- fix obsolete docker-compose command in CIs
+
 ## [3.0.1] - 2024-03-01
 ### Changed
 - re-enable PHPUnit Symfony Deprecation notice
