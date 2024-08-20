@@ -33,7 +33,7 @@ TBD
 
 ## Versions
 
-This module works on Drupal 8, Drupal 9, Drupal 10 & Drupal 11 (dev) !
+This module works on Drupal 8, Drupal 9, Drupal 10 & Drupal 11 !
 
 The latest version should work with all Drupal 9/10/11 releases using Drush 10+,
 and it is always recommended keeping Drupal core installations up to date.
@@ -47,7 +47,7 @@ and it is always recommended keeping Drupal core installations up to date.
 |    8.8.x    |      2.1       |
 |     9.x     |      2.x       |
 |    10.x     |     3.0.x      |
-|   11.x-dev   |     3.0.x      |
+|    11.x     |     3.0.x      |
 
 ## Dependencies
 
