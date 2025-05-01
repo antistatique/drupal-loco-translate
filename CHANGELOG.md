@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - drop support of Drupal 9.x
+- remove scanning CSS/JS with phpcs (deprecated and support will be removed in PHP_CodeSniffer 4.0)
 
 ## [3.0.2] - 2024-08-20
 ### Changed
