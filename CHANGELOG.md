@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - add official support of drupal 11.1
 
+### Removed
+- drop support of Drupal 9.x
+
 ## [3.0.2] - 2024-08-20
 ### Changed
 - fix deprecation by passing @dataprovider as static function
