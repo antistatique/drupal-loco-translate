@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Url;
+use Drupal\Core\Requirement\RequirementSeverity;
 
 /**
  * Implements hook_install().
@@ -34,7 +35,7 @@ function loco_translate_requirements($phase) {
     $requirements['loco_translate_loco_sdk'] = [
       'title' => t('Loco libraries'),
       'value' => t('Missing libraries'),
-      'severity' => REQUIREMENT_ERROR,
+      'severity' => class_exists('Drupal\Core\Requirement\RequirementSeverity') ? RequirementSeverity::Error : REQUIREMENT_ERROR,
       'description' => t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
         ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
         ':composer-url' => 'https://getcomposer.org',
@@ -48,7 +49,7 @@ function loco_translate_requirements($phase) {
       $requirements['loco_translate_readonly_key'] = [
         'title' => t('Loco Export API key'),
         'value' => t('Missing'),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => class_exists('Drupal\Core\Requirement\RequirementSeverity') ? RequirementSeverity::Error : REQUIREMENT_ERROR,
         'description' => t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
           ':loco-url' => 'https://localise.biz/help/developers/api-keys',
           ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
@@ -60,7 +61,7 @@ function loco_translate_requirements($phase) {
       $requirements['loco_translate_fullaccess_key'] = [
         'title' => t('Loco Full Access API key'),
         'value' => t('Missing'),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => class_exists('Drupal\Core\Requirement\RequirementSeverity') ? RequirementSeverity::Error : REQUIREMENT_ERROR,
         'description' => t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href="">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
           ':loco-url' => 'https://localise.biz/help/developers/api-keys',
           ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
