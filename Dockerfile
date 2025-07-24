@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=9.3
+ARG BASE_IMAGE_TAG=10.5
 FROM wengerk/drupal-for-contrib:${BASE_IMAGE_TAG}
 
 # Disable deprecation notice since PHPUnit 10 with Drupal 10.2 and upper.
