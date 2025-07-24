@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - replace deprecated constant REQUIREMENT_ERROR by RequirementSeverity::Error
+- fix division by zero when using a key for a brand new project with no assets in it - #3537439
 
 ## [3.0.3] - 2025-05-15
 ### Added

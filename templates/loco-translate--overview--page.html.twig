@@ -48,7 +48,10 @@
       {% for locale in variables.locales %}
         <h4 class="system-status-general-info__sub-item-title">{{ locale.name }}</h4>
 
-        {% set percent = (locale.progress.translated / variables.assets|length * 100)|number_format(2, '.') %}
+        {% set percent = 0 %}
+        {% if variables.assets|length > 0 %}
+          {% set percent = (locale.progress.translated / variables.assets|length * 100)|number_format(2, '.') %}
+        {% endif %}
         <div class="progress" data-drupal-progress="">
           <div class="progress__track">
             <div class="progress__bar progress__still" style="width: {{ percent }}%"></div>
