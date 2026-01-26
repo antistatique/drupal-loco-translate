@@ -5,8 +5,8 @@
  * Contains loco_translate.install.
  */
 
-use Drupal\Core\Url;
 use Drupal\Core\Requirement\RequirementSeverity;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_install().
