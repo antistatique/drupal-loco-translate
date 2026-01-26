@@ -3,7 +3,6 @@
 namespace Drupal\loco_translate;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\locale\Gettext;
 use Drupal\loco_translate\Exception\LocoTranslateException;
 
@@ -27,26 +26,16 @@ class TranslationsImport {
   protected $moduleHandler;
 
   /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
    * Class constructor.
    *
    * @param \Drupal\loco_translate\Utility $utility
    *   Utility methods for Loco Translate.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   The file system service.
    */
-  public function __construct(Utility $utility, ModuleHandlerInterface $module_handler, FileSystemInterface $file_system) {
+  public function __construct(Utility $utility, ModuleHandlerInterface $module_handler) {
     $this->utility = $utility;
     $this->moduleHandler = $module_handler;
-    $this->fileSystem = $file_system;
   }
 
   /**
@@ -90,7 +79,7 @@ class TranslationsImport {
 
     // Create a valid file class for Gettext::fileToDatabase.
     $file            = new \stdClass();
-    $file->filename  = $this->fileSystem->basename($path);
+    $file->filename  = basename($path);
     $file->uri       = $path;
     $file->langcode  = $locale;
     $file->timestamp = filemtime($path);

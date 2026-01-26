@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add official support of drupal 10.6
 - add official support of drupal 11.3
 
+### Changed
+- remove deprecated usage of FileSystemInterface::basename
+
 ## [3.0.4] - 2025-08-25
 ### Fixed
 - replace deprecated constant REQUIREMENT_ERROR by RequirementSeverity::Error
