@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - allow drupal/coder:^9
+- add experimental coverage of Drupal 11.4
 
 ## [3.0.5] - 2026-01-26
 ### Added
