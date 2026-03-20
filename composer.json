@@ -34,11 +34,13 @@
   },
   "license": "GPL-2.0-or-later",
   "require-dev": {
-    "drupal/coder": "^8.3.1",
-    "drush/drush": ">=11||>=13"
+    "drupal/coder": "^8.3.1 || ^9"
   },
   "require": {
-    "loco/loco": "^2.0"
+    "loco/loco": "*"
+  },
+  "conflict": {
+    "loco/loco": "<2.0.14"
   },
   "config": {
     "allow-plugins": {

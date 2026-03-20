@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Removed
+- remove drush from dev-dependency
+- remove usage of deprecated (drupal 12) \_locale_translation_default_update_options
+
+### Added
+- allow drupal/coder:^9
+- add experimental coverage of Drupal 11.4
 
 ## [3.0.5] - 2026-01-26
 ### Added
