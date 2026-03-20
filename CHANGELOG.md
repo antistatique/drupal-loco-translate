@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Removed
 - remove drush from dev-dependency
+- remove usage of deprecated (drupal 12) \_locale_translation_default_update_options
 
 ### Added
 - allow drupal/coder:^9

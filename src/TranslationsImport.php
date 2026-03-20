@@ -69,13 +69,15 @@ class TranslationsImport {
     $this->moduleHandler->loadInclude('locale', 'translation.inc');
     $this->moduleHandler->loadInclude('locale', 'bulk.inc');
 
-    $options = array_merge(_locale_translation_default_update_options(), [
+    $options = [
       'customized' => LOCALE_NOT_CUSTOMIZED,
       'overwrite_options' => [
         'not_customized' => TRUE,
         'customized' => TRUE,
       ],
-    ]);
+      'finish_feedback' => TRUE,
+      'use_remote' => locale_translation_use_remote_source(),
+    ];
 
     // Create a valid file class for Gettext::fileToDatabase.
     $file            = new \stdClass();
