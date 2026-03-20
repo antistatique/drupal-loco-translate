@@ -9,3 +9,5 @@ parameters:
     - "#^Unsafe usage of new static#"
     # The module support Drupal 10 and Drupal 11, so we cannot fix that deprecation without dropping support below Drupal 11.2.
     - "#^Fetching deprecated class constant REQUIREMENT_ERROR#"
+  scanDirectories:
+    - ../../../../vendor/drush/drush/src-symfony-compatibility
