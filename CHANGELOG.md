@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - allow drupal/coder:^9
 - add experimental coverage of Drupal 11.4
 
+### Changed
+- suppress PHPStan false positives for REQUIREMENT_ERROR on Drupal 11+
+
 ## [3.0.5] - 2026-01-26
 ### Added
 - add official support of drupal 10.6

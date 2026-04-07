@@ -8,9 +8,10 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
-use Drupal\system\SystemManager;
 use Loco\Http\ApiClient;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Extension\Requirement\RequirementSeverity;
+use Drupal\system\SystemManager;
 
 /**
  * Loco dashboard overview.
@@ -125,7 +126,8 @@ class OverviewController extends ControllerBase {
 
     if (!class_exists('Loco\Http\ApiClient')) {
       $variables['requirements']['loco_translate_loco_sdk']['value'] = $this->t('Missing libraries');
-      $variables['requirements']['loco_translate_loco_sdk']['severity'] = SystemManager::REQUIREMENT_ERROR;
+      // @phpstan-ignore class.notFound, constant.notFound, classConstant.notFound
+      $variables['requirements']['loco_translate_loco_sdk']['severity'] = class_exists('Drupal\Core\Extension\Requirement\RequirementSeverity') ? RequirementSeverity::Error : SystemManager::REQUIREMENT_ERROR;
       $variables['requirements']['loco_translate_loco_sdk']['description'] = $this->t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
         ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
         ':composer-url' => 'https://getcomposer.org',
@@ -139,7 +141,8 @@ class OverviewController extends ControllerBase {
     ];
     if (empty($config->get('api.readonly_key'))) {
       $variables['requirements']['loco_translate_readonly_key']['value'] = $this->t('Missing');
-      $variables['requirements']['loco_translate_readonly_key']['severity'] = SystemManager::REQUIREMENT_ERROR;
+      // @phpstan-ignore class.notFound, constant.notFound, classConstant.notFound
+      $variables['requirements']['loco_translate_readonly_key']['severity'] = class_exists('Drupal\Core\Extension\Requirement\RequirementSeverity') ? RequirementSeverity::Error : SystemManager::REQUIREMENT_ERROR;
       $variables['requirements']['loco_translate_readonly_key']['description'] = $this->t('Loco Translate requires your Export API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
         ':loco-url' => 'https://localise.biz/help/developers/api-keys',
         ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
@@ -152,7 +155,8 @@ class OverviewController extends ControllerBase {
     ];
     if (empty($config->get('api.fullaccess_key'))) {
       $variables['requirements']['loco_translate_fullaccess_key']['value'] = $this->t('Missing');
-      $variables['requirements']['loco_translate_fullaccess_key']['severity'] = SystemManager::REQUIREMENT_ERROR;
+      // @phpstan-ignore class.notFound, constant.notFound, classConstant.notFound
+      $variables['requirements']['loco_translate_fullaccess_key']['severity'] = class_exists('Drupal\Core\Extension\Requirement\RequirementSeverity') ? RequirementSeverity::Error : SystemManager::REQUIREMENT_ERROR;
       $variables['requirements']['loco_translate_fullaccess_key']['description'] = $this->t('Loco Translate requires your Full Access API key. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href="">Settings form</a>. You may find more informations about API keys on <a href=":loco-url" target="_blank">Loco support</a> pages', [
         ':loco-url' => 'https://localise.biz/help/developers/api-keys',
         ':settings-url' => Url::fromRoute('loco_translate.settings', [], ['fragment' => 'edit-api'])->toString(),
