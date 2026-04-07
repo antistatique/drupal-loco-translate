@@ -16,7 +16,7 @@ use Drupal\system\SystemManager;
 /**
  * Loco dashboard overview.
  */
-class OverviewController extends ControllerBase {
+final class OverviewController extends ControllerBase {
 
   /**
    * The state service.
@@ -69,7 +69,7 @@ class OverviewController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
+    return new self(
       $container->get('state'),
       $container->get('config.factory'),
       $container->get('date.formatter'),

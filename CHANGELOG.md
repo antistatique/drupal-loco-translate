@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - suppress PHPStan false positives for REQUIREMENT_ERROR on Drupal 11+
+- annotate unsafe new static() usages per Drupal PHPStan guidelines
 
 ## [3.0.5] - 2026-01-26
 ### Added

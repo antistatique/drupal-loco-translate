@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @internal
  */
-class PullForm extends FormBase {
+final class PullForm extends FormBase {
 
   /**
    * The Utility service of Loco Translate.
@@ -65,7 +65,7 @@ class PullForm extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
+    return new self(
       $container->get('loco_translate.utility'),
       $container->get('language_manager'),
       $container->get('file_system'),

@@ -8,7 +8,7 @@ use Loco\Http\Result\RawResult;
 /**
  * Represents an exception that occurred in the communication with Loco API.
  */
-class LocoApiException extends \Exception {
+final class LocoApiException extends \Exception {
 
   /**
    * The upload to Loco API has failed.

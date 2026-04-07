@@ -5,7 +5,7 @@ namespace Drupal\loco_translate\Exception;
 /**
  * Represents an exception that occurred in Loco Translate.
  */
-class LocoTranslateException extends \Exception {
+final class LocoTranslateException extends \Exception {
 
   /**
    * Invalid langcode exception.
