@@ -91,7 +91,7 @@ final class PullCommandTest extends TranslationsTestsBase {
       ])
       ->getMock();
 
-    $translationImport->expects(self::any())
+    $translationImport
       ->method('realpath')
       ->willReturnArgument(0);
 
