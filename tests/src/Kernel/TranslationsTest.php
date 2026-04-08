@@ -2,13 +2,16 @@
 
 namespace Drupal\Tests\loco_translate\Kernel;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Cover default behaviors of translations.
  *
  * @group loco_translate
- * @group loco_translate_kernel
- * @group loco_translate_kernel_translations
  */
+#[Group('loco_translate')]
+#[RunTestsInSeparateProcesses]
 class TranslationsTest extends TranslationsTestsBase {
 
   /**

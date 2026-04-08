@@ -9,16 +9,20 @@ use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Psr7\Response;
 use Loco\Http\ApiClient;
 use Loco\Http\Result\RawResult;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
- * @coversDefaultClass \Drupal\loco_translate\Loco\Pull
+ * Tests pulling translations from Loco.
  *
  * @group loco_translate
- * @group loco_translate_unit
- * @group loco_translate_unit_upload
  */
+#[Group('loco_translate')]
+#[CoversClass(\Drupal\loco_translate\Loco\Pull::class)]
+#[CoversMethod(\Drupal\loco_translate\Loco\Pull::class, 'fromLocoToDrupal')]
 class LocoPullTest extends UnitTestCase {
 
   use ProphecyTrait;
@@ -56,7 +60,7 @@ class LocoPullTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromLocoToDrupal
+   * Ensures translations can be pulled successfully.
    */
   public function testPullFromLocoToDrupalSuccess() {
     $data = file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/export-200.po');
@@ -76,7 +80,7 @@ class LocoPullTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromLocoToDrupal
+   * Ensures a custom export index can be used.
    */
   public function testPullFromLocoToDrupalAlteredIndex() {
     $data = file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/export-200.po');
@@ -96,7 +100,7 @@ class LocoPullTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromLocoToDrupal
+   * Ensures pull failures without a status throw an API exception.
    */
   public function testPullFromLocoToDrupalSucessNoStatus() {
     $data = file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/export-404.po');
@@ -117,7 +121,7 @@ class LocoPullTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromLocoToDrupal
+   * Ensures pull failures with a status throw an API exception.
    */
   public function testPullFromLocoToDrupalException() {
     $data = file_get_contents(__DIR__ . '/../../modules/loco_translate_test/responses/export-404.po');

@@ -3,14 +3,20 @@
 namespace Drupal\Tests\loco_translate\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * @coversDefaultClass \Drupal\loco_translate\Controller\OverviewController
+ * Tests the overview controller page.
  *
  * @group loco_translate
- * @group loco_translate_browser
  * @group loco_translate_functional
  */
+#[Group('loco_translate')]
+#[Group('loco_translate_functional')]
+#[CoversClass(\Drupal\loco_translate\Controller\OverviewController::class)]
+#[RunTestsInSeparateProcesses]
 class OverviewControllerTest extends BrowserTestBase {
 
   /**

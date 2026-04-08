@@ -4,6 +4,10 @@ namespace Drupal\Tests\loco_translate\Kernel\Cron;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\loco_translate\Loco\Push as LocoPush;
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 
@@ -13,9 +17,11 @@ use Prophecy\PhpUnit\ProphecyTrait;
  * @see loco_translate_cron_push
  *
  * @group loco_translate
- * @group loco_translate_kernel
- * @group loco_translate_cron
  */
+#[Group('loco_translate')]
+#[CoversFunction('loco_translate_cron')]
+#[CoversFunction('loco_translate_cron_push')]
+#[RunTestsInSeparateProcesses]
 class CronPushTest extends KernelTestBase {
 
   use ProphecyTrait;
@@ -83,6 +89,7 @@ class CronPushTest extends KernelTestBase {
    *
    * @dataProvider goodIntervalProvider
    */
+  #[DataProvider('goodIntervalProvider')]
   public function testCronPushGoodInterval($langcode, $last_run, $interval) {
     // Mock the loco push manager to prevent any API call.
     $loco_push = $this->prophesize(LocoPush::class);
@@ -126,6 +133,7 @@ class CronPushTest extends KernelTestBase {
    *
    * @dataProvider badIntervalProvider
    */
+  #[DataProvider('badIntervalProvider')]
   public function testCronPushBadInterval($langcode, $last_run, $interval) {
     // Mock the loco push manager to prevent any API call.
     $loco_push = $this->prophesize(LocoPush::class);

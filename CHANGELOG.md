@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - allow drupal/coder:^9
 - add experimental coverage of Drupal 11.4
+- add PHPUnit 10 PHP attributes (`#[Group]`, `#[RunTestsInSeparateProcesses]`, `#[CoversClass]`, `#[CoversMethod]`, `#[CoversFunction]`, `#[DataProvider]`) to all test classes
+- add `phpstan (previous major)` CI job that strips PHPUnit attribute lines before analysis against Drupal 10.
 
 ### Changed
 - suppress PHPStan false positives for REQUIREMENT_ERROR on Drupal 11+

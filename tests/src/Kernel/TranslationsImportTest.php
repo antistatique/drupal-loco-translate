@@ -3,14 +3,20 @@
 namespace Drupal\Tests\loco_translate\Kernel;
 
 use Drupal\loco_translate\Exception\LocoTranslateException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * @coversDefaultClass \Drupal\loco_translate\TranslationsImport
+ * Tests importing translations from PO files.
  *
  * @group loco_translate
- * @group loco_translate_kernel
- * @group loco_translate_kernel_translations_import
  */
+#[Group('loco_translate')]
+#[CoversClass(\Drupal\loco_translate\TranslationsImport::class)]
+#[CoversMethod(\Drupal\loco_translate\TranslationsImport::class, 'fromFile')]
+#[RunTestsInSeparateProcesses]
 class TranslationsImportTest extends TranslationsTestsBase {
 
   /**
@@ -51,7 +57,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\TranslationsImport::fromFile
+   * Ensures importing fails for undefined languages.
    */
   public function testInvalidLangcode() {
     $this->expectException(LocoTranslateException::class);
@@ -62,7 +68,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\TranslationsImport::fromFile
+   * Ensures importing fails when the source file is missing.
    */
   public function testSourceNotFound() {
     $this->expectException(LocoTranslateException::class);
@@ -72,7 +78,7 @@ class TranslationsImportTest extends TranslationsTestsBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\TranslationsImport::fromFile
+   * Ensures translations are imported and reported correctly.
    */
   public function testFromFile() {
     $this->setUpTranslations();

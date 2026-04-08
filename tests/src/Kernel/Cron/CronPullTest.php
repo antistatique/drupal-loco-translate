@@ -8,6 +8,10 @@ use Drupal\loco_translate\TranslationsImport;
 use GuzzleHttp\Psr7\Response;
 use Loco\Http\Result\RawResult;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 
@@ -17,9 +21,11 @@ use Prophecy\PhpUnit\ProphecyTrait;
  * @see loco_translate_cron_pull
  *
  * @group loco_translate
- * @group loco_translate_kernel
- * @group loco_translate_cron
  */
+#[Group('loco_translate')]
+#[CoversFunction('loco_translate_cron')]
+#[CoversFunction('loco_translate_cron_pull')]
+#[RunTestsInSeparateProcesses]
 class CronPullTest extends KernelTestBase {
 
   use ProphecyTrait;
@@ -92,6 +98,7 @@ class CronPullTest extends KernelTestBase {
    *
    * @dataProvider goodIntervalProvider
    */
+  #[DataProvider('goodIntervalProvider')]
   public function testCronPullGoodInterval($langcode, $last_run, $interval) {
     $data = file_get_contents(\Drupal::service('extension.list.module')->getPath('loco_translate_test') . '/responses/export-200.po');
     $response = new Response(200, [], $data);
@@ -151,6 +158,7 @@ class CronPullTest extends KernelTestBase {
    *
    * @dataProvider badIntervalProvider
    */
+  #[DataProvider('badIntervalProvider')]
   public function testCronPullBadInterval($langcode, $last_run, $interval) {
     // Mock the loco pull manager to prevent any API call.
     $loco_pull = $this->prophesize(LocoPull::class);

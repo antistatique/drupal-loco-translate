@@ -8,16 +8,23 @@ use Drupal\loco_translate\TranslationsImport;
 use GuzzleHttp\Psr7\Response;
 use Loco\Http\Result\RawResult;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
- * @coversDefaultClass \Drupal\loco_translate\Commands\PullCommand
+ * Tests the pull Drush command.
  *
  * @group loco_translate
- * @group loco_translate_kernel
  *
  * @internal
  */
+#[Group('loco_translate')]
+#[CoversClass(\Drupal\loco_translate\Commands\PullCommand::class)]
+#[CoversMethod(\Drupal\loco_translate\Commands\PullCommand::class, 'pull')]
+#[RunTestsInSeparateProcesses]
 final class PullCommandTest extends TranslationsTestsBase {
 
   use ProphecyTrait;
@@ -80,20 +87,20 @@ final class PullCommandTest extends TranslationsTestsBase {
     // Mock the loco pull manager to prevent any API call.
     $this->locoPull = $this->prophesize(LocoPull::class);
 
-    // Partially mock the translation importer in order to prevent realpath
-    // on VFS.
-    $translationImport = $this->getMockBuilder(TranslationsImport::class)
-      ->onlyMethods(['realpath'])
-      ->setConstructorArgs([
-        $this->container->get('loco_translate.utility'),
-        $this->container->get('module_handler'),
-        $this->container->get('file_system'),
-      ])
-      ->getMock();
+    // Use a real importer instance so realpath() works with VFS paths.
+    $translationImport = new class(
+      $this->container->get('loco_translate.utility'),
+      $this->container->get('module_handler')
+    ) extends TranslationsImport {
 
-    $translationImport
-      ->method('realpath')
-      ->willReturnArgument(0);
+      /**
+       * {@inheritdoc}
+       */
+      public function realpath($source) {
+        return $source;
+      }
+
+    };
 
     $this->pullCommand = new PullCommand(
       $this->locoPull->reveal(),
@@ -104,7 +111,7 @@ final class PullCommandTest extends TranslationsTestsBase {
   }
 
   /**
-   * @covers ::pull
+   * Ensures pulling imports the downloaded translation file.
    */
   public function testPull(): void {
     // Mock the Loco Response export response.

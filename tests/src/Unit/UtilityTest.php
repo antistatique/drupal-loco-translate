@@ -2,20 +2,31 @@
 
 namespace Drupal\Tests\loco_translate\Unit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+
 /**
- * @coversDefaultClass \Drupal\loco_translate\Utility
+ * Tests the Loco Translate utility service.
  *
  * @group loco_translate
- * @group loco_translate_unit
- * @group loco_translate_unit_utility
  */
+#[Group('loco_translate')]
+#[CoversClass(\Drupal\loco_translate\Utility::class)]
+#[CoversMethod(\Drupal\loco_translate\Utility::class, 'isLangcodeEnabled')]
+#[CoversMethod(\Drupal\loco_translate\Utility::class, 'setLastPush')]
+#[CoversMethod(\Drupal\loco_translate\Utility::class, 'setLastPull')]
+#[CoversMethod(\Drupal\loco_translate\Utility::class, 'getLastPush')]
+#[CoversMethod(\Drupal\loco_translate\Utility::class, 'getLastPull')]
 class UtilityTest extends UtilityTestBase {
 
   /**
-   * @covers \Drupal\loco_translate\Utility::isLangcodeEnabled
+   * Ensures enabled languages are detected correctly.
    *
    * @dataProvider getTestIsLangcodeEnabled
    */
+  #[DataProvider('getTestIsLangcodeEnabled')]
   public function testIsLangcodeEnabled($langcode, $expected) {
     $result = $this->utility->isLangcodeEnabled($langcode);
     $this->assertEquals($result, $expected);
@@ -38,10 +49,11 @@ class UtilityTest extends UtilityTestBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\Utility::setLastPull
+   * Ensures push timestamps are stored correctly.
    *
    * @dataProvider setterProvider
    */
+  #[DataProvider('setterProvider')]
   public function testSetLastPush($langcode, $timestamp, array $previous_state, array $expected) {
     $this->state->get('loco_translate.api.push_last')->shouldBeCalled();
     $this->state->get('loco_translate.api.push_last')->willReturn($previous_state);
@@ -52,10 +64,11 @@ class UtilityTest extends UtilityTestBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\Utility::setLastPull
+   * Ensures pull timestamps are stored correctly.
    *
    * @dataProvider setterProvider
    */
+  #[DataProvider('setterProvider')]
   public function testSetLastPull($langcode, $timestamp, array $previous_state, array $expected) {
     $this->state->get('loco_translate.api.pull_last')->shouldBeCalled();
     $this->state->get('loco_translate.api.pull_last')->willReturn($previous_state);
@@ -102,10 +115,11 @@ class UtilityTest extends UtilityTestBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\Utility::getLastPull
+   * Ensures push timestamps are returned correctly.
    *
    * @dataProvider getterProvider
    */
+  #[DataProvider('getterProvider')]
   public function testGetLastPush($langcode, array $last_state, $expected) {
     $this->state->get('loco_translate.api.push_last')->shouldBeCalled();
     $this->state->get('loco_translate.api.push_last')->willReturn($last_state);
@@ -115,10 +129,11 @@ class UtilityTest extends UtilityTestBase {
   }
 
   /**
-   * @covers \Drupal\loco_translate\Utility::getLastPull
+   * Ensures pull timestamps are returned correctly.
    *
    * @dataProvider getterProvider
    */
+  #[DataProvider('getterProvider')]
   public function testGetLastPull($langcode, array $last_state, $expected) {
     $this->state->get('loco_translate.api.pull_last')->shouldBeCalled();
     $this->state->get('loco_translate.api.pull_last')->willReturn($last_state);

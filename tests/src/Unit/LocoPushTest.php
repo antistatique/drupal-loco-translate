@@ -7,15 +7,19 @@ use Drupal\loco_translate\Loco\Push as LocoPush;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\Command\Result;
 use Loco\Http\ApiClient;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Group;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
- * @coversDefaultClass \Drupal\loco_translate\Loco\Push
+ * Tests pushing translations to Loco.
  *
  * @group loco_translate
- * @group loco_translate_unit
- * @group loco_translate_unit_upload
  */
+#[Group('loco_translate')]
+#[CoversClass(\Drupal\loco_translate\Loco\Push::class)]
+#[CoversMethod(\Drupal\loco_translate\Loco\Push::class, 'fromFileToLoco')]
 class LocoPushTest extends UnitTestCase {
 
   use ProphecyTrait;
@@ -48,7 +52,7 @@ class LocoPushTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromFileToLoco
+   * Ensures translations can be pushed successfully.
    */
   public function testPushFromFileToLocoSuccess() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
@@ -69,7 +73,7 @@ class LocoPushTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromFileToLoco
+   * Ensures translations can be pushed with a custom index.
    */
   public function testPushFromFileToLocoAlteredIndexSuccess() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
@@ -90,7 +94,7 @@ class LocoPushTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromFileToLoco
+   * Ensures a 404 response raises an API exception.
    */
   public function testPushFromFileToLocoFailed404() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
@@ -112,7 +116,7 @@ class LocoPushTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::fromFileToLoco
+   * Ensures a 403 response raises an API exception.
    */
   public function testPushFromFileToLocoFailed403() {
     $file = __DIR__ . '/../../modules/loco_translate_test/assets/fr.po';
