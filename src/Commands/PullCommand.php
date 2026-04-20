@@ -124,6 +124,10 @@ class PullCommand extends DrushCommands {
     $this->output()->writeln(sprintf('Updates: %s', $report['updates']));
     $this->output()->writeln(sprintf('Deletes: %s', $report['deletes']));
     $this->output()->writeln(sprintf('Skips: %s', $report['skips']));
+
+    // Force a cache clear upon pull in order to have the new
+    // translations available immediately.
+    drupal_flush_all_caches();
   }
 
 }

@@ -142,6 +142,13 @@ final class PullForm extends FormBase {
       '#description' => $this->t('Import translations with a specific status. <br/>Bear in mind that this option is primarily intended for importing single-language. <br/>The status of asset translations is likely to differ between locales, so the result may not make sense.'),
     ];
 
+    $form['cache_clear'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Rebuild caches after import'),
+      '#default_value' => 1,
+      '#description' => $this->t('Keep this enabled to make imported translations available immediately. Otherwise, new or updated translations may not appear until caches are rebuilt.'),
+    ];
+
     $form['actions'] = [
       '#type' => 'actions',
     ];
@@ -191,6 +198,7 @@ final class PullForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $langcodes = $form_state->getValue('langcodes');
+    $clear_cache = (bool) $form_state->getValue('cache_clear');
 
     foreach ($langcodes as $langcode) {
       // Skip unchecked langcode.
@@ -217,6 +225,11 @@ final class PullForm extends FormBase {
       catch (\Exception $e) {
         $this->messenger()->addError($e->getMessage());
       }
+    }
+
+    if ($clear_cache) {
+      drupal_flush_all_caches();
+      $this->messenger()->addStatus($this->t('Caches were rebuilt so the imported translations are available immediately.'));
     }
   }
 

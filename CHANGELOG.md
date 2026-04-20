@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- update the pull form with a cache rebuild option
+- update the pull command with a cache rebuild operation
+
 ## [3.0.6] - 2026-04-20
 ### Removed
 - remove drush from dev-dependency
