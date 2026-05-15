@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.7] - 2026-05-15
 ### Changed
 - update the pull form with a cache rebuild option
 - update the pull command with a cache rebuild operation
@@ -167,7 +168,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - pull command from Loco SaSS to Drupal database
 - basic form settings with Loco SaSS API credentials
 
-[Unreleased]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.6...HEAD
+[Unreleased]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.7...HEAD
+[3.0.7]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.6...3.0.7
 [3.0.6]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.5...3.0.6
 [3.0.5]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.4...3.0.5
 [3.0.4]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.3...3.0.4
