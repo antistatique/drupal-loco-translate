@@ -3,6 +3,7 @@ antistatique
 Aujourd'hui
 cleancode
 codesize
+codesniffer
 Cyclomatic
 dernière
 Dienstag
