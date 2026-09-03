@@ -30,13 +30,6 @@ final class PullCommandTest extends TranslationsTestsBase {
   use ProphecyTrait;
 
   /**
-   * The file storage service.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $fileStorage;
-
-  /**
    * The Loco translations pull manager.
    *
    * @var \Drupal\loco_translate\Loco\Pull
@@ -82,8 +75,6 @@ final class PullCommandTest extends TranslationsTestsBase {
       ->set('translation.path', $translations_stream->url())
       ->save();
 
-    $this->fileStorage = $this->container->get('entity_type.manager')->getStorage('file');
-
     // Mock the loco pull manager to prevent any API call.
     $this->locoPull = $this->prophesize(LocoPull::class);
 
@@ -127,13 +118,15 @@ final class PullCommandTest extends TranslationsTestsBase {
     $this->assertNull($source);
 
     // Ensure there is no Drupal File Entity.
-    $this->assertEmpty($this->fileStorage->loadMultiple());
+    $file_storage = $this->container->get('entity_type.manager')
+      ->getStorage('file');
+    $this->assertEmpty($file_storage->loadMultiple());
 
     // Run the pull operation on translation english.
     $this->pullCommand->pull('en');
 
     // Ensure on file has been created as Drupal File Entity as Temporary.
-    $files = $this->fileStorage->loadMultiple();
+    $files = $file_storage->loadMultiple();
     $this->assertCount(1, $files);
     $file = reset($files);
     $this->assertFalse($file->isPermanent());

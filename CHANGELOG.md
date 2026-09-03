@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - fix: add codesniffer to the cspell project dictionary
+- fix: do not store entity storage as a class property
 
 ## [3.0.8] - 2026-07-02
 ### Added
