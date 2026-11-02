@@ -9,21 +9,7 @@ use Drush\Commands\DrushCommands;
 /**
  * Drush Loco Push Commands.
  */
-class PushCommand extends DrushCommands {
-
-  /**
-   * Loco Push Api Wrapper.
-   *
-   * @var \Drupal\loco_translate\Loco\Push
-   */
-  private $locoPush;
-
-  /**
-   * The Utility service of Loco Translate.
-   *
-   * @var \Drupal\loco_translate\Utility
-   */
-  private $utility;
+final class PushCommand extends DrushCommands {
 
   /**
    * PushCommand constructor.
@@ -33,10 +19,10 @@ class PushCommand extends DrushCommands {
    * @param \Drupal\loco_translate\Utility $utility
    *   The Utility service of Loco Translate.
    */
-  public function __construct(Push $locoPush, Utility $utility) {
-    $this->locoPush = $locoPush;
-    $this->utility = $utility;
-  }
+  public function __construct(
+    private readonly Push $locoPush,
+    private readonly Utility $utility,
+  ) {}
 
   /**
    * Push a local .po file into Loco SAAS.

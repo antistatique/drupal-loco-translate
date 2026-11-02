@@ -12,31 +12,17 @@ use Drupal\loco_translate\Exception\LocoTranslateException;
 class TranslationsImport {
 
   /**
-   * The Utility service of Loco Translate.
-   *
-   * @var \Drupal\loco_translate\Utility
-   */
-  protected $utility;
-
-  /**
-   * The module handler service.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * Class constructor.
    *
    * @param \Drupal\loco_translate\Utility $utility
    *   Utility methods for Loco Translate.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler service.
    */
-  public function __construct(Utility $utility, ModuleHandlerInterface $module_handler) {
-    $this->utility = $utility;
-    $this->moduleHandler = $module_handler;
-  }
+  public function __construct(
+    protected Utility $utility,
+    protected ModuleHandlerInterface $moduleHandler,
+  ) {}
 
   /**
    * Translation(s) importation from .po file in the database.

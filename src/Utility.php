@@ -9,32 +9,19 @@ use Drupal\Core\State\StateInterface;
  * Contains utility methods for the Loco Translate module.
  */
 class Utility {
-  /**
-   * The language Manager.
-   *
-   * @var \Drupal\language\ConfigurableLanguageManager
-   */
-  protected $languageManager;
-
-  /**
-   * The state service.
-   *
-   * @var \Drupal\Core\State\StateInterface
-   */
-  protected $state;
 
   /**
    * Class constructor.
    *
-   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   * @param \Drupal\Core\Language\LanguageManagerInterface $languageManager
    *   The language manager.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    */
-  public function __construct(LanguageManagerInterface $language_manager, StateInterface $state) {
-    $this->languageManager = $language_manager;
-    $this->state = $state;
-  }
+  public function __construct(
+    protected LanguageManagerInterface $languageManager,
+    protected StateInterface $state,
+  ) {}
 
   /**
    * From a given langcode, retrieve the langname.

@@ -12,21 +12,14 @@ use Loco\Http\ApiClient;
 class Push {
 
   /**
-   * The Loco SDK HTTP client.
-   *
-   * @var \Loco\Http\ApiClient
-   */
-  private $client;
-
-  /**
    * Constructor.
    *
-   * @param \Loco\Http\ApiClient $api_client
+   * @param \Loco\Http\ApiClient $client
    *   Loco Api Client.
    */
-  public function __construct(ApiClient $api_client) {
-    $this->client = $api_client;
-  }
+  public function __construct(
+    private ApiClient $client,
+  ) {}
 
   /**
    * Set the API Client.

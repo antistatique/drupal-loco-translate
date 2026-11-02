@@ -9,16 +9,11 @@ use Twig\TwigFunction;
 /**
  * Loco Twig Extensions.
  */
-class LocoExport extends AbstractExtension {
+final class LocoExport extends AbstractExtension {
 
-  /**
-   * The config factory.
-   */
-  protected ConfigFactoryInterface $configFactory;
-
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    $this->configFactory = $config_factory;
-  }
+  public function __construct(
+    private readonly ConfigFactoryInterface $configFactory,
+  ) {}
 
   /**
    * {@inheritdoc}
