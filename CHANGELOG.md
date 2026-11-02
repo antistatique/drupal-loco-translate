@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - docs(readme): update the supported Drupal versions
 - refactor: mark internal classes final and use constructor property promotion
+- ci: rename the docker-compose build steps to docker compose
 
 ### Removed
 - ci: remove PhpDeprecationDetector (phpdd) job, tool and docs
