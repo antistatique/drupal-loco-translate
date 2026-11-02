@@ -33,21 +33,20 @@ TBD
 
 ## Versions
 
-This module works on Drupal 8, Drupal 9, Drupal 10 & Drupal 11 !
+This module works on Drupal 10.5+, Drupal 11 & Drupal 12 !
 
-The latest version should work with all Drupal 9/10/11 releases using Drush 10+,
+The latest version should work with all Drupal 10.5+/11/12 releases using Drush 12+,
 and it is always recommended keeping Drupal core installations up to date.
 
 ## Which version should I use?
 
 | Drupal Core | Loco Translate |
 |:-----------:|:--------------:|
-|    8.7.x    |      1.x       |
-|    8.8.x    |      2.1       |
-|    8.8.x    |      2.1       |
+|     8.x     |      2.1       |
 |     9.x     |      2.x       |
 |    10.x     |     3.0.x      |
 |    11.x     |     3.0.x      |
+|    12.x     |     3.0.x      |
 
 ## Dependencies
 
