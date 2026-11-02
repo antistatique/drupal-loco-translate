@@ -2,6 +2,7 @@
 
 namespace Drupal\loco_translate\Hook;
 
+use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
@@ -24,10 +25,13 @@ final class HelpHook {
    *   The module handler.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration factory.
+   * @param \Drupal\Component\Plugin\PluginManagerInterface|null $filterManager
+   *   The filter plugin manager, NULL when the Filter module is not installed.
    */
   public function __construct(
     private readonly ModuleHandlerInterface $moduleHandler,
     private readonly ConfigFactoryInterface $configFactory,
+    private readonly ?PluginManagerInterface $filterManager = NULL,
   ) {
   }
 
@@ -52,13 +56,10 @@ final class HelpHook {
     $output = '';
 
     // If the Markdown module is installed, use it to render the README.
-    if ($text && $this->moduleHandler->moduleExists('markdown') === TRUE) {
-      // The filter plugin manager is only available along with the Markdown
-      // module (which depends on Filter), so it is not injected.
-      $filter_manager = \Drupal::service('plugin.manager.filter');
+    if ($text && $this->filterManager !== NULL && $this->moduleHandler->moduleExists('markdown') === TRUE) {
       $settings = $this->configFactory->get('markdown.settings')->getRawData();
       $config = ['settings' => $settings];
-      $filter = $filter_manager->createInstance('markdown', $config);
+      $filter = $this->filterManager->createInstance('markdown', $config);
       $output = $filter->process($text, 'en');
     }
     // Else the Markdown module is not installed output the README as text.

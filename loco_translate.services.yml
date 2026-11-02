@@ -57,4 +57,8 @@ services:
 
   Drupal\loco_translate\Hook\HelpHook:
     class: Drupal\loco_translate\Hook\HelpHook
-    autowire: true
+    arguments:
+      - '@module_handler'
+      - '@config.factory'
+      # Optional: the Filter module is not a dependency.
+      - '@?plugin.manager.filter'
