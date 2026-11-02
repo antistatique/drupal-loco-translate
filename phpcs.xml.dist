@@ -8,8 +8,8 @@
   <arg name="colors"/>
   <arg name="extensions" value="php,inc,module,install,info,test,profile,theme"/>
 
-  <exclude-pattern>*\.(md|info\.yml)$</exclude-pattern>>
-  <exclude-pattern>*/vendor/*</exclude-pattern>>
+  <exclude-pattern>*\.(md|info\.yml)$</exclude-pattern>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
 
   <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal"/>
   <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice"/>
