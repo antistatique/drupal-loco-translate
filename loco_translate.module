@@ -8,123 +8,38 @@
 require_once 'inc/cron_pull.inc';
 require_once 'inc/cron_push.inc';
 
+use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\loco_translate\Hook\CronHook;
+use Drupal\loco_translate\Hook\HelpHook;
+use Drupal\loco_translate\Hook\ThemeHook;
 
 /**
  * Implements hook_theme().
+ *
+ * Legacy shim for Drupal < 11.1, see ThemeHook.
  */
+#[LegacyHook]
 function loco_translate_theme($existing, $type, $theme, $path) {
-  return [
-    'loco_translate_overview_page' => [
-      'variables' => ['variables' => []],
-      'template'  => 'loco-translate--overview--page',
-    ],
-  ];
+  return \Drupal::service(ThemeHook::class)($existing, $type, $theme, $path);
 }
 
 /**
  * Implements hook_cron().
  *
- * Automation of Loco Translate module.
+ * Legacy shim for Drupal < 11.1, see CronHook.
  */
+#[LegacyHook]
 function loco_translate_cron() {
-  $now = time();
-  $config = \Drupal::config('loco_translate.settings');
-  $utility = \Drupal::service('loco_translate.utility');
-
-  // Get configured langcode to pull from loco.
-  $langcodes = $config->get('automation.pull.langcodes');
-  if ($langcodes) {
-    foreach ($langcodes as $langcode => $status) {
-      // Skip unchecked langcode.
-      if (!$status) {
-        continue;
-      }
-
-      // Skip when automation pull is disabled.
-      if ($config->get('automation.pull.interval') <= 0) {
-        continue;
-      }
-
-      // Check last run of this langcode.
-      $next_pull = $utility->getLastPull($langcode) + $config->get('automation.pull.interval');
-      if ($now <= $next_pull) {
-        continue;
-      }
-
-      try {
-        loco_translate_cron_pull($langcode, $config->get('automation.pull'));
-        $utility->setLastPull($langcode, $now);
-      }
-      catch (\Exception $e) {
-        \Drupal::logger('loco_translate')->error($e);
-      }
-    }
-  }
-
-  // Get configured langcode to push from loco.
-  $langcodes = $config->get('automation.push.langcodes');
-  if ($langcodes && $config->get('automation.push.template')) {
-    foreach ($langcodes as $langcode => $status) {
-      // Skip unchecked langcode.
-      if (!$status) {
-        continue;
-      }
-
-      // Skip when automation push is disabled.
-      if ($config->get('automation.push.interval') <= 0) {
-        continue;
-      }
-
-      // Check last run of this langcode.
-      $next_push = $utility->getLastPush($langcode) + $config->get('automation.push.interval');
-      if ($now <= $next_push) {
-        continue;
-      }
-
-      try {
-        loco_translate_cron_push($langcode, $config->get('automation.push'));
-        $utility->setLastPush($langcode, $now);
-      }
-      catch (\Exception $e) {
-        \Drupal::logger('loco_translate')->error($e);
-      }
-    }
-  }
+  \Drupal::service(CronHook::class)();
 }
 
 /**
  * Implements hook_help().
  *
- * Hook to generate help page.
+ * Legacy shim for Drupal < 11.1, see HelpHook.
  */
+#[LegacyHook]
 function loco_translate_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'help.page.loco_translate':
-      $readme = __DIR__ . '/README.md';
-      $text = file_get_contents($readme);
-      $output = '';
-
-      // If the Markdown module is installed, use it to render the README.
-      if ($text && \Drupal::moduleHandler()->moduleExists('markdown') === TRUE) {
-        $filter_manager = \Drupal::service('plugin.manager.filter');
-        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
-        $config = ['settings' => $settings];
-        $filter = $filter_manager->createInstance('markdown', $config);
-        $output = $filter->process($text, 'en');
-      }
-      // Else the Markdown module is not installed output the README as text.
-      elseif ($text) {
-        $output = '<pre>' . $text . '</pre>';
-      }
-
-      // Add a link to the Drupal.org project.
-      $output .= '<p>';
-      $output .= t('Visit the <a href=":project_link">Loco Translate project page</a> on Drupal.org for more information.', [
-        ':project_link' => 'https://www.drupal.org/project/loco_translate',
-      ]);
-      $output .= '</p>';
-
-      return $output;
-  }
+  return \Drupal::service(HelpHook::class)($route_name, $route_match);
 }

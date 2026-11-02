@@ -42,3 +42,19 @@ services:
   logger.channel.loco_translate:
     parent: logger.channel_base
     arguments: ['loco_translate']
+
+  # Hooks
+  Drupal\loco_translate\Hook\ThemeHook:
+    class: Drupal\loco_translate\Hook\ThemeHook
+    autowire: true
+
+  Drupal\loco_translate\Hook\CronHook:
+    class: Drupal\loco_translate\Hook\CronHook
+    arguments:
+      - '@config.factory'
+      - '@loco_translate.utility'
+      - '@logger.channel.loco_translate'
+
+  Drupal\loco_translate\Hook\HelpHook:
+    class: Drupal\loco_translate\Hook\HelpHook
+    autowire: true
