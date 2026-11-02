@@ -11,54 +11,26 @@ use Drush\Commands\DrushCommands;
 /**
  * Drush Loco Pull Commands.
  */
-class PullCommand extends DrushCommands {
-
-  /**
-   * Loco Pull Api Wrapper.
-   *
-   * @var \Drupal\loco_translate\Loco\Pull
-   */
-  private $locoPull;
-
-  /**
-   * The Translation importer.
-   *
-   * @var \Drupal\loco_translate\TranslationsImport
-   */
-  protected $translationsImport;
-
-  /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
-   * The file repository service.
-   *
-   * @var \Drupal\file\FileRepositoryInterface
-   */
-  protected $fileRepository;
+final class PullCommand extends DrushCommands {
 
   /**
    * PullCommand constructor.
    *
    * @param \Drupal\loco_translate\Loco\Pull $locoPull
    *   The Loco Push Api Wrapper.
-   * @param \Drupal\loco_translate\TranslationsImport $translations_import
+   * @param \Drupal\loco_translate\TranslationsImport $translationsImport
    *   The translation import service.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system service.
-   * @param \Drupal\file\FileRepositoryInterface $file_repository
+   * @param \Drupal\file\FileRepositoryInterface $fileRepository
    *   The file repository service.
    */
-  public function __construct(Pull $locoPull, TranslationsImport $translations_import, FileSystemInterface $file_system, FileRepositoryInterface $file_repository) {
-    $this->locoPull = $locoPull;
-    $this->translationsImport = $translations_import;
-    $this->fileSystem = $file_system;
-    $this->fileRepository = $file_repository;
-  }
+  public function __construct(
+    private readonly Pull $locoPull,
+    private readonly TranslationsImport $translationsImport,
+    private readonly FileSystemInterface $fileSystem,
+    private readonly FileRepositoryInterface $fileRepository,
+  ) {}
 
   /**
    * Pull keys & translations from your Loco SaSS into Drupal.

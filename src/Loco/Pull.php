@@ -13,31 +13,17 @@ use Loco\Http\ApiClient;
 class Pull {
 
   /**
-   * The Loco SDK HTTP client.
-   *
-   * @var \Loco\Http\ApiClient
-   */
-  private $client;
-
-  /**
-   * The Utility service of Loco Translate.
-   *
-   * @var \Drupal\loco_translate\Utility
-   */
-  protected $utility;
-
-  /**
    * Constructor.
    *
-   * @param \Loco\Http\ApiClient $api_client
+   * @param \Loco\Http\ApiClient $client
    *   Loco Api Client.
    * @param \Drupal\loco_translate\Utility $utility
    *   Utility methods for Loco Translate.
    */
-  public function __construct(ApiClient $api_client, Utility $utility) {
-    $this->client = $api_client;
-    $this->utility = $utility;
-  }
+  public function __construct(
+    private ApiClient $client,
+    protected Utility $utility,
+  ) {}
 
   /**
    * Set the API Client.

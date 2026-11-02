@@ -19,50 +19,24 @@ use Drupal\system\SystemManager;
 final class OverviewController extends ControllerBase {
 
   /**
-   * The state service.
-   *
-   * @var \Drupal\Core\State\StateInterface
-   */
-  protected $state;
-
-  /**
-   * The configuration factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
-
-  /**
-   * The date formatter service.
-   *
-   * @var \Drupal\Core\Datetime\DateFormatterInterface
-   */
-  protected $dateFormatter;
-
-  /**
-   * Cache backend service.
-   *
-   * @var \Drupal\Core\Cache\CacheBackendInterface
-   */
-  protected $cache;
-
-  /**
    * Construct a OverviewController object.
    *
    * @param \Drupal\Core\State\StateInterface $state
-   *   The configuration factory.
+   *   The state service.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
-   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
    *   The date formatter service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   Cache backend.
    */
-  public function __construct(StateInterface $state, ConfigFactoryInterface $config_factory, DateFormatterInterface $date_formatter, CacheBackendInterface $cache) {
-    $this->state = $state;
+  public function __construct(
+    protected StateInterface $state,
+    ConfigFactoryInterface $config_factory,
+    protected DateFormatterInterface $dateFormatter,
+    protected CacheBackendInterface $cache,
+  ) {
     $this->configFactory = $config_factory;
-    $this->dateFormatter = $date_formatter;
-    $this->cache = $cache;
   }
 
   /**
