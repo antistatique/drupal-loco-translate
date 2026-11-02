@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - fix(ci): use the PHPMD 3 `analyze` command
+- fix(phpcs): remove the stray `>` after the exclude patterns
 
 ## [3.0.9] - 2026-09-03
 ### Fixed
