@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.10] - 2026-11-24
 ### Changed
 - docs(readme): update the supported Drupal versions
 - refactor: mark internal classes final and use constructor property promotion
@@ -194,7 +196,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - pull command from Loco SaSS to Drupal database
 - basic form settings with Loco SaSS API credentials
 
-[Unreleased]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.9...HEAD
+[Unreleased]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.10...HEAD
+[3.0.10]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.9...3.0.10
 [3.0.9]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.8...3.0.9
 [3.0.8]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.7...3.0.8
 [3.0.7]: https://github.com/antistatique/drupal-loco-translate/compare/3.0.6...3.0.7
