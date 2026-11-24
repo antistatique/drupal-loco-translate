@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- refactor: move hook_requirements to hook_runtime_requirements, hook_update_requirements & InstallRequirementsInterface (Drupal 11.2+) keeping a legacy shim for older cores
+
+### Fixed
+- fix: remove the deprecated REQUIREMENT_ERROR constant usages (removed from Drupal 12)
+- fix: the Full Access API key requirement link to the settings form was empty
 
 ## [3.0.10] - 2026-11-24
 ### Changed
