@@ -4,3 +4,8 @@ includes:
 parameters:
   level: 1
   reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    # InstallRequirementsInterface only exists since Drupal 11.2.
+    -
+      message: '#unknown interface Drupal\\Core\\Extension\\InstallRequirementsInterface#'
+      path: src/Install/Requirements/LocoTranslateRequirements.php
