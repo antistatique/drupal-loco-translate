@@ -5,6 +5,7 @@
  * Contains loco_translate.install.
  */
 
+use Drupal\Core\Extension\Requirement\RequirementSeverity;
 use Drupal\Core\Hook\Attribute\LegacyRequirementsHook;
 use Drupal\loco_translate\Hook\RequirementsHook;
 
@@ -29,13 +30,33 @@ function loco_translate_install() {
  *
  * Legacy shim for Drupal < 11.3, see RequirementsHook and
  * LocoTranslateRequirements.
+ *
+ * Drush also invokes it directly (bypassing #[LegacyRequirementsHook]) before
+ * enabling the module, when the module namespace is not autoloadable yet, so
+ * the install phase must not depend on any class of this module.
  */
 #[LegacyRequirementsHook]
 function loco_translate_requirements($phase) {
-  if ($phase === 'runtime') {
-    return \Drupal::service(RequirementsHook::class)->runtime();
+  // Asserts loco/loco is installed.
+  $requirements = [];
+  if (!class_exists('Loco\Http\ApiClient')) {
+    $requirements['loco_translate_loco_sdk'] = [
+      'title' => t('Loco libraries'),
+      'value' => t('Missing libraries'),
+      // RequirementSeverity::Error on Drupal 11.2+, otherwise the legacy
+      // REQUIREMENT_ERROR value (constant removed from Drupal 12).
+      // @phpstan-ignore class.notFound
+      'severity' => enum_exists(RequirementSeverity::class) ? RequirementSeverity::Error : 2,
+      'description' => t('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
+        ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
+        ':composer-url' => 'https://getcomposer.org',
+      ]),
+    ];
   }
 
-  // The module services are not available yet at install time.
-  return RequirementsHook::locoSdk();
+  if ($phase === 'runtime') {
+    $requirements += \Drupal::service(RequirementsHook::class)->apiKeys();
+  }
+
+  return $requirements;
 }

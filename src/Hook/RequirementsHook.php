@@ -34,7 +34,55 @@ final class RequirementsHook {
    */
   #[Hook('runtime_requirements')]
   public function runtime(): array {
-    $requirements = self::locoSdk();
+    return $this->locoSdk() + $this->apiKeys();
+  }
+
+  /**
+   * Implements hook_update_requirements().
+   *
+   * @return array
+   *   The update requirements.
+   */
+  #[Hook('update_requirements')]
+  public function update(): array {
+    return $this->locoSdk();
+  }
+
+  /**
+   * Asserts the Loco SDK (loco/loco) is installed.
+   *
+   * @return array
+   *   The Loco SDK requirement, empty when the SDK is installed.
+   */
+  private function locoSdk(): array {
+    if (class_exists('Loco\Http\ApiClient')) {
+      return [];
+    }
+
+    return [
+      'loco_translate_loco_sdk' => [
+        'title' => new TranslatableMarkup('Loco libraries'),
+        'value' => new TranslatableMarkup('Missing libraries'),
+        // @phpstan-ignore class.notFound
+        'severity' => RequirementSeverity::Error,
+        'description' => new TranslatableMarkup('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
+          ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
+          ':composer-url' => 'https://getcomposer.org',
+        ]),
+      ],
+    ];
+  }
+
+  /**
+   * Asserts the Loco API keys are configured.
+   *
+   * Also used by the legacy loco_translate_requirements() on Drupal < 11.3.
+   *
+   * @return array
+   *   The API keys requirements, empty when both keys are configured.
+   */
+  public function apiKeys(): array {
+    $requirements = [];
     $config = $this->configFactory->get('loco_translate.settings');
 
     if (empty($config->get('api.readonly_key'))) {
@@ -62,44 +110,6 @@ final class RequirementsHook {
     }
 
     return $requirements;
-  }
-
-  /**
-   * Implements hook_update_requirements().
-   *
-   * @return array
-   *   The update requirements.
-   */
-  #[Hook('update_requirements')]
-  public function update(): array {
-    return self::locoSdk();
-  }
-
-  /**
-   * Asserts the Loco SDK (loco/loco) is installed.
-   *
-   * Static, so it can be used at install time, before the container knows
-   * about this module services.
-   *
-   * @return array
-   *   The Loco SDK requirement, empty when the SDK is installed.
-   */
-  public static function locoSdk(): array {
-    if (class_exists('Loco\Http\ApiClient')) {
-      return [];
-    }
-
-    return [
-      'loco_translate_loco_sdk' => [
-        'title' => new TranslatableMarkup('Loco libraries'),
-        'value' => new TranslatableMarkup('Missing libraries'),
-        'severity' => self::errorSeverity(),
-        'description' => new TranslatableMarkup('Loco Translate requires the <a href=":sdk-url" target="_blank">external Loco SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require loco/loco:^2.0</code>', [
-          ':sdk-url' => 'https://github.com/loco/loco-php-sdk',
-          ':composer-url' => 'https://getcomposer.org',
-        ]),
-      ],
-    ];
   }
 
   /**
